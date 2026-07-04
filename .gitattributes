@@ -1,0 +1,5 @@
+# install.sh is executed by bash; force LF regardless of the checkout platform's
+# autocrlf setting, otherwise Windows checkouts reintroduce CRLF and the resulting
+# \r ends up embedded in shell word-splitting (paths, URLs) at runtime.
+install.sh text eol=lf
+*.sh text eol=lf

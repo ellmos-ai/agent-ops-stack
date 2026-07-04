@@ -1,0 +1,28 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Installer output: cloned modules land here, never tracked
+modules/
+
+# Local scratch / private notes (never publish)
+_archive/
+_partners/
+*_submission/
+*BRIEFING*
+CORE.txt
+removed_sections/
+.env
+.env.*
+*.local.md

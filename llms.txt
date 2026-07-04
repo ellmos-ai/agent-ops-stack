@@ -1,0 +1,74 @@
+# agent-ops-stack
+
+> Machine-readable project context for LLMs, crawlers, and agentic coding tools.
+
+Last checked: 2026-07-04
+
+## Canonical Links
+
+- Repository: https://github.com/ellmos-ai/agent-ops-stack
+- Ecosystem: https://github.com/ellmos-ai
+- Stack catalog + manifest schema: https://github.com/ellmos-ai/stacks
+- ticket-master: https://github.com/dev-bricks/ticket-master
+- lock-master: https://github.com/dev-bricks/lock-master
+- build-your-users-mind: https://github.com/ellmos-ai/build-your-users-mind
+- skills: https://github.com/ellmos-ai/skills
+- ellmos-controlcenter-mcp: https://github.com/ellmos-ai/ellmos-controlcenter-mcp
+- ellmos-homebase-mcp: https://github.com/ellmos-ai/ellmos-homebase-mcp
+
+## Summary
+
+agent-ops-stack composes six existing modules into a local-first coordination layer
+for CLI coding agents working on one user's machine: file locking (lock-master),
+issue/change routing (ticket-master), a user-decision avatar (build-your-users-mind),
+a shared skill library (skills), and an MCP control plane + runtime
+(ellmos-controlcenter-mcp, ellmos-homebase-mcp). It ships one manifest
+(`agent-ops.manifest.json`, schema `ellmos-stack-manifest-v1`) and a thin installer
+(`install.sh`) that clones and reports the wiring of the listed modules. No module
+code is duplicated in this repository.
+
+## Audience and Positioning
+
+Use this repository as the entry point for setting up local multi-agent coordination
+tooling (locking, ticket routing, a decision-avatar, shared skills, MCP control plane)
+on a machine where one or more AI coding agents operate. It is not itself an agent, an
+MCP server, or a chat product — it is composition and documentation over six other
+repositories.
+
+Do not describe it as a hosted product, a single monolithic tool, or a fork/vendored
+copy of the modules it lists.
+
+## Search Phrases
+
+- agent-ops-stack local multi-agent coordination
+- ellmos-ai agent ops manifest
+- CLI coding agent locking ticket routing decision avatar
+- ellmos-stack-manifest-v1 agent-ops-stack
+
+## Disambiguation
+
+agent-ops-stack is unrelated to generic "AgentOps" observability/monitoring SaaS
+products for LLM agents. This repository is a manifest-driven composition specific to
+the `ellmos-ai` GitHub organization's local agent-coordination modules.
+
+## Primary Interfaces
+
+- `agent-ops.manifest.json`: the composition manifest (schema `ellmos-stack-manifest-v1`).
+- `install.sh`: reads the manifest, clones each module into `./modules/`, prints the
+  `provides`/`consumes` wiring summary. Requires `git` and either `jq` or `python3`.
+- `README.md` / `README_de.md`: module roles, wiring diagram, and the 5-step "how an
+  agent uses this stack" checklist.
+
+## Safety Boundaries
+
+`install.sh` only clones public repositories over HTTPS and writes into `./modules/`
+(gitignored) — it makes no other network calls, registers no MCP servers, and reads no
+credentials. Each cloned module carries its own license and its own safety
+boundaries; consult that module's own README/SECURITY.md before deploying it.
+
+## Validation
+
+```bash
+bash -n install.sh                 # syntax check
+PYTHONIOENCODING=utf-8 python3 -c "import json; json.load(open('agent-ops.manifest.json', encoding='utf-8'))"
+```

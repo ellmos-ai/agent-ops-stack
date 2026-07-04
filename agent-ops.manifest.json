@@ -1,0 +1,49 @@
+{
+  "schema": "ellmos-stack-manifest-v1",
+  "name": "agent-ops-stack",
+  "description": "Local-first coordination layer for one or more CLI coding agents working on the same machine/user: ticket routing, file locking, a decision-avatar, a shared skill format, and an MCP control plane.",
+  "modules": [
+    {
+      "name": "ticket-master",
+      "source": { "type": "github", "repo": "dev-bricks/ticket-master", "ref": "main" },
+      "kind": "coordination",
+      "boundaries": { "net": "none", "paths": ["./"], "tools": [] },
+      "wiring": { "provides": ["ticket-routing"], "consumes": [] }
+    },
+    {
+      "name": "lock-master",
+      "source": { "type": "github", "repo": "dev-bricks/lock-master", "ref": "main" },
+      "kind": "coordination",
+      "boundaries": { "net": "none", "paths": ["./"], "tools": [] },
+      "wiring": { "provides": ["locking"], "consumes": [] }
+    },
+    {
+      "name": "build-your-users-mind",
+      "source": { "type": "github", "repo": "ellmos-ai/build-your-users-mind", "ref": "master" },
+      "kind": "decision",
+      "boundaries": { "net": "none", "paths": ["./"], "tools": [] },
+      "wiring": { "provides": ["decision-avatar"], "consumes": ["interaction-logs"] }
+    },
+    {
+      "name": "skills",
+      "source": { "type": "github", "repo": "ellmos-ai/skills", "ref": "master" },
+      "kind": "skills",
+      "boundaries": { "net": "none", "paths": [], "tools": [] },
+      "wiring": { "provides": ["skill-pack"], "consumes": [] }
+    },
+    {
+      "name": "controlcenter-mcp",
+      "source": { "type": "github", "repo": "ellmos-ai/ellmos-controlcenter-mcp", "ref": "main" },
+      "kind": "mcp",
+      "boundaries": { "net": "none", "paths": ["./"], "tools": ["controlcenter_*"] },
+      "wiring": { "provides": ["control-plane"], "consumes": ["skill-pack"] }
+    },
+    {
+      "name": "homebase-mcp",
+      "source": { "type": "github", "repo": "ellmos-ai/ellmos-homebase-mcp", "ref": "main" },
+      "kind": "mcp",
+      "boundaries": { "net": "none", "paths": ["./"], "tools": ["hb_*"] },
+      "wiring": { "provides": ["mcp-runtime", "memory-facade", "task-facade"], "consumes": ["locking", "ticket-routing"] }
+    }
+  ]
+}
