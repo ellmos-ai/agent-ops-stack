@@ -17,6 +17,15 @@ for the shared manifest schema and the catalog of every stack in the ellmos-ai f
 
 Machine-readable context for LLMs and agentic coding tools: [`llms.txt`](llms.txt).
 
+## Start here
+
+| If you need... | Start with | Why |
+|---|---|---|
+| A local coordination stack for several CLI coding agents | [`agent-ops.manifest.json`](agent-ops.manifest.json) | Shows the six modules, their repositories, and the provided capabilities. |
+| A quick install into a local sandbox | [`install.sh`](install.sh) | Clones the modules into `./modules/` and prints the wiring summary. |
+| The operational model before installing | [How an agent uses this stack](#how-an-agent-uses-this-stack) | Gives the lock, ticket, decision-avatar, skill, and MCP-control-plane sequence. |
+| Machine-readable project context | [`llms.txt`](llms.txt) | Gives crawlers and agentic tools the canonical summary, search phrases, and boundaries. |
+
 ## What is Agent-Ops?
 
 Any AI coding agent operating on `<USER>`'s local system repeatedly needs answers to
@@ -102,6 +111,15 @@ product (chat UI, RAG, auth) or a server-side research-automation stack such as
 [ellmos-ai/ellmos-stack](https://github.com/ellmos-ai/ellmos-stack). It follows the
 same "installation is the blueprint" manifest principle used elsewhere in the
 `ellmos-ai` ecosystem.
+
+## Search and disambiguation
+
+Use `agent-ops-stack` when you mean the ellmos-ai local coordination stack for CLI
+coding agents: ticket routing, file locks, a decision-avatar, shared skills, and an
+MCP control plane composed by manifest. It is not the AgentOps observability SaaS, not
+AgentStack, and not a hosted LLMOps platform. Common search anchors are `ellmos-ai
+agent-ops-stack`, `local CLI agent coordination stack`, `MCP control plane for coding
+agents`, and `manifest-driven agent ops stack`.
 
 ## License
 

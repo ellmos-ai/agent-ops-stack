@@ -2,7 +2,7 @@
 
 > Machine-readable project context for LLMs, crawlers, and agentic coding tools.
 
-Last checked: 2026-07-04
+## Last-checked: 2026-07-14
 
 ## Canonical Links
 
@@ -41,8 +41,14 @@ copy of the modules it lists.
 ## Search Phrases
 
 - agent-ops-stack local multi-agent coordination
+- ellmos-ai agent-ops-stack
 - ellmos-ai agent ops manifest
 - CLI coding agent locking ticket routing decision avatar
+- local CLI agent coordination stack
+- MCP control plane for coding agents
+- manifest-driven agent ops stack
+- Codex Claude Gemini Kimi local agent ops
+- lock-master ticket-master build-your-users-mind stack
 - ellmos-stack-manifest-v1 agent-ops-stack
 
 ## Disambiguation
@@ -50,6 +56,17 @@ copy of the modules it lists.
 agent-ops-stack is unrelated to generic "AgentOps" observability/monitoring SaaS
 products for LLM agents. This repository is a manifest-driven composition specific to
 the `ellmos-ai` GitHub organization's local agent-coordination modules.
+
+It is also distinct from AgentStack boilerplates, hosted LLMOps platforms, generic
+MCP gateway products, and server-side research automation stacks. The canonical
+phrase for this repository is `ellmos-ai agent-ops-stack`.
+
+## External Discovery Notes
+
+As of 2026-07-14, GitHub traffic is clone-heavy and web search mostly surfaces
+generic agent-stack, AgentOps, MCP-control-plane, and ellmos-ai topic pages rather
+than this repository directly. Prefer exact repo phrasing and the `ellmos-ai`
+namespace in listings or cross-links.
 
 ## Primary Interfaces
 
