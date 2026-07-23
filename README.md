@@ -9,7 +9,7 @@ layer that lets one or more AI coding agents (Claude, Codex, Gemini/agy, Kimi, o
 other CLI agent) work on the same user's machine without stepping on each other, know
 where to route problems, and act sensibly when the user isn't around to ask.
 
-This repository is composition and documentation, not source code: it lists six
+This repository is composition and documentation, not source code: it lists seven
 existing, independently publishable modules in [`agent-ops.manifest.json`](agent-ops.manifest.json)
 and ships a thin installer ([`install.sh`](install.sh)) that clones and wires them.
 No module's code is copied here. See [ellmos-ai/stacks](https://github.com/ellmos-ai/stacks)
@@ -21,7 +21,7 @@ Machine-readable context for LLMs and agentic coding tools: [`llms.txt`](llms.tx
 
 | If you need... | Start with | Why |
 |---|---|---|
-| A local coordination stack for several CLI coding agents | [`agent-ops.manifest.json`](agent-ops.manifest.json) | Shows the six modules, their repositories, and the provided capabilities. |
+| A local coordination stack for several CLI coding agents | [`agent-ops.manifest.json`](agent-ops.manifest.json) | Shows the seven modules, their repositories, and the provided capabilities. |
 | A quick install into a local sandbox | [`install.sh`](install.sh) | Clones the modules into `./modules/` and prints the wiring summary. |
 | The operational model before installing | [How an agent uses this stack](#how-an-agent-uses-this-stack) | Gives the lock, ticket, decision-avatar, skill, and MCP-control-plane sequence. |
 | Machine-readable project context | [`llms.txt`](llms.txt) | Gives crawlers and agentic tools the canonical summary, search phrases, and boundaries. |
@@ -35,7 +35,7 @@ routed to the right place? What would `<USER>` decide here if they aren't reacha
 What shared skills/workflows already exist for this kind of task, and how do I manage
 the local MCP tool surface those skills might need?*
 
-Agent-Ops answers those questions with six small, focused modules instead of one large
+Agent-Ops answers those questions with seven small, focused modules instead of one large
 framework — each independently useful, composed here into one stack.
 
 ## Modules
@@ -107,7 +107,7 @@ your AI coding agent
 ```bash
 git clone https://github.com/ellmos-ai/agent-ops-stack.git
 cd agent-ops-stack
-./install.sh            # clones all six modules into ./modules/
+./install.sh            # clones all seven modules into ./modules/
 ```
 
 `install.sh` only reads [`agent-ops.manifest.json`](agent-ops.manifest.json), clones

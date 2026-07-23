@@ -10,7 +10,7 @@ Gemini/agy, Kimi oder jedem anderen CLI-Agenten) erlaubt, auf derselben Nutzer-M
 zu arbeiten, ohne sich gegenseitig ins Gehege zu kommen, zu wissen, wohin Probleme
 geroutet werden, und sinnvoll zu handeln, wenn der Nutzer nicht erreichbar ist.
 
-Dieses Repository ist Komposition und Dokumentation, kein Quellcode: Es listet sechs
+Dieses Repository ist Komposition und Dokumentation, kein Quellcode: Es listet sieben
 bestehende, eigenständig publizierbare Module in
 [`agent-ops.manifest.json`](agent-ops.manifest.json) auf und liefert einen schlanken
 Installer ([`install.sh`](install.sh)), der sie klont und verdrahtet. Kein Modul-Code
@@ -23,7 +23,7 @@ Maschinenlesbarer Kontext für LLMs und agentische Coding-Tools: [`llms.txt`](ll
 
 | Wenn du brauchst... | Starte mit | Warum |
 |---|---|---|
-| Einen lokalen Koordinations-Stack für mehrere CLI-Coding-Agenten | [`agent-ops.manifest.json`](agent-ops.manifest.json) | Zeigt die sechs Module, ihre Repositories und die gelieferten Fähigkeiten. |
+| Einen lokalen Koordinations-Stack für mehrere CLI-Coding-Agenten | [`agent-ops.manifest.json`](agent-ops.manifest.json) | Zeigt die sieben Module, ihre Repositories und die gelieferten Fähigkeiten. |
 | Eine schnelle Installation in eine lokale Sandbox | [`install.sh`](install.sh) | Klont die Module nach `./modules/` und gibt die Verdrahtung aus. |
 | Das Betriebsmodell vor der Installation | [Wie ein Agent diesen Stack nutzt](#wie-ein-agent-diesen-stack-nutzt) | Beschreibt die Reihenfolge aus Lock, Ticket, Entscheidungs-Avatar, Skill und MCP-Steuerebene. |
 | Maschinenlesbaren Projektkontext | [`llms.txt`](llms.txt) | Liefert Crawlers und agentischen Tools Zusammenfassung, Suchphrasen und Grenzen. |
@@ -38,7 +38,7 @@ entscheiden, wenn er nicht erreichbar ist? Welche gemeinsamen Skills/Workflows
 existieren bereits für diese Art Aufgabe, und wie verwalte ich die lokale
 MCP-Werkzeugoberfläche, die diese Skills eventuell brauchen?*
 
-Agent-Ops beantwortet diese Fragen mit sechs kleinen, fokussierten Modulen statt einem
+Agent-Ops beantwortet diese Fragen mit sieben kleinen, fokussierten Modulen statt einem
 großen Framework — jedes für sich nutzbar, hier zu einem Stack komponiert.
 
 ## Module
@@ -113,7 +113,7 @@ dein KI-Coding-Agent
 ```bash
 git clone https://github.com/ellmos-ai/agent-ops-stack.git
 cd agent-ops-stack
-./install.sh            # klont alle sechs Module nach ./modules/
+./install.sh            # klont alle sieben Module nach ./modules/
 ```
 
 `install.sh` liest nur [`agent-ops.manifest.json`](agent-ops.manifest.json), klont

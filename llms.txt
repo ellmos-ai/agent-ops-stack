@@ -18,7 +18,7 @@
 
 ## Summary
 
-agent-ops-stack composes six existing modules into a local-first coordination layer
+agent-ops-stack composes seven existing modules into a local-first coordination layer
 for CLI coding agents working on one user's machine: file locking (lock-master),
 issue/change routing (ticket-master), a user-decision avatar (build-your-users-mind),
 a shared skill library (skills), and an MCP control plane + runtime
@@ -32,7 +32,7 @@ code is duplicated in this repository.
 Use this repository as the entry point for setting up local multi-agent coordination
 tooling (locking, ticket routing, a decision-avatar, shared skills, MCP control plane)
 on a machine where one or more AI coding agents operate. It is not itself an agent, an
-MCP server, or a chat product — it is composition and documentation over six other
+MCP server, or a chat product — it is composition and documentation over seven other
 repositories.
 
 Do not describe it as a hosted product, a single monolithic tool, or a fork/vendored
