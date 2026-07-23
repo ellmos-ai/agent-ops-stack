@@ -72,6 +72,24 @@ direkt spricht (als MCP-Server); `ticket-master`, `lock-master`,
 der Agent direkt liest und befolgt — und die `homebase-mcp`/`controlcenter-mcp`
 optional als MCP-Tool-Aufrufe fassadieren können.
 
+Dieselbe Komposition als ASCII-Baum, für Terminals und Klartext-Renderer:
+
+```
+dein KI-Coding-Agent
+├── MCP-Zugänge (direkter Kontakt)
+│   ├── controlcenter-mcp   → control-plane
+│   │                          nutzt: skill-pack
+│   └── homebase-mcp        → mcp-runtime, memory-facade, task-facade
+│                              nutzt: locking, ticket-routing
+└── datei-/protokollbasierte Konventionen (Agent liest & befolgt direkt)
+    ├── ticket-master           → ticket-routing
+    ├── lock-master             → locking
+    ├── sync-master             → file-sync
+    ├── build-your-users-mind   → decision-avatar
+    │                              nutzt: interaction-logs
+    └── skills                  → skill-pack
+```
+
 ## Wie ein Agent diesen Stack nutzt
 
 1. **Vor jeder Änderung an einem Projekt:** auf eine aktive `LOCK*.txt` prüfen

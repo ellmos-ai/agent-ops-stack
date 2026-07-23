@@ -69,6 +69,24 @@ flowchart LR
 follows directly, and which `homebase-mcp`/`controlcenter-mcp` can optionally front
 as MCP tool calls.
 
+Same composition as an ASCII tree, for terminals and plain-text renderers:
+
+```
+your AI coding agent
+├── MCP access (talks to these directly)
+│   ├── controlcenter-mcp   → control-plane
+│   │                          consumes: skill-pack
+│   └── homebase-mcp        → mcp-runtime, memory-facade, task-facade
+│                              consumes: locking, ticket-routing
+└── file-/protocol-based conventions (agent reads & follows directly)
+    ├── ticket-master           → ticket-routing
+    ├── lock-master             → locking
+    ├── sync-master             → file-sync
+    ├── build-your-users-mind   → decision-avatar
+    │                              consumes: interaction-logs
+    └── skills                  → skill-pack
+```
+
 ## How an agent uses this stack
 
 1. **Before changing anything in a project:** check for an active `LOCK*.txt`
