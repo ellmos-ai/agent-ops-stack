@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add `sync-master` (dev-bricks/sync-master) as seventh module: serverless
+  cross-machine file-sync yard (`file-sync`), making the stack multi-machine
+  capable — closes the gap between the agent-ops preset definition and this
+  manifest. Updated manifest, READMEs (EN/DE) and wiring diagram.
+
 - Technical hygiene audit: updated `llms.txt` timestamp to 2026-07-21.
 - Validated `agent-ops.manifest.json` schema composition and `install.sh` syntax.
 - Confirmed repository alignment with `ellmos-stack-manifest-v1` standards.

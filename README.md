@@ -44,6 +44,7 @@ framework — each independently useful, composed here into one stack.
 |--------|------|----------|-------------|
 | **ticket-master** | Cross-platform, multi-provider workflow/operating mode: `<USER>` types a problem into one open agent session ("Position 0"); the agent captures it as a structured ticket, scores it, and routes it to the right project or delegate | `ticket-routing` | [dev-bricks/ticket-master](https://github.com/dev-bricks/ticket-master) |
 | **lock-master** | Portable, zero-dependency, config-driven file-lock system (`LOCK*.txt`) for multi-agent coordination — signals which project/component is currently in use so no other agent or automation touches it concurrently | `locking` | [dev-bricks/lock-master](https://github.com/dev-bricks/lock-master) |
+| **sync-master** | Serverless, cloud-ready sync "yard" that keeps multiple machines and their agents aligned over any file-sync folder (slot rule, gated daily ritual, bootstrap runbook) — makes the whole stack multi-machine capable | `file-sync` | [dev-bricks/sync-master](https://github.com/dev-bricks/sync-master) |
 | **build-your-users-mind** | Builds an empirical, self-improving theory-of-mind model of `<USER>` from `<AGENT>`'s own interaction logs, so an agent can predict what `<USER>` would decide and act in their spirit while they're away | `decision-avatar` | [ellmos-ai/build-your-users-mind](https://github.com/ellmos-ai/build-your-users-mind) |
 | **skills** | Portable AI skill library in Anthropic-compatible `SKILL.md` format: standalone process skills, dev workflows, and utility tools any agent runtime can install | `skill-pack` | [ellmos-ai/skills](https://github.com/ellmos-ai/skills) |
 | **controlcenter-mcp** | MCP control plane: discovers local MCP servers, reads MCP profile files, groups servers into capability bundles, recommends a profile for a task | `control-plane` | [ellmos-ai/ellmos-controlcenter-mcp](https://github.com/ellmos-ai/ellmos-controlcenter-mcp) |
@@ -59,12 +60,14 @@ flowchart LR
   HB --> AGENT(("AI coding agent"))
   CC --> AGENT
   BYUM["build-your-users-mind\n(decision-avatar)"] --> AGENT
+  SYNC["sync-master\n(file-sync)"] --> AGENT
 ```
 
 `homebase-mcp` and `controlcenter-mcp` are the two modules an agent talks to directly
-(as MCP servers); `ticket-master`, `lock-master`, `build-your-users-mind`, and `skills`
-are file-/protocol-based conventions the agent reads and follows directly, and which
-`homebase-mcp`/`controlcenter-mcp` can optionally front as MCP tool calls.
+(as MCP servers); `ticket-master`, `lock-master`, `build-your-users-mind`,
+`sync-master`, and `skills` are file-/protocol-based conventions the agent reads and
+follows directly, and which `homebase-mcp`/`controlcenter-mcp` can optionally front
+as MCP tool calls.
 
 ## How an agent uses this stack
 

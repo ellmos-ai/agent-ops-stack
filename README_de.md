@@ -47,6 +47,7 @@ großen Framework — jedes für sich nutzbar, hier zu einem Stack komponiert.
 |--------|------|----------|-------------|
 | **ticket-master** | Plattformübergreifender, Multi-Provider-Workflow/Betriebsmodus: `<USER>` tippt ein Problem in eine offene Agenten-Session ("Position 0"); der Agent erfasst es als strukturiertes Ticket, bewertet es und routet es an das richtige Projekt oder einen Delegaten | `ticket-routing` | [dev-bricks/ticket-master](https://github.com/dev-bricks/ticket-master) |
 | **lock-master** | Portables, abhängigkeitsfreies, config-gesteuertes Datei-Sperrsystem (`LOCK*.txt`) für Multi-Agenten-Koordination — signalisiert, welches Projekt/welche Komponente gerade in Benutzung ist, damit kein anderer Agent/keine Automation gleichzeitig eingreift | `locking` | [dev-bricks/lock-master](https://github.com/dev-bricks/lock-master) |
+| **sync-master** | Serverloser, cloud-fähiger Sync-„Yard", der mehrere Maschinen und ihre Agenten über einen beliebigen Datei-Sync-Ordner abgeglichen hält (Slot-Regel, gated daily ritual, Bootstrap-Runbook) — macht den Stack multi-maschinen-fähig | `file-sync` | [dev-bricks/sync-master](https://github.com/dev-bricks/sync-master) |
 | **build-your-users-mind** | Baut aus den eigenen Interaktionslogs von `<AGENT>` ein empirisches, sich selbst verbesserndes Theory-of-Mind-Modell von `<USER>` auf, damit ein Agent vorhersagen kann, was `<USER>` entscheiden würde, und in seinem Sinne handelt, wenn er abwesend ist | `decision-avatar` | [ellmos-ai/build-your-users-mind](https://github.com/ellmos-ai/build-your-users-mind) |
 | **skills** | Portable KI-Skill-Bibliothek im Anthropic-kompatiblen `SKILL.md`-Format: eigenständige Prozess-Skills, Dev-Workflows und Utility-Tools, die jede Agenten-Laufzeitumgebung installieren kann | `skill-pack` | [ellmos-ai/skills](https://github.com/ellmos-ai/skills) |
 | **controlcenter-mcp** | MCP-Steuerebene: entdeckt lokale MCP-Server, liest MCP-Profildateien, gruppiert Server in Capability-Bundles, empfiehlt ein Profil für eine Aufgabe | `control-plane` | [ellmos-ai/ellmos-controlcenter-mcp](https://github.com/ellmos-ai/ellmos-controlcenter-mcp) |
@@ -62,11 +63,12 @@ flowchart LR
   HB --> AGENT(("KI-Coding-Agent"))
   CC --> AGENT
   BYUM["build-your-users-mind\n(decision-avatar)"] --> AGENT
+  SYNC["sync-master\n(file-sync)"] --> AGENT
 ```
 
 `homebase-mcp` und `controlcenter-mcp` sind die beiden Module, mit denen ein Agent
 direkt spricht (als MCP-Server); `ticket-master`, `lock-master`,
-`build-your-users-mind` und `skills` sind datei-/protokollbasierte Konventionen, die
+`build-your-users-mind`, `sync-master` und `skills` sind datei-/protokollbasierte Konventionen, die
 der Agent direkt liest und befolgt — und die `homebase-mcp`/`controlcenter-mcp`
 optional als MCP-Tool-Aufrufe fassadieren können.
 

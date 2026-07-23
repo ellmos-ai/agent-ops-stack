@@ -18,6 +18,13 @@
       "wiring": { "provides": ["locking"], "consumes": [] }
     },
     {
+      "name": "sync-master",
+      "source": { "type": "github", "repo": "dev-bricks/sync-master", "ref": "main" },
+      "kind": "sync",
+      "boundaries": { "net": "none", "paths": ["./"], "tools": [] },
+      "wiring": { "provides": ["file-sync"], "consumes": [] }
+    },
+    {
       "name": "build-your-users-mind",
       "source": { "type": "github", "repo": "ellmos-ai/build-your-users-mind", "ref": "master" },
       "kind": "decision",
