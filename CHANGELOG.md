@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 (2026-07-25)
+
+Seven modules. `sync-master` joins the stack and makes it multi-machine capable —
+the first capability added since the initial release.
 
 - Add `sync-master` (dev-bricks/sync-master) as seventh module: serverless
   cross-machine file-sync yard (`file-sync`), making the stack multi-machine
