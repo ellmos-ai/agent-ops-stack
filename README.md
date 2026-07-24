@@ -28,10 +28,10 @@ Machine-readable context for LLMs and agentic coding tools: [`llms.txt`](llms.tx
 
 ## What is Agent-Ops?
 
-Any AI coding agent operating on `<USER>`'s local system repeatedly needs answers to
+Any AI coding agent operating on the user's local system repeatedly needs answers to
 the same handful of questions before it touches anything: *Is another agent already
 working in this project right now? Where do I file a bug or change request so it gets
-routed to the right place? What would `<USER>` decide here if they aren't reachable?
+routed to the right place? What would the user decide here if they aren't reachable?
 What shared skills/workflows already exist for this kind of task, and how do I manage
 the local MCP tool surface those skills might need?*
 
@@ -42,10 +42,10 @@ framework — each independently useful, composed here into one stack.
 
 | Module | Role | Provides | Repository |
 |--------|------|----------|-------------|
-| **ticket-master** | Cross-platform, multi-provider workflow/operating mode: `<USER>` types a problem into one open agent session ("Position 0"); the agent captures it as a structured ticket, scores it, and routes it to the right project or delegate | `ticket-routing` | [dev-bricks/ticket-master](https://github.com/dev-bricks/ticket-master) |
+| **ticket-master** | Cross-platform, multi-provider workflow/operating mode: the user types a problem into one open agent session ("Position 0"); the agent captures it as a structured ticket, scores it, and routes it to the right project or delegate | `ticket-routing` | [dev-bricks/ticket-master](https://github.com/dev-bricks/ticket-master) |
 | **lock-master** | Portable, zero-dependency, config-driven file-lock system (`LOCK*.txt`) for multi-agent coordination — signals which project/component is currently in use so no other agent or automation touches it concurrently | `locking` | [dev-bricks/lock-master](https://github.com/dev-bricks/lock-master) |
 | **sync-master** | Serverless, cloud-ready sync "yard" that keeps multiple machines and their agents aligned over any file-sync folder (slot rule, gated daily ritual, bootstrap runbook) — makes the whole stack multi-machine capable | `file-sync` | [dev-bricks/sync-master](https://github.com/dev-bricks/sync-master) |
-| **build-your-users-mind** | Builds an empirical, self-improving theory-of-mind model of `<USER>` from `<AGENT>`'s own interaction logs, so an agent can predict what `<USER>` would decide and act in their spirit while they're away | `decision-avatar` | [ellmos-ai/build-your-users-mind](https://github.com/ellmos-ai/build-your-users-mind) |
+| **build-your-users-mind** | Builds an empirical, self-improving theory-of-mind model of the user from the agent's own interaction logs, so an agent can predict what the user would decide and act in their spirit while they're away | `decision-avatar` | [ellmos-ai/build-your-users-mind](https://github.com/ellmos-ai/build-your-users-mind) |
 | **skills** | Portable AI skill library in Anthropic-compatible `SKILL.md` format: standalone process skills, dev workflows, and utility tools any agent runtime can install | `skill-pack` | [ellmos-ai/skills](https://github.com/ellmos-ai/skills) |
 | **controlcenter-mcp** | MCP control plane: discovers local MCP servers, reads MCP profile files, groups servers into capability bundles, recommends a profile for a task | `control-plane` | [ellmos-ai/ellmos-controlcenter-mcp](https://github.com/ellmos-ai/ellmos-controlcenter-mcp) |
 | **homebase-mcp** | Local-first MCP server for memory, knowledge, routing, swarm patterns, and persistent state — the module can also front an existing local memory/task store as a facade instead of its own bundled database | `mcp-runtime`, `memory-facade`, `task-facade` | [ellmos-ai/ellmos-homebase-mcp](https://github.com/ellmos-ai/ellmos-homebase-mcp) |
@@ -93,7 +93,7 @@ your AI coding agent
    (lock-master). Respect it — do not modify a locked scope.
 2. **Rights, if declared:** if a project defines a lock-master permissions file,
    evaluate the intended action against it before proceeding.
-3. **Decision under uncertainty:** if `<USER>` is unreachable and a judgment call is
+3. **Decision under uncertainty:** if the user is unreachable and a judgment call is
    needed, consult the decision-avatar (build-your-users-mind) instead of guessing.
 4. **Bugs, change requests, or open questions:** file them through ticket-master so
    they reach the right project and get routed to a suitable agent/delegate.
@@ -101,6 +101,9 @@ your AI coding agent
    existing workflow before improvising one; use controlcenter-mcp to pick the right
    MCP profile/bundle for the task; use homebase-mcp for shared memory/task access
    where the local setup wires it to a canonical store.
+6. **More than one machine:** if the setup spans several machines, follow the
+   sync-master conventions (own slot per machine, gated daily sync) so the agents on
+   the other machines work from the same state instead of a stale copy.
 
 ## Installing
 

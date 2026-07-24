@@ -2,7 +2,7 @@
 
 > Machine-readable project context for LLMs, crawlers, and agentic coding tools.
 
-## Last-checked: 2026-07-21
+## Last-checked: 2026-07-25
 
 ## Canonical Links
 
@@ -11,6 +11,7 @@
 - Stack catalog + manifest schema: https://github.com/ellmos-ai/stacks
 - ticket-master: https://github.com/dev-bricks/ticket-master
 - lock-master: https://github.com/dev-bricks/lock-master
+- sync-master: https://github.com/dev-bricks/sync-master
 - build-your-users-mind: https://github.com/ellmos-ai/build-your-users-mind
 - skills: https://github.com/ellmos-ai/skills
 - ellmos-controlcenter-mcp: https://github.com/ellmos-ai/ellmos-controlcenter-mcp
@@ -20,8 +21,9 @@
 
 agent-ops-stack composes seven existing modules into a local-first coordination layer
 for CLI coding agents working on one user's machine: file locking (lock-master),
-issue/change routing (ticket-master), a user-decision avatar (build-your-users-mind),
-a shared skill library (skills), and an MCP control plane + runtime
+issue/change routing (ticket-master), cross-machine file sync (sync-master),
+a user-decision avatar (build-your-users-mind), a shared skill library (skills),
+and an MCP control plane + runtime
 (ellmos-controlcenter-mcp, ellmos-homebase-mcp). It ships one manifest
 (`agent-ops.manifest.json`, schema `ellmos-stack-manifest-v1`) and a thin installer
 (`install.sh`) that clones and reports the wiring of the listed modules. No module
@@ -30,8 +32,8 @@ code is duplicated in this repository.
 ## Audience and Positioning
 
 Use this repository as the entry point for setting up local multi-agent coordination
-tooling (locking, ticket routing, a decision-avatar, shared skills, MCP control plane)
-on a machine where one or more AI coding agents operate. It is not itself an agent, an
+tooling (locking, ticket routing, cross-machine sync, a decision-avatar, shared
+skills, MCP control plane) on a machine where one or more AI coding agents operate. It is not itself an agent, an
 MCP server, or a chat product — it is composition and documentation over seven other
 repositories.
 
@@ -48,7 +50,8 @@ copy of the modules it lists.
 - MCP control plane for coding agents
 - manifest-driven agent ops stack
 - Codex Claude Gemini Kimi local agent ops
-- lock-master ticket-master build-your-users-mind stack
+- lock-master ticket-master sync-master build-your-users-mind stack
+- multi-machine agent coordination file sync
 - ellmos-stack-manifest-v1 agent-ops-stack
 
 ## Disambiguation
@@ -73,7 +76,7 @@ namespace in listings or cross-links.
 - `agent-ops.manifest.json`: the composition manifest (schema `ellmos-stack-manifest-v1`).
 - `install.sh`: reads the manifest, clones each module into `./modules/`, prints the
   `provides`/`consumes` wiring summary. Requires `git` and either `jq` or `python3`.
-- `README.md` / `README_de.md`: module roles, wiring diagram, and the 5-step "how an
+- `README.md` / `README_de.md`: module roles, wiring diagram, and the 6-step "how an
   agent uses this stack" checklist.
 
 ## Safety Boundaries

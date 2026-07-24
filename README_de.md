@@ -30,10 +30,10 @@ Maschinenlesbarer Kontext für LLMs und agentische Coding-Tools: [`llms.txt`](ll
 
 ## Was ist Agent-Ops?
 
-Jeder KI-Coding-Agent, der auf dem lokalen System von `<USER>` arbeitet, braucht
+Jeder KI-Coding-Agent, der auf dem lokalen System des Nutzers arbeitet, braucht
 wiederholt Antworten auf dieselben Fragen, bevor er irgendetwas anfasst: *Arbeitet
 gerade ein anderer Agent in diesem Projekt? Wo melde ich einen Bug oder eine
-Änderungsanfrage, damit sie richtig geroutet wird? Was würde `<USER>` hier
+Änderungsanfrage, damit sie richtig geroutet wird? Was würde der Nutzer hier
 entscheiden, wenn er nicht erreichbar ist? Welche gemeinsamen Skills/Workflows
 existieren bereits für diese Art Aufgabe, und wie verwalte ich die lokale
 MCP-Werkzeugoberfläche, die diese Skills eventuell brauchen?*
@@ -45,10 +45,10 @@ großen Framework — jedes für sich nutzbar, hier zu einem Stack komponiert.
 
 | Modul | Rolle | Liefert (`provides`) | Repository |
 |--------|------|----------|-------------|
-| **ticket-master** | Plattformübergreifender, Multi-Provider-Workflow/Betriebsmodus: `<USER>` tippt ein Problem in eine offene Agenten-Session ("Position 0"); der Agent erfasst es als strukturiertes Ticket, bewertet es und routet es an das richtige Projekt oder einen Delegaten | `ticket-routing` | [dev-bricks/ticket-master](https://github.com/dev-bricks/ticket-master) |
+| **ticket-master** | Plattformübergreifender, Multi-Provider-Workflow/Betriebsmodus: der Nutzer tippt ein Problem in eine offene Agenten-Session ("Position 0"); der Agent erfasst es als strukturiertes Ticket, bewertet es und routet es an das richtige Projekt oder einen Delegaten | `ticket-routing` | [dev-bricks/ticket-master](https://github.com/dev-bricks/ticket-master) |
 | **lock-master** | Portables, abhängigkeitsfreies, config-gesteuertes Datei-Sperrsystem (`LOCK*.txt`) für Multi-Agenten-Koordination — signalisiert, welches Projekt/welche Komponente gerade in Benutzung ist, damit kein anderer Agent/keine Automation gleichzeitig eingreift | `locking` | [dev-bricks/lock-master](https://github.com/dev-bricks/lock-master) |
 | **sync-master** | Serverloser, cloud-fähiger Sync-„Yard", der mehrere Maschinen und ihre Agenten über einen beliebigen Datei-Sync-Ordner abgeglichen hält (Slot-Regel, gated daily ritual, Bootstrap-Runbook) — macht den Stack multi-maschinen-fähig | `file-sync` | [dev-bricks/sync-master](https://github.com/dev-bricks/sync-master) |
-| **build-your-users-mind** | Baut aus den eigenen Interaktionslogs von `<AGENT>` ein empirisches, sich selbst verbesserndes Theory-of-Mind-Modell von `<USER>` auf, damit ein Agent vorhersagen kann, was `<USER>` entscheiden würde, und in seinem Sinne handelt, wenn er abwesend ist | `decision-avatar` | [ellmos-ai/build-your-users-mind](https://github.com/ellmos-ai/build-your-users-mind) |
+| **build-your-users-mind** | Baut aus den eigenen Interaktionslogs des Agenten ein empirisches, sich selbst verbesserndes Theory-of-Mind-Modell des Nutzers auf, damit ein Agent vorhersagen kann, was der Nutzer entscheiden würde, und in seinem Sinne handelt, wenn er abwesend ist | `decision-avatar` | [ellmos-ai/build-your-users-mind](https://github.com/ellmos-ai/build-your-users-mind) |
 | **skills** | Portable KI-Skill-Bibliothek im Anthropic-kompatiblen `SKILL.md`-Format: eigenständige Prozess-Skills, Dev-Workflows und Utility-Tools, die jede Agenten-Laufzeitumgebung installieren kann | `skill-pack` | [ellmos-ai/skills](https://github.com/ellmos-ai/skills) |
 | **controlcenter-mcp** | MCP-Steuerebene: entdeckt lokale MCP-Server, liest MCP-Profildateien, gruppiert Server in Capability-Bundles, empfiehlt ein Profil für eine Aufgabe | `control-plane` | [ellmos-ai/ellmos-controlcenter-mcp](https://github.com/ellmos-ai/ellmos-controlcenter-mcp) |
 | **homebase-mcp** | Local-First-MCP-Server für Memory, Wissen, Routing, Schwarm-Muster und persistenten Zustand — das Modul kann auch als Fassade vor einem bestehenden lokalen Memory-/Task-Speicher stehen statt einer eigenen gebündelten Datenbank | `mcp-runtime`, `memory-facade`, `task-facade` | [ellmos-ai/ellmos-homebase-mcp](https://github.com/ellmos-ai/ellmos-homebase-mcp) |
@@ -96,7 +96,7 @@ dein KI-Coding-Agent
    (lock-master). Respektieren — keinen gesperrten Bereich verändern.
 2. **Rechte, sofern deklariert:** definiert ein Projekt eine lock-master-Rechtedatei,
    die beabsichtigte Aktion vor der Ausführung dagegen auswerten.
-3. **Entscheidung bei Unklarheit:** ist `<USER>` nicht erreichbar und eine
+3. **Entscheidung bei Unklarheit:** ist der Nutzer nicht erreichbar und eine
    Ermessensentscheidung nötig, den Entscheidungs-Avatar (build-your-users-mind)
    konsultieren statt zu raten.
 4. **Bugs, Änderungswünsche oder offene Fragen:** über ticket-master einreichen,
@@ -107,6 +107,10 @@ dein KI-Coding-Agent
    nutzen, um das richtige MCP-Profil/Bundle für die Aufgabe zu wählen;
    homebase-mcp für gemeinsamen Memory-/Task-Zugriff nutzen, sofern die lokale
    Einrichtung es an einen kanonischen Speicher anbindet.
+6. **Mehr als eine Maschine:** erstreckt sich die Einrichtung über mehrere Maschinen,
+   die sync-master-Konventionen befolgen (eigener Slot je Maschine, gated daily sync),
+   damit die Agenten der anderen Maschinen auf demselben Stand arbeiten statt auf
+   einer veralteten Kopie.
 
 ## Installation
 
