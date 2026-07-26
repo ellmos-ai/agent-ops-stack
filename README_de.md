@@ -1,5 +1,14 @@
 <img src="assets/banner.svg" alt="agent-ops-stack" width="100%">
 
+<p align="center">
+  <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
+  <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Komponierte__Module-7-informational.svg" alt="Komponierte Module"></a>
+  <a href="llms.txt"><img src="https://img.shields.io/badge/LLM--Bereit-llms.txt-success.svg" alt="LLM-Bereit"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Lizenz-MIT-green.svg" alt="Lizenz"></a>
+  <a href="https://github.com/ellmos-ai"><img src="https://img.shields.io/badge/%C3%96kosystem-ellmos--ai-purple.svg" alt="Ökosystem"></a>
+  <a href="https://github.com/open-bricks"><img src="https://img.shields.io/badge/Dachorganisation-open--bricks-blue.svg" alt="Dachorganisation"></a>
+</p>
+
 # agent-ops-stack
 
 **🇬🇧 [English version](README.md)**
@@ -18,6 +27,9 @@ wird hier kopiert. Siehe [ellmos-ai/stacks](https://github.com/ellmos-ai/stacks)
 das gemeinsame Manifest-Schema und den Katalog aller Stacks der ellmos-ai-Familie.
 
 Maschinenlesbarer Kontext für LLMs und agentische Coding-Tools: [`llms.txt`](llms.txt).
+
+> [!NOTE]
+> **KI-Agenten- & LLM-Kontext**: Dieses Repository bietet maschinenlesbaren Kontext via [`llms.txt`](llms.txt). Autonome CLI-Agenten (Claude Code, Codex, Gemini/agy, Kimi) können diese manifest-gesteuerte Komposition parsen, um lokale Koordination, Sperren, Ticket-Routing, Entscheidungs-Avatare und MCP-Server-Steuerungsebenen zu verstehen.
 
 ## Einstieg
 
@@ -111,6 +123,9 @@ dein KI-Coding-Agent
    die sync-master-Konventionen befolgen (eigener Slot je Maschine, gated daily sync),
    damit die Agenten der anderen Maschinen auf demselben Stand arbeiten statt auf
    einer veralteten Kopie.
+
+> [!TIP]
+> **Multi-Agenten-Koordination Best Practice**: Prüfe vor jeder Code-Änderung in einer geteilten Codebasis stets `lock-master`-Sperren und nutze `ticket-master` für das Weiterleiten ungelöster Aufgaben zwischen Agenten-Sitzungen oder an `<USER>`.
 
 ## Installation
 

@@ -1,5 +1,14 @@
 <img src="assets/banner.svg" alt="agent-ops-stack" width="100%">
 
+<p align="center">
+  <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
+  <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Composed Modules"></a>
+  <a href="llms.txt"><img src="https://img.shields.io/badge/LLM--Ready-llms.txt-success.svg" alt="LLM-Ready"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+  <a href="https://github.com/ellmos-ai"><img src="https://img.shields.io/badge/Ecosystem-ellmos--ai-purple.svg" alt="Ecosystem"></a>
+  <a href="https://github.com/open-bricks"><img src="https://img.shields.io/badge/Umbrella-open--bricks-blue.svg" alt="Umbrella"></a>
+</p>
+
 # agent-ops-stack
 
 **🇩🇪 [Deutsche Version](README_de.md)**
@@ -16,6 +25,9 @@ No module's code is copied here. See [ellmos-ai/stacks](https://github.com/ellmo
 for the shared manifest schema and the catalog of every stack in the ellmos-ai family.
 
 Machine-readable context for LLMs and agentic coding tools: [`llms.txt`](llms.txt).
+
+> [!NOTE]
+> **AI Agent & LLM Context**: This repository provides machine-readable context via [`llms.txt`](llms.txt). Autonomous CLI agents (Claude Code, Codex, Gemini/agy, Kimi) can parse this manifest-driven composition to understand local coordination, locking, ticket routing, user-decision avatars, and MCP server control planes.
 
 ## Start here
 
@@ -104,6 +116,9 @@ your AI coding agent
 6. **More than one machine:** if the setup spans several machines, follow the
    sync-master conventions (own slot per machine, gated daily sync) so the agents on
    the other machines work from the same state instead of a stale copy.
+
+> [!TIP]
+> **Multi-Agent Coordination Best Practice**: Always run `lock-master` checks before starting code modifications in any shared codebase, and use `ticket-master` for routing unresolved tasks across agent sessions or to `<USER>`.
 
 ## Installing
 
