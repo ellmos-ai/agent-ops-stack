@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.2 (2026-07-27)
+
+- Discoverability & Visibility Maintenance: Refreshed `llms.txt` verification timestamp to `2026-07-27`.
+- Verified GFM callouts (`> [!NOTE]`, `> [!TIP]`), SVG banner asset, Shields.io badges, and Mermaid multi-agent architecture diagram across `README.md` and `README_de.md`.
+
 ## 1.1.1 (2026-07-26)
 
 - Discoverability & Marketing Audit: Integrated Shields.io status badges (Manifest Schema, 7 Composed Modules, LLM-Ready, MIT License, Ecosystem & Umbrella orgs) in `README.md` and `README_de.md`.
