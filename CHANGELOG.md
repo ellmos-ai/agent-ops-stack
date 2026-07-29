@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.3 (2026-07-29)
+
+- Discoverability & Visibility Maintenance: Updated `llms.txt` verification timestamp to `2026-07-29`.
+- Verified GFM callouts, Shields.io badges, Mermaid architecture diagram, and bilingual README parity (EN/DE).
+
 ## 1.1.2 (2026-07-27)
 
 - Discoverability & Visibility Maintenance: Refreshed `llms.txt` verification timestamp to `2026-07-27`.
