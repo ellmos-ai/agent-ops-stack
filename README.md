@@ -1,4 +1,4 @@
-<img src="assets/banner.svg" alt="agent-ops-stack" width="100%">
+<img src="assets/banner.png" alt="agent-ops-stack" width="100%">
 
 <p align="center">
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
