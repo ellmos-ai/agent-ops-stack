@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.4 (2026-08-01)
+
+- Technical Hygiene & Maintenance Check: Updated `llms.txt` verification timestamp to `2026-08-01`.
+- Verified manifest syntax (`agent-ops.manifest.json`), installer script syntax (`install.sh`), GFM callouts, Shields.io badges, Mermaid architecture diagram, and bilingual README parity (EN/DE).
+
 ## 1.1.3 (2026-07-29)
 
 - Discoverability & Visibility Maintenance: Updated `llms.txt` verification timestamp to `2026-07-29`.
