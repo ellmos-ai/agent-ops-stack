@@ -5,7 +5,7 @@
   "modules": [
     {
       "name": "ticket-master",
-      "source": { "type": "github", "repo": "dev-bricks/ticket-master", "ref": "main" },
+      "source": { "type": "github", "repo": "dev-bricks/ticket-master", "ref": "v1.11.3" },
       "kind": "coordination",
       "boundaries": { "net": "none", "paths": ["./"], "tools": [] },
       "wiring": { "provides": ["ticket-routing"], "consumes": [] }
@@ -33,7 +33,7 @@
     },
     {
       "name": "skills",
-      "source": { "type": "github", "repo": "ellmos-ai/skills", "ref": "master" },
+      "source": { "type": "github", "repo": "ellmos-ai/skills", "ref": "v2026.09.03" },
       "kind": "skills",
       "boundaries": { "net": "none", "paths": [], "tools": [] },
       "wiring": { "provides": ["skill-pack"], "consumes": [] }
