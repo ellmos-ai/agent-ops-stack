@@ -8,11 +8,12 @@ configuration.
 
 ## Scope
 
-Security issues in the composed modules should be reported to those repositories
+Security issues in all seven composed modules should be reported to those repositories
 directly:
 
 - [dev-bricks/ticket-master](https://github.com/dev-bricks/ticket-master)
 - [dev-bricks/lock-master](https://github.com/dev-bricks/lock-master)
+- [dev-bricks/sync-master](https://github.com/dev-bricks/sync-master)
 - [ellmos-ai/build-your-users-mind](https://github.com/ellmos-ai/build-your-users-mind)
 - [ellmos-ai/skills](https://github.com/ellmos-ai/skills)
 - [ellmos-ai/ellmos-controlcenter-mcp](https://github.com/ellmos-ai/ellmos-controlcenter-mcp)

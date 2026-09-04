@@ -118,7 +118,7 @@ your AI coding agent
    the other machines work from the same state instead of a stale copy.
 
 > [!TIP]
-> **Multi-Agent Coordination Best Practice**: Always run `lock-master` checks before starting code modifications in any shared codebase, and use `ticket-master` for routing unresolved tasks across agent sessions or to `<USER>`.
+> **Multi-Agent Coordination Best Practice**: Always run `lock-master` checks before starting code modifications in any shared codebase, and use `ticket-master` for routing unresolved tasks across agent sessions or to the user.
 
 ## Installing
 

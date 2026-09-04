@@ -125,7 +125,7 @@ dein KI-Coding-Agent
    einer veralteten Kopie.
 
 > [!TIP]
-> **Multi-Agenten-Koordination Best Practice**: Prüfe vor jeder Code-Änderung in einer geteilten Codebasis stets `lock-master`-Sperren und nutze `ticket-master` für das Weiterleiten ungelöster Aufgaben zwischen Agenten-Sitzungen oder an `<USER>`.
+> **Multi-Agenten-Koordination Best Practice**: Prüfe vor jeder Code-Änderung in einer geteilten Codebasis stets `lock-master`-Sperren und nutze `ticket-master` für das Weiterleiten ungelöster Aufgaben zwischen Agenten-Sitzungen oder an den Nutzer.
 
 ## Installation
 

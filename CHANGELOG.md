@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added the missing `dev-bricks/sync-master` downstream vulnerability-reporting route
+  to `SECURITY.md`, restoring parity with all seven manifest modules.
+- Replaced the residual `<USER>` template placeholder in both README coordination
+  tips with natural, bilingual end-user wording.
+
 ## 1.2.0 (2026-09-03)
 
 - Pin authority (decision E06 = A, ticket T-20260902-508860389): the two previously mutable sources now reference immutable release tags instead of branches — `skills` pins `ellmos-ai/skills@v2026.09.03` (the regenerated public catalog, `registry/components.json` sha256 `6fed91bf…`) and `ticket-master` pins `dev-bricks/ticket-master@v1.11.3` (latest release tag; `main` already carries the unreleased 1.12.0). Tags are maintained by the respective repository owner; a stack re-pin is a deliberate manifest change, never a silent snapshot.
