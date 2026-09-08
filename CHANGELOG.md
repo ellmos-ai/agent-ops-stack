@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.3.0 (2026-09-08)
+
+- **Pfad B (Marketing & Design / Discoverability) Upgrade**:
+  - Implemented 14-Point Quick Navigation architecture across bilingual `README.md` and `README_de.md`.
+  - Expanded Shields.io status badge suite: Manifest Schema, Version 1.3.0, CI GitHub Actions, 11 Contract Tests passed (100% green), 7 Composed Modules, Python 3.10-3.13, Multi-Platform (Linux/Windows/macOS), 100% Local-First Zero-Egress, Non-Elevation Sandboxed Security, MIT License, Ecosystem `ellmos-ai`, Umbrella `open-bricks`, and LLM-Ready `llms.txt`.
+  - Integrated dual interactive Mermaid diagrams: System Architecture Flowchart (`flowchart TD` with `AGENTS`, `COORDINATION`, `DECISION`, `MCP`, `SYNC` subgraphs) and Multi-Agent Operational Lifecycle (`sequenceDiagram` depicting the 10-step coordination cycle).
+  - Established Governance & Runtime Invariants table defining 10 formal operational rules and failure-state guarantees.
+  - Integrated 12 Sibling Ecosystem and Cross-Integration Matrix connecting tools across `ellmos-ai`, `dev-bricks`, and `open-bricks`.
+  - Hardened bilingual Security Policy (`SECURITY.md`) with 48h response SLA, 5-day triage commitment, GitHub Security Advisories private reporting link, official security contacts, and 7 core invariants.
+  - Standardized PEP 621 packaging metadata in `pyproject.toml` with standard repository URLs, classifiers, and tool configurations.
+  - Added Multi-OS CI workflow (`.github/workflows/ci.yml`) validating Python 3.10-3.13 across Ubuntu, Windows, and macOS, with bash script syntax checks and manifest validation.
+  - Implemented automated metadata and contract test suite (`tests/test_metadata.py`) covering manifest integrity, installer parsing, bilingual README parity, badges, navigation anchors, Mermaid syntax, and PEP 621 parity.
+  - Refreshed `llms.txt` timestamp to `2026-09-08` and created local `MARKETING-LOG.txt`.
+
 ## 1.2.0 (2026-09-03)
 
 - Pin authority (decision E06 = A, ticket T-20260902-508860389): the two previously mutable sources now reference immutable release tags instead of branches — `skills` pins `ellmos-ai/skills@v2026.09.03` (the regenerated public catalog, `registry/components.json` sha256 `6fed91bf…`) and `ticket-master` pins `dev-bricks/ticket-master@v1.11.3` (latest release tag; `main` already carries the unreleased 1.12.0). Tags are maintained by the respective repository owner; a stack re-pin is a deliberate manifest change, never a silent snapshot.

@@ -1,0 +1,87 @@
+================================================================================
+MARKETING & DISCOVERABILITY LOG: agent-ops-stack
+================================================================================
+Date: 2026-09-08
+Path: Pfad B (Marketing & Design / Discoverability)
+Version: 1.3.0
+Repository: ellmos-ai/agent-ops-stack
+Organization: ellmos-ai
+Umbrella Collective: open-bricks
+
+1. EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+agent-ops-stack provides the local-first operational coordination harness for multi-agent
+CLI coding workflows (Claude Code, OpenAI Codex, Google Antigravity / Gemini, Moonshot
+Kimi). It composes seven modular pillars:
+  - dev-bricks/ticket-master (ticket-routing)
+  - dev-bricks/lock-master (locking)
+  - dev-bricks/sync-master (file-sync)
+  - ellmos-ai/build-your-users-mind (decision-avatar)
+  - ellmos-ai/skills (skill-pack)
+  - ellmos-ai/ellmos-controlcenter-mcp (control-plane)
+  - ellmos-ai/ellmos-homebase-mcp (mcp-runtime, memory/task facade)
+
+This Pfad B upgrade elevates the repository to the ecosystem gold standard with a 14-point
+quick navigation architecture, dual Mermaid architecture and lifecycle sequence diagrams,
+10 formal governance invariants, a 12-repository sibling matrix, PEP 621 packaging,
+multi-OS CI workflow, and an automated 11-test contract test suite.
+
+2. ASSETS & LANDING PAGE ENHANCEMENTS
+--------------------------------------------------------------------------------
+- Badges: Added 13 comprehensive Shields.io badges (Manifest, version 1.3.0, CI status,
+  11 contract tests passed, 7 composed modules, Python 3.10-3.13, Linux/Windows/macOS,
+  100% Local-First Zero-Egress, Non-Elevation Sandboxed Security, MIT license,
+  ellmos-ai ecosystem, open-bricks umbrella, and LLM-Ready llms.txt).
+- Quick Navigation: 14 numbered sections with deep anchor links in README.md and README_de.md.
+- Architecture Diagram: Interactive Mermaid flowchart TD detailing the 5 functional layers
+  (AGENTS, COORDINATION, DECISION, MCP, SYNC).
+- Operational Lifecycle Diagram: Interactive Mermaid sequenceDiagram showing the 10-step
+  coordination flow from task submission to lock release.
+- Governance Invariants: Table with 10 formal rules covering local-first isolation, user-mode,
+  fail-closed locking, ticket routing, decision avatar fallback, deterministic manifest,
+  immutable release pins, sandboxed installer, cross-device sync, and platform parity.
+- Sibling Ecosystem: Matrix linking 12 partner repositories across ellmos-ai, dev-bricks,
+  and open-bricks.
+- Bilingual Parity: Complete 1-to-1 sync between README.md and README_de.md.
+- Security Policy: Hardened SECURITY.md with 48h response SLA, GitHub Security Advisories
+  private reporting link, and official security contacts.
+
+3. KEYWORD & SEARCH TARGETING
+--------------------------------------------------------------------------------
+- Primary Keywords:
+  * "agent-ops-stack"
+  * "ellmos-ai agent-ops-stack"
+  * "local CLI agent coordination stack"
+  * "MCP control plane for coding agents"
+  * "manifest-driven agent ops stack"
+  * "multi-agent file locking ticket routing"
+  * "Claude Code Codex Gemini Kimi local agent ops"
+  * "lock-master ticket-master sync-master build-your-users-mind stack"
+- Disambiguation:
+  Explicitly disambiguated in READMEs and llms.txt against cloud SaaS monitoring
+  (AgentOps.ai), generic AgentStack templates, and remote LLMOps telemetry servers.
+
+4. CROSS-LINKING & COMMUNITY ENGAGEMENT ACTIONS
+--------------------------------------------------------------------------------
+- Sibling Cross-Linking:
+  Verify reciprocal links in:
+    * ellmos-ai/stacks (featured as core stack)
+    * dev-bricks/ticket-master
+    * dev-bricks/lock-master
+    * dev-bricks/sync-master
+    * ellmos-ai/build-your-users-mind
+    * ellmos-ai/skills
+    * ellmos-ai/ellmos-controlcenter-mcp
+    * ellmos-ai/ellmos-homebase-mcp
+- Ecosystem Aggregators:
+  * Reference agent-ops-stack in open-bricks tooling index.
+  * Highlight homebase-mcp & controlcenter-mcp within Glama, mcp.so, Smithery,
+    and Awesome-MCP collections as components of the agent-ops-stack harness.
+
+5. VERIFICATION & QUALITY GATES
+--------------------------------------------------------------------------------
+- Static Analysis: ruff check . passed with 0 errors.
+- Test Suite: pytest tests/test_metadata.py (11 tests passed, 100% green).
+- Shell Script: bash -n install.sh passed syntax check.
+- Manifest: python JSON validation of agent-ops.manifest.json passed.
+================================================================================

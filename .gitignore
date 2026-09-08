@@ -26,3 +26,17 @@ removed_sections/
 .env
 .env.*
 *.local.md
+
+# Test & Linter caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Sync conflicts & locks
+*.sync-conflict-*
+*.conflict
+*-CONFLIT-*
+LOCK*.txt
+*.tmp
+*.bak
