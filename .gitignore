@@ -3,6 +3,11 @@
 Thumbs.db
 .vscode/
 .idea/
+*.swp
+*~
+*.bak
+*.tmp
+*.log
 
 # Python
 __pycache__/
@@ -27,16 +32,27 @@ removed_sections/
 .env.*
 *.local.md
 
-# Test & Linter caches
+# Test, coverage & packaging caches
 .pytest_cache/
 .ruff_cache/
 .coverage
+coverage/
 htmlcov/
+wheelhouse/
+.wheel-smoke/
+dist/
+build/
 
-# Sync conflicts & locks
+# Multi-host sync conflicts
+*-conflict-*
 *.sync-conflict-*
 *.conflict
 *-CONFLIT-*
+*.sync-temp-*
+
+# Multi-agent locks
+LOCK
+LOCK.*
+*.lock
 LOCK*.txt
-*.tmp
-*.bak
+LOCK.permissions.json

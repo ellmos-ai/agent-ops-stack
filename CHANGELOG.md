@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.1 (2026-09-09)
+
+- **Pfad A (Repository Hygiene & CI/Metadata Hardening)**:
+  - Hardened `.gitignore` with comprehensive multi-host sync conflict patterns (`*-conflict-*`, `*.sync-temp-*`, `*.sync-conflict-*`, `*.conflict`, `*-CONFLIT-*`), multi-agent lock patterns (`LOCK`, `LOCK.*`, `*.lock`, `LOCK*.txt`, `LOCK.permissions.json`), and test/packaging caches (`wheelhouse/`, `.wheel-smoke/`, `build/`, `dist/`, `coverage/`).
+  - Standardized `[tool.pytest.ini_options]` in `pyproject.toml` with `addopts = "-ra -v"`.
+  - Hardened GitHub Actions CI (`.github/workflows/ci.yml`) with Python bytecode compilation gate (`python -m compileall -q tests`) and standardized `pytest -ra -v` execution across Ubuntu, Windows, and macOS on Python 3.10-3.13.
+  - Expanded automated contract test suite in `tests/test_metadata.py` with 4 new contract tests (15/15 passed | 100% green) verifying `.gitignore` hygiene rules, pytest CLI flags, CI workflow compilation steps, and Security SLA/contact parity.
+  - Bumped version to `1.3.1` across `pyproject.toml`, `README.md`, `README_de.md`, `llms.txt`, `CHANGELOG.md`, and contract test assertions.
+  - Refreshed `llms.txt` verification timestamp to `2026-09-09`.
+
 ## 1.3.0 (2026-09-08)
 
 - **Pfad B (Marketing & Design / Discoverability) Upgrade**:

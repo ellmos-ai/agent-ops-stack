@@ -75,9 +75,9 @@ def test_readme_and_readme_de_exist_and_bilingual_parity():
 def test_readme_badges_present():
     expected_badges = [
         "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
-        "img.shields.io/badge/version-1.3.0-blue.svg",
+        "img.shields.io/badge/version-1.3.1-blue.svg",
         "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-11%20passed%20%7C%20100%25-brightgreen.svg",
+        "img.shields.io/badge/tests-15%20passed%20%7C%20100%25-brightgreen.svg",
         "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
         "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
         "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
@@ -193,7 +193,7 @@ def test_pyproject_pep621_metadata_and_urls():
 
     project = data.get("project", {})
     assert project.get("name") == "agent-ops-stack"
-    assert project.get("version") == "1.3.0"
+    assert project.get("version") == "1.3.1"
     assert "classifiers" in project
     assert any("Python :: 3.10" in c for c in project["classifiers"])
     assert any("Python :: 3.11" in c for c in project["classifiers"])
@@ -218,7 +218,7 @@ def test_pyproject_pep621_metadata_and_urls():
 def test_version_parity_across_artifacts():
     pyproject = tomllib.loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     version = pyproject["project"]["version"]
-    assert version == "1.3.0"
+    assert version == "1.3.1"
 
     changelog_text = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     assert f"## {version}" in changelog_text
@@ -228,3 +228,59 @@ def test_version_parity_across_artifacts():
 
     sec_text = (REPO_ROOT / "SECURITY.md").read_text(encoding="utf-8")
     assert f"{version.rsplit('.', 1)[0]}.x" in sec_text
+
+
+def test_gitignore_hygiene_patterns():
+    gitignore_file = REPO_ROOT / ".gitignore"
+    assert gitignore_file.exists(), ".gitignore must exist"
+    text = gitignore_file.read_text(encoding="utf-8")
+
+    # Multi-host sync conflict patterns
+    assert "*-conflict-*" in text, "Missing *-conflict-* pattern in .gitignore"
+    assert "*.sync-conflict-*" in text, "Missing *.sync-conflict-* pattern in .gitignore"
+    assert "*.sync-temp-*" in text, "Missing *.sync-temp-* pattern in .gitignore"
+    assert "*.conflict" in text, "Missing *.conflict pattern in .gitignore"
+    assert "*-CONFLIT-*" in text, "Missing *-CONFLIT-* pattern in .gitignore"
+
+    # Multi-agent lock patterns
+    assert "\nLOCK\n" in f"\n{text}\n", "Missing standalone LOCK in .gitignore"
+    assert "LOCK.*" in text, "Missing LOCK.* pattern in .gitignore"
+    assert "*.lock" in text, "Missing *.lock pattern in .gitignore"
+    assert "LOCK*.txt" in text, "Missing LOCK*.txt pattern in .gitignore"
+    assert "LOCK.permissions.json" in text, "Missing LOCK.permissions.json in .gitignore"
+
+    # Test & packaging caches
+    assert ".pytest_cache/" in text, "Missing .pytest_cache/ in .gitignore"
+    assert ".ruff_cache/" in text, "Missing .ruff_cache/ in .gitignore"
+    assert ".coverage" in text, "Missing .coverage in .gitignore"
+    assert "wheelhouse/" in text, "Missing wheelhouse/ in .gitignore"
+    assert ".wheel-smoke/" in text, "Missing .wheel-smoke/ in .gitignore"
+
+
+def test_pytest_configuration_and_flags():
+    pyproject_file = REPO_ROOT / "pyproject.toml"
+    assert pyproject_file.exists(), "pyproject.toml must exist"
+    data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
+
+    pytest_opts = data.get("tool", {}).get("pytest", {}).get("ini_options", {})
+    assert pytest_opts.get("testpaths") == ["tests"]
+    assert "-ra" in pytest_opts.get("addopts", "")
+    assert "-v" in pytest_opts.get("addopts", "")
+
+
+def test_ci_workflow_hardening():
+    ci_file = REPO_ROOT / ".github" / "workflows" / "ci.yml"
+    assert ci_file.exists(), ".github/workflows/ci.yml must exist"
+    text = ci_file.read_text(encoding="utf-8")
+
+    assert "cancel-in-progress: true" in text, "CI must enable cancel-in-progress"
+    assert "python -m compileall -q tests" in text, "CI must contain bytecode compilation gate"
+    assert "pytest -ra -v" in text, "CI must run standardized pytest -ra -v"
+    for os_name in ["ubuntu-latest", "windows-latest", "macos-latest"]:
+        assert os_name in text, f"CI matrix missing {os_name}"
+
+
+def test_changelog_release_entry():
+    changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    assert "## 1.3.1 (2026-09-09)" in changelog, "CHANGELOG.md missing 1.3.1 release entry"
+    assert "Pfad A" in changelog, "CHANGELOG.md 1.3.1 entry must reference Pfad A"

@@ -44,10 +44,14 @@ jobs:
         run: |
           python -c "import json; json.load(open('agent-ops.manifest.json', encoding='utf-8'))"
 
+      - name: Bytecode compilation gate
+        run: |
+          python -m compileall -q tests
+
       - name: Run ruff linter
         run: |
           ruff check .
 
       - name: Run metadata and contract tests
         run: |
-          pytest -v
+          pytest -ra -v
