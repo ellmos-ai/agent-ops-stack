@@ -1,87 +1,144 @@
 ================================================================================
-MARKETING & DISCOVERABILITY LOG: agent-ops-stack
+AGENT-OPS-STACK -- MARKETING, DISCOVERABILITY & DESIGN LOG
 ================================================================================
-Date: 2026-09-08
-Path: Pfad B (Marketing & Design / Discoverability)
-Version: 1.3.0
+
+[2026-09-10 23:50 CEST] [GITHUBBOT_ONE_REPO_MARKETING_AND_DESIGN] (Pfad B)
+Maintainer: Lukas Geiger (ellmos-ai / open-bricks)
 Repository: ellmos-ai/agent-ops-stack
-Organization: ellmos-ai
+Branch: main
+Target Version: 1.3.2
 Umbrella Collective: open-bricks
 
-1. EXECUTIVE SUMMARY
 --------------------------------------------------------------------------------
-agent-ops-stack provides the local-first operational coordination harness for multi-agent
-CLI coding workflows (Claude Code, OpenAI Codex, Google Antigravity / Gemini, Moonshot
-Kimi). It composes seven modular pillars:
-  - dev-bricks/ticket-master (ticket-routing)
-  - dev-bricks/lock-master (locking)
-  - dev-bricks/sync-master (file-sync)
-  - ellmos-ai/build-your-users-mind (decision-avatar)
-  - ellmos-ai/skills (skill-pack)
-  - ellmos-ai/ellmos-controlcenter-mcp (control-plane)
-  - ellmos-ai/ellmos-homebase-mcp (mcp-runtime, memory/task facade)
-
-This Pfad B upgrade elevates the repository to the ecosystem gold standard with a 14-point
-quick navigation architecture, dual Mermaid architecture and lifecycle sequence diagrams,
-10 formal governance invariants, a 12-repository sibling matrix, PEP 621 packaging,
-multi-OS CI workflow, and an automated 11-test contract test suite.
-
-2. ASSETS & LANDING PAGE ENHANCEMENTS
+1. EXECUTIVE SUMMARY & VALUE PROPOSITION
 --------------------------------------------------------------------------------
-- Badges: Added 13 comprehensive Shields.io badges (Manifest, version 1.3.0, CI status,
-  11 contract tests passed, 7 composed modules, Python 3.10-3.13, Linux/Windows/macOS,
-  100% Local-First Zero-Egress, Non-Elevation Sandboxed Security, MIT license,
-  ellmos-ai ecosystem, open-bricks umbrella, and LLM-Ready llms.txt).
-- Quick Navigation: 14 numbered sections with deep anchor links in README.md and README_de.md.
-- Architecture Diagram: Interactive Mermaid flowchart TD detailing the 5 functional layers
-  (AGENTS, COORDINATION, DECISION, MCP, SYNC).
-- Operational Lifecycle Diagram: Interactive Mermaid sequenceDiagram showing the 10-step
-  coordination flow from task submission to lock release.
-- Governance Invariants: Table with 10 formal rules covering local-first isolation, user-mode,
-  fail-closed locking, ticket routing, decision avatar fallback, deterministic manifest,
-  immutable release pins, sandboxed installer, cross-device sync, and platform parity.
-- Sibling Ecosystem: Matrix linking 12 partner repositories across ellmos-ai, dev-bricks,
-  and open-bricks.
-- Bilingual Parity: Complete 1-to-1 sync between README.md and README_de.md.
-- Security Policy: Hardened SECURITY.md with 48h response SLA, GitHub Security Advisories
-  private reporting link, and official security contacts.
+agent-ops-stack provides the canonical local-first operational coordination harness
+for multi-agent CLI coding workflows (Claude Code, OpenAI Codex, Google Antigravity /
+Gemini, Moonshot Kimi). It composes seven focused, modular pillars into a cohesive
+operational layer:
+  - dev-bricks/ticket-master (ticket-routing & issue dispatch)
+  - dev-bricks/lock-master (file locking & exclusive edit boundaries)
+  - dev-bricks/sync-master (cross-machine slot file synchronization)
+  - ellmos-ai/build-your-users-mind (decision-avatar for operator absence)
+  - ellmos-ai/skills (standardized reusable skill packs)
+  - ellmos-ai/ellmos-controlcenter-mcp (MCP server discovery & control plane)
+  - ellmos-ai/ellmos-homebase-mcp (state, memory facade, and task facade)
 
-3. KEYWORD & SEARCH TARGETING
+Rather than forcing developers into monolithic, opinionated runtime loops,
+agent-ops-stack operates declaratively via agent-ops.manifest.json (schema
+ellmos-stack-manifest-v1) and a lightweight shell installer (install.sh). It solves
+concurrency collisions, untracked bugs, operator absence ambiguity, and tool discovery
+without any external network egress, telemetry, or administrative privilege elevation.
+
 --------------------------------------------------------------------------------
-- Primary Keywords:
-  * "agent-ops-stack"
-  * "ellmos-ai agent-ops-stack"
-  * "local CLI agent coordination stack"
-  * "MCP control plane for coding agents"
-  * "manifest-driven agent ops stack"
-  * "multi-agent file locking ticket routing"
-  * "Claude Code Codex Gemini Kimi local agent ops"
-  * "lock-master ticket-master sync-master build-your-users-mind stack"
-- Disambiguation:
-  Explicitly disambiguated in READMEs and llms.txt against cloud SaaS monitoring
-  (AgentOps.ai), generic AgentStack templates, and remote LLMOps telemetry servers.
-
-4. CROSS-LINKING & COMMUNITY ENGAGEMENT ACTIONS
+2. TARGET AUDIENCE & STAKEHOLDER PERSONAS
 --------------------------------------------------------------------------------
-- Sibling Cross-Linking:
-  Verify reciprocal links in:
-    * ellmos-ai/stacks (featured as core stack)
-    * dev-bricks/ticket-master
-    * dev-bricks/lock-master
-    * dev-bricks/sync-master
-    * ellmos-ai/build-your-users-mind
-    * ellmos-ai/skills
-    * ellmos-ai/ellmos-controlcenter-mcp
-    * ellmos-ai/ellmos-homebase-mcp
-- Ecosystem Aggregators:
-  * Reference agent-ops-stack in open-bricks tooling index.
-  * Highlight homebase-mcp & controlcenter-mcp within Glama, mcp.so, Smithery,
-    and Awesome-MCP collections as components of the agent-ops-stack harness.
+1. Autonomous AI Agent Engineers & Platform Architects:
+   - Operating multiple concurrent coding agents (Claude Code, Codex, Antigravity, Kimi)
+     on local workspaces.
+   - Require reliable file locking (lock-master) to eliminate destructive merge races
+     and conflicting write operations.
+2. Multi-Device & Cross-Machine Developers:
+   - Alternating between workstations, laptops, and remote servers.
+   - Depend on sync-master slot gating to synchronize project states without split-brain
+     conflicts or broken Git indices.
+3. Enterprise Tooling, Safety & Governance Compliance Officers:
+   - Mandating 100% offline, local-first operations with zero external network egress.
+   - Require unprivileged user-mode execution (RunAsInvoker), deterministic manifest
+     blueprints, and auditable third-party license inventories.
+4. Open-Source AI Tool Builders & MCP Ecosystem Integrators:
+   - Developing modular MCP tools, skill packs, and automation agents.
+   - Rely on ellmos-controlcenter-mcp and ellmos-homebase-mcp for standardized discovery,
+     tool bundling, and shared task coordination.
 
-5. VERIFICATION & QUALITY GATES
+--------------------------------------------------------------------------------
+3. HIGH-INTENT SEARCH QUERIES & DISCOVERABILITY TARGETS
+--------------------------------------------------------------------------------
+- English Primary Queries:
+  * "local-first multi-agent coordination stack"
+  * "CLI coding agent file locking and ticket routing"
+  * "Claude Code Codex Gemini Kimi local coordination"
+  * "declarative agent ops manifest schema"
+  * "MCP control plane for local AI agents"
+  * "multi-agent concurrency collision prevention"
+  * "lock-master ticket-master sync-master stack"
+  * "offline zero-egress agent harness"
+
+- German Primary Queries:
+  * "lokaler Multi-Agenten Koordinations-Stack"
+  * "Dateisperren und Ticket-Routing für KI Coding Agenten"
+  * "lokale Koordination Claude Codex Antigravity Kimi"
+  * "MCP Steuerebene für lokale Entwickler-Agenten"
+  * "Zero-Egress Multi-Agenten Kollisionsschutz"
+
+--------------------------------------------------------------------------------
+4. COMPETITIVE POSITIONING & COMPARISON
+--------------------------------------------------------------------------------
+- vs. Cloud LLMOps & Telemetry SaaS (AgentOps.ai, LangSmith, Helicone):
+  Cloud platforms mandate outbound network egress, remote telemetry collection, and
+  external credential storage. agent-ops-stack is 100% local-first and zero-egress,
+  keeping all project source code, file locks, and decision logs strictly on localhost.
+- vs. Monolithic Agent Frameworks (AutoGen, CrewAI, LangGraph):
+  Heavy frameworks impose tight execution loops, proprietary messaging buses, and
+  complex runtime dependencies. agent-ops-stack is a decoupled, manifest-driven
+  composition layer providing shared conventions (locking, tickets, avatars) to any
+  independent CLI tool or agent.
+- vs. Ad-hoc Shell Scripts & Uncoordinated Worktrees:
+  Ad-hoc scripts lack formal concurrency models and shared state. agent-ops-stack
+  enforces fail-closed locking, structured ticket scoring, and empirical user avatars
+  to prevent architectural drift when the human operator is away.
+
+--------------------------------------------------------------------------------
+5. GOVERNANCE & RUNTIME INVARIANTS (INV-LOCAL-01 to INV-SLA-10)
+--------------------------------------------------------------------------------
+| Canonical ID   | Governance Invariant            | Operational Rule & Failure Guarantee                           |
+|:---------------|:--------------------------------|:----------------------------------------------------------------|
+| **INV-LOCAL-01** | 100% Local-First & Zero Egress  | All coordination strictly offline; zero remote telemetry egress |
+| **INV-USER-02**  | Non-Elevation User-Mode         | Zero administrative elevation; runs under standard user rights   |
+| **INV-LOCK-03**  | Fail-Closed File Lock Integrity | Active locks halt mutating actions immediately                  |
+| **INV-ROUT-04**  | Structured Ticket Routing       | All bug/task discoveries routed through ticket-master           |
+| **INV-AVAT-05**  | Empirical Decision-Avatar       | Operator absence queries build-your-users-mind for guidance      |
+| **INV-MANI-06**  | Deterministic Manifest          | Composition strictly governed by agent-ops.manifest.json       |
+| **INV-PIN-07**   | Immutable Release-Tag Pinning   | Sources reference immutable release tags (no branch drift)      |
+| **INV-SAND-08**  | Sandboxed Installer Boundary    | install.sh clones exclusively into gitignored ./modules/        |
+| **INV-SYNC-09**  | Cross-Device Slot Gated Sync    | sync-master slots prevent multi-machine split-brain collisions  |
+| **INV-SLA-10**   | 48h Security & Triage SLA       | Security disclosures acknowledged within 48h; triage within 5d  |
+
+--------------------------------------------------------------------------------
+6. DISCOVERABILITY & VISUAL DESIGN DELIVERABLES (v1.3.2)
+--------------------------------------------------------------------------------
+[x] Bilingual Landing Page Architecture:
+    - Complete 1-to-1 sync between README.md and README_de.md.
+[x] Shields.io Badge Suite Expanded:
+    - Manifest schema, Version 1.3.2, CI status, 19 contract tests passed (100% green),
+      7 composed modules, Python 3.10-3.13, Linux/Windows/macOS, 100% Local-First
+      Zero-Egress, Non-Elevation User-Mode, Security SLA (48h / 5d triage),
+      Third-Party Audited, Marketing Log Active, Code style Ruff, MIT license,
+      ellmos-ai ecosystem, open-bricks umbrella, and LLM-Ready llms.txt.
+[x] 15-Point Quick Navigation Anchors:
+    - Deep anchor links and identical numbering across English and German READMEs,
+      including dedicated Section 13 for Third-Party Licenses & Transparency.
+[x] Dual-Mermaid Visual Architecture:
+    - Flowchart TD: System Architecture across AGENTS, COORDINATION, DECISION, MCP, SYNC.
+    - SequenceDiagram: Multi-Agent Operational Lifecycle depicting the 10-step flow.
+[x] Governance & Runtime Invariants Table:
+    - 10 formal operational rules with canonical IDs (INV-LOCAL-01 to INV-SLA-10).
+[x] Sibling Ecosystem Matrix:
+    - 12 cross-linked partner repositories across ellmos-ai, dev-bricks, open-bricks.
+[x] Third-Party Licenses Inventory (THIRD_PARTY_LICENSES.md):
+    - Comprehensive audit of stdlib, setuptools, pytest, ruff, and composed modules.
+[x] PEP 621 Standard URLs:
+    - Added "Third-Party Licenses" and "Marketing Log" to pyproject.toml [project.urls].
+[x] Machine-Readable LLM Context (llms.txt):
+    - Refreshed timestamp to 2026-09-10, updated to v1.3.2, added links and invariants.
+[x] Contract Test Suite Expansion:
+    - tests/test_metadata.py expanded to 19 contract tests (100% green).
+
+--------------------------------------------------------------------------------
+7. VERIFICATION & QUALITY GATES
 --------------------------------------------------------------------------------
 - Static Analysis: ruff check . passed with 0 errors.
-- Test Suite: pytest tests/test_metadata.py (11 tests passed, 100% green).
+- Test Suite: pytest tests/test_metadata.py (19 tests passed, 100% green).
 - Shell Script: bash -n install.sh passed syntax check.
 - Manifest: python JSON validation of agent-ops.manifest.json passed.
 ================================================================================

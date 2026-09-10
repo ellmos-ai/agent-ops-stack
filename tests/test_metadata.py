@@ -75,13 +75,17 @@ def test_readme_and_readme_de_exist_and_bilingual_parity():
 def test_readme_badges_present():
     expected_badges = [
         "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
-        "img.shields.io/badge/version-1.3.1-blue.svg",
+        "img.shields.io/badge/version-1.3.2-blue.svg",
         "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-15%20passed%20%7C%20100%25-brightgreen.svg",
+        "img.shields.io/badge/tests-19%20passed%20%7C%20100%25-brightgreen.svg",
         "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
         "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
         "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
         "img.shields.io/badge/security-Non--Elevation%20%7C%20Sandboxed-informational.svg",
+        "img.shields.io/badge/Security%20SLA-48h%20%7C%205d%20triage-informational.svg",
+        "img.shields.io/badge/Third--Party-Audited-blue.svg",
+        "img.shields.io/badge/Marketing%20Log-Active-informational.svg",
+        "img.shields.io/badge/code%20style-ruff-000000.svg",
         "img.shields.io/badge/License-MIT-green.svg",
         "img.shields.io/badge/Ecosystem-ellmos--ai-purple.svg",
         "img.shields.io/badge/Umbrella-open--bricks-blue.svg",
@@ -93,23 +97,23 @@ def test_readme_badges_present():
             assert badge in text, f"Missing badge {badge} in {filename}"
 
 
-def test_quick_navigation_14_points():
+def test_quick_navigation_15_points():
     readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
 
-    # Match numbered markdown list items 1. through 14.
+    # Match numbered markdown list items 1. through 15.
     en_nav_items = re.findall(r"^\d+\.\s+\[.+?\]\(#.+?\)", readme_en, flags=re.MULTILINE)
     de_nav_items = re.findall(r"^\d+\.\s+\[.+?\]\(#.+?\)", readme_de, flags=re.MULTILINE)
 
-    assert len(en_nav_items) == 14, (
-        f"README.md must have 14 quick nav items, found {len(en_nav_items)}"
+    assert len(en_nav_items) == 15, (
+        f"README.md must have 15 quick nav items, found {len(en_nav_items)}"
     )
-    assert len(de_nav_items) == 14, (
-        f"README_de.md must have 14 quick nav items, found {len(de_nav_items)}"
+    assert len(de_nav_items) == 15, (
+        f"README_de.md must have 15 quick nav items, found {len(de_nav_items)}"
     )
 
-    # Check that major target sections 1 through 14 exist in both
-    for section_num in range(1, 15):
+    # Check that major target sections 1 through 15 exist in both
+    for section_num in range(1, 16):
         assert f"## {section_num}. " in readme_en, f"Missing section ## {section_num}. in README.md"
         assert f"## {section_num}. " in readme_de, (
             f"Missing section ## {section_num}. in README_de.md"
@@ -193,7 +197,7 @@ def test_pyproject_pep621_metadata_and_urls():
 
     project = data.get("project", {})
     assert project.get("name") == "agent-ops-stack"
-    assert project.get("version") == "1.3.1"
+    assert project.get("version") == "1.3.2"
     assert "classifiers" in project
     assert any("Python :: 3.10" in c for c in project["classifiers"])
     assert any("Python :: 3.11" in c for c in project["classifiers"])
@@ -207,6 +211,8 @@ def test_pyproject_pep621_metadata_and_urls():
     assert "Issues" in urls
     assert "Changelog" in urls
     assert "Security" in urls
+    assert "Third-Party Licenses" in urls
+    assert "Marketing Log" in urls
     assert "Parent Organization" in urls
     assert "Umbrella Ecosystem" in urls
     assert urls["Parent Organization"] == "https://github.com/ellmos-ai"
@@ -218,7 +224,7 @@ def test_pyproject_pep621_metadata_and_urls():
 def test_version_parity_across_artifacts():
     pyproject = tomllib.loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     version = pyproject["project"]["version"]
-    assert version == "1.3.1"
+    assert version == "1.3.2"
 
     changelog_text = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     assert f"## {version}" in changelog_text
@@ -282,5 +288,68 @@ def test_ci_workflow_hardening():
 
 def test_changelog_release_entry():
     changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    assert "## 1.3.1 (2026-09-09)" in changelog, "CHANGELOG.md missing 1.3.1 release entry"
-    assert "Pfad A" in changelog, "CHANGELOG.md 1.3.1 entry must reference Pfad A"
+    assert "## 1.3.2 (2026-09-10)" in changelog, "CHANGELOG.md missing 1.3.2 release entry"
+    assert "Pfad B" in changelog, "CHANGELOG.md 1.3.2 entry must reference Pfad B"
+
+
+def test_third_party_licenses_inventory():
+    lic_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
+    assert lic_file.exists(), "THIRD_PARTY_LICENSES.md must exist"
+    text = lic_file.read_text(encoding="utf-8")
+
+    assert "100% Local-First & Zero Egress" in text
+    assert "Unprivileged User-Mode" in text
+    assert "Python Standard Library" in text
+    assert "PSFL-2.0" in text
+    assert "pytest" in text
+    assert "ruff" in text
+    assert "setuptools" in text
+    assert "ticket-master" in text
+    assert "lock-master" in text
+    assert "sync-master" in text
+    assert "build-your-users-mind" in text
+    assert "skills" in text
+    assert "ellmos-controlcenter-mcp" in text
+    assert "ellmos-homebase-mcp" in text
+    assert "MIT License" in text
+
+
+def test_marketing_log_structure_and_personas():
+    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
+    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
+    text = mkt_file.read_text(encoding="utf-8")
+
+    assert "Target Version: 1.3.2" in text
+    assert "Autonomous AI Agent Engineers & Platform Architects" in text
+    assert "Multi-Device & Cross-Machine Developers" in text
+    assert "Enterprise Tooling, Safety & Governance Compliance Officers" in text
+    assert "Open-Source AI Tool Builders & MCP Ecosystem Integrators" in text
+    assert "INV-LOCAL-01" in text
+    assert "INV-SLA-10" in text
+
+
+def test_llms_txt_structure_and_parity():
+    llms_file = REPO_ROOT / "llms.txt"
+    assert llms_file.exists(), "llms.txt must exist"
+    text = llms_file.read_text(encoding="utf-8")
+
+    assert "Last-checked: 2026-09-10" in text
+    assert "Version: 1.3.2" in text
+    assert "19 passed contract tests" in text
+    assert "THIRD_PARTY_LICENSES.md" in text
+    assert "MARKETING-LOG.txt" in text
+
+
+def test_banner_assets_and_media_integrity():
+    assets_dir = REPO_ROOT / "assets"
+    assert assets_dir.exists() and assets_dir.is_dir(), "assets/ directory must exist"
+
+    banner_png = assets_dir / "banner.png"
+    banner_svg = assets_dir / "banner.svg"
+    assert banner_png.exists() and banner_png.stat().st_size > 0, "assets/banner.png must exist"
+    assert banner_svg.exists() and banner_svg.stat().st_size > 0, "assets/banner.svg must exist"
+
+    readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
+    assert "assets/banner.png" in readme_en
+    assert "assets/banner.svg" in readme_de

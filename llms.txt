@@ -2,9 +2,9 @@
 
 > Machine-readable project context for LLMs, crawlers, and agentic coding tools.
 
-## Last-checked: 2026-09-09
-## Version: 1.3.1
-## Status: 15 passed contract tests | 100% green | Local-First Zero-Egress
+## Last-checked: 2026-09-10
+## Version: 1.3.2
+## Status: 19 passed contract tests | 100% green | Local-First Zero-Egress
 
 ## Canonical Links
 
@@ -12,6 +12,8 @@
 - Ecosystem: https://github.com/ellmos-ai
 - Umbrella Ecosystem: https://github.com/open-bricks
 - Stack catalog + manifest schema: https://github.com/ellmos-ai/stacks
+- Third-Party Licenses: https://github.com/ellmos-ai/agent-ops-stack/blob/main/THIRD_PARTY_LICENSES.md
+- Marketing Log: https://github.com/ellmos-ai/agent-ops-stack/blob/main/MARKETING-LOG.txt
 - ticket-master: https://github.com/dev-bricks/ticket-master
 - lock-master: https://github.com/dev-bricks/lock-master
 - sync-master: https://github.com/dev-bricks/sync-master
@@ -72,9 +74,12 @@ phrase for this repository is `ellmos-ai agent-ops-stack`.
 - `agent-ops.manifest.json`: the composition manifest (schema `ellmos-stack-manifest-v1`).
 - `install.sh`: reads the manifest, clones each module into `./modules/`, prints the
   `provides`/`consumes` wiring summary. Requires `git` and either `jq` or `python3`.
-- `README.md` / `README_de.md`: bilingual documentation featuring 14-point quick navigation,
+- `README.md` / `README_de.md`: bilingual documentation featuring 15-point quick navigation,
   dual Mermaid architecture and lifecycle diagrams, 10 governance invariants, and a
   12-repository sibling ecosystem matrix.
+- `THIRD_PARTY_LICENSES.md`: comprehensive third-party licenses inventory and zero-egress
+  compliance notice.
+- `MARKETING-LOG.txt`: discoverability, stakeholder personas, and competitive positioning ledger.
 - `SECURITY.md`: bilingual security policy with 48h response SLA, GitHub Security Advisories
   link, and core security guarantees.
 - `tests/test_metadata.py`: automated test suite verifying manifest integrity, installer
@@ -91,7 +96,7 @@ each module's own repository before deploying it.
 ## Validation
 
 ```bash
-pytest -v                               # automated contract & parity tests (11 passed)
+pytest -v                               # automated contract & parity tests (19 passed)
 ruff check .                           # code hygiene & style checks
 bash -n install.sh                     # bash script syntax check
 python -c "import json; json.load(open('agent-ops.manifest.json', encoding='utf-8'))"

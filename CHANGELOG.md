@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.3.2 (2026-09-10)
+
+- **Pfad B (Marketing & Design / Discoverability) Upgrade**:
+  - Expanded Quick Navigation to 15 points with deep anchors across bilingual `README.md` and `README_de.md`, adding dedicated Section 13 for Third-Party Licenses & Transparency.
+  - Added comprehensive `THIRD_PARTY_LICENSES.md` inventory detailing Python standard library runtime modules (PSFL-2.0), packaging/build tooling (`setuptools`), contract test harness (`pytest`), code formatting/linter (`ruff`), and composed stack modules under permissive open-source licenses with zero-egress guarantees.
+  - Upgraded Shields.io badge suite with Security SLA (`48h / 5d triage`), Third-Party Audited (`Audited`), Marketing Log (`Active`), Code style Ruff, Version `1.3.2`, and updated contract test badge (`19 passed | 100%`).
+  - Standardized PEP 621 URLs in `pyproject.toml` with `"Third-Party Licenses"` and `"Marketing Log"`.
+  - Comprehensive refresh of `MARKETING-LOG.txt` with 4 detailed developer personas, high-intent bilingual search queries, competitive positioning analysis vs. cloud SaaS and monolithic frameworks, and canonical governance invariant mapping.
+  - Expanded automated contract test suite in `tests/test_metadata.py` to 19 tests (100% green) validating third-party license notices, marketing log personas, pyproject URLs, 15-point quick navigation, and version parity.
+  - Updated `llms.txt` timestamp to `2026-09-10`, version `1.3.2`, 19 tests count, and links to license and marketing ledgers.
+
 ## 1.3.1 (2026-09-09)
 
 - **Pfad A (Repository Hygiene & CI/Metadata Hardening)**:

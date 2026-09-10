@@ -2,14 +2,18 @@
 
 <p align="center">
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
-  <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.1-blue.svg" alt="Version"></a>
+  <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.2-blue.svg" alt="Version"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg" alt="CI-Status"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/tests-15%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-19%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
   <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Komponierte Module"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg" alt="Python Versionen">
   <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Plattformen">
   <img src="https://img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg" alt="Local-First Architektur">
   <img src="https://img.shields.io/badge/security-Non--Elevation%20%7C%20Sandboxed-informational.svg" alt="Sicherheits-Invariante">
+  <a href="SECURITY.md"><img src="https://img.shields.io/badge/Security%20SLA-48h%20%7C%205d%20triage-informational.svg" alt="Sicherheits-SLA"></a>
+  <a href="THIRD_PARTY_LICENSES.md"><img src="https://img.shields.io/badge/Third--Party-Audited-blue.svg" alt="Drittanbieter-Audit"></a>
+  <a href="MARKETING-LOG.txt"><img src="https://img.shields.io/badge/Marketing%20Log-Active-informational.svg" alt="Marketing Log"></a>
+  <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/badge/code%20style-ruff-000000.svg" alt="Code style: Ruff"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="Lizenz"></a>
   <a href="https://github.com/ellmos-ai"><img src="https://img.shields.io/badge/Ecosystem-ellmos--ai-purple.svg" alt="Ökosystem"></a>
   <a href="https://github.com/open-bricks"><img src="https://img.shields.io/badge/Umbrella-open--bricks-blue.svg" alt="Dachorganisation"></a>
@@ -54,8 +58,9 @@ Maschinenlesbarer Kontext für LLMs und agentische Coding-Tools: [`llms.txt`](ll
 10. [Geschwister-Ökosystem & Integrationsmatrix](#10-geschwister-ökosystem--integrationsmatrix)
 11. [Suche & Begriffsklärung](#11-suche--begriffsklärung)
 12. [Sicherheit & Verifikation](#12-sicherheit--verifikation)
-13. [Lizenz](#13-lizenz)
-14. [Haftung / Liability](#14-haftung--liability)
+13. [Drittanbieter-Lizenzen & Transparenz](#13-drittanbieter-lizenzen--transparenz)
+14. [Lizenz](#14-lizenz)
+15. [Haftung / Liability](#15-haftung--liability)
 
 ---
 
@@ -210,16 +215,16 @@ Sicherheitsinvarianten, um Arbeitsbereiche vor Beschädigung und unkontrollierte
 
 | ID | Governance-Invariante | Betriebsvorschrift | Fehlerzustands-Garantie |
 |:---:|:---|:---|:---|
-| **01** | **100% Local-First & Zero Egress** | Sämtliche Koordination, Manifeste und Tools laufen strikt lokal und offline. | Keinerlei Telemetrie, Tracking oder externe API-Übertragungen. |
-| **02** | **Unprivilegierter User-Mode** | Skripte, Installer und Agentenroutinen laufen ausschließlich mit Standardrechten. | Admin- oder Root-Rechte werden niemals angefordert oder benötigt. |
-| **03** | **Fail-Closed Dateisperren-Integrität** | Agenten müssen vor Schreibaktionen `lock-master` `LOCK*.txt` prüfen und achten. | Bei aktiver Sperre stoppen mutierende Aktionen sofort fail-closed. |
-| **04** | **Strukturiertes Ticket-Routing** | Offene Aufgaben und Fehler müssen über `ticket-master` erfasst werden. | Verhindert unkoordinierte und ungetrackte Codeänderungen. |
-| **05** | **Empirischer Entscheidungs-Avatar** | Bei Abwesenheit des Nutzers konsultiert der Agent `build-your-users-mind`. | Verhindert spekulative Mutmaßungen und unerwünschte Abweichungen. |
-| **06** | **Deterministischer Manifest-Bauplan** | Die Komposition wird ausnahmslos durch `agent-ops.manifest.json` definiert. | Keine impliziten Abhängigkeiten; Installer arbeitet rein deklarativ. |
-| **07** | **Unveränderliche Release-Tag-Pins** | Manifest-Quellen referenzieren feste Release-Tags (`v1.11.3`, `v2026.09.03`). | Schließt Upstream-Drift und unvorhersehbare Versionsbrüche aus. |
-| **08** | **Isolierte Installer-Grenzen** | `install.sh` klont Module ausschließlich in das git-ignorierte `./modules/`. | Keine unbemerkte Modifikation globaler Nutzer- oder Agenten-Configs. |
-| **09** | **Multi-Host Slot-Isolation** | `sync-master` weist dedizierte Rechner-Slots für den Cloud-Abgleich zu. | Verhindert Split-Brain-Kollisionen und nebenläufige Überschreibungen. |
-| **10** | **Plattformübergreifende Parität** | Workflows und Verifikationen laufen identisch auf Linux, Windows und macOS. | Einheitliches Koordinationsverhalten unabhängig vom Host-OS. |
+| **01** | **100% Local-First & Zero Egress** (`INV-LOCAL-01`) | Sämtliche Koordination, Manifeste und Tools laufen strikt lokal und offline. | Keinerlei Telemetrie, Tracking oder externe API-Übertragungen. |
+| **02** | **Unprivilegierter User-Mode** (`INV-USER-02`) | Skripte, Installer und Agentenroutinen laufen ausschließlich mit Standardrechten. | Admin- oder Root-Rechte werden niemals angefordert oder benötigt. |
+| **03** | **Fail-Closed Dateisperren-Integrität** (`INV-LOCK-03`) | Agenten müssen vor Schreibaktionen `lock-master` `LOCK*.txt` prüfen und achten. | Bei aktiver Sperre stoppen mutierende Aktionen sofort fail-closed. |
+| **04** | **Strukturiertes Ticket-Routing** (`INV-ROUT-04`) | Offene Aufgaben und Fehler müssen über `ticket-master` erfasst werden. | Verhindert unkoordinierte und ungetrackte Codeänderungen. |
+| **05** | **Empirischer Entscheidungs-Avatar** (`INV-AVAT-05`) | Bei Abwesenheit des Nutzers konsultiert der Agent `build-your-users-mind`. | Verhindert spekulative Mutmaßungen und unerwünschte Abweichungen. |
+| **06** | **Deterministischer Manifest-Bauplan** (`INV-MANI-06`) | Die Komposition wird ausnahmslos durch `agent-ops.manifest.json` definiert. | Keine impliziten Abhängigkeiten; Installer arbeitet rein deklarativ. |
+| **07** | **Unveränderliche Release-Tag-Pins** (`INV-PIN-07`) | Manifest-Quellen referenzieren feste Release-Tags (`v1.11.3`, `v2026.09.03`). | Schließt Upstream-Drift und unvorhersehbare Versionsbrüche aus. |
+| **08** | **Isolierte Installer-Grenzen** (`INV-SAND-08`) | `install.sh` klont Module ausschließlich in das git-ignorierte `./modules/`. | Keine unbemerkte Modifikation globaler Nutzer- oder Agenten-Configs. |
+| **09** | **Multi-Host Slot-Isolation** (`INV-SYNC-09`) | `sync-master` weist dedizierte Rechner-Slots für den Cloud-Abgleich zu. | Verhindert Split-Brain-Kollisionen und nebenläufige Überschreibungen. |
+| **10** | **48h Sicherheits- & Triage-SLA** (`INV-SLA-10`) | Sicherheitsmeldungen unterliegen verbindlichen Reaktionsfristen. | Erstreaktion innerhalb 48h; Triage innerhalb von 5 Werktagen. |
 
 ---
 
@@ -342,12 +347,28 @@ Ausführliche Richtlinien zur Meldung von Sicherheitsbedenken finden sich in [`S
 
 ---
 
-## 13. Lizenz
+## 13. Drittanbieter-Lizenzen & Transparenz
+
+`agent-ops-stack` führt ein vollständiges, auditierbares Inventar aller Laufzeit-, Entwicklungs- und Werkzeug-Abhängigkeiten in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).
+
+| Kategorie | Komponente / Abhängigkeit | Lizenz | Richtlinie / Schutzgrenze |
+|:---|:---|:---|:---|
+| **Laufzeit & Core** | Python Standardbibliothek (`json`, `re`, `pathlib`, `tomllib`, `typing`) | PSFL-2.0 | 100% Offline, Zero-Egress |
+| **Paketierung & Build** | `setuptools >= 61.0` | MIT | Lokales Paketierungs-Backend |
+| **Test & Verträge** | `pytest >= 7.0.0` | MIT | Automatisiertes Vertragstest-Harness |
+| **Linting & Hygiene** | `ruff >= 0.1.0` | MIT / Apache-2.0 | Schnelle statische Analyse und Formatierung |
+| **Shell-Automation** | POSIX Shell (`install.sh`) / `git` / `jq` | System / GPL / MIT | Unprivilegiertes Klonen von Repositories |
+
+Alle Abhängigkeiten sind strikt permissiv und entsprechen den lokalen Zero-Egress-Laufzeitgarantien des Projekts.
+
+---
+
+## 14. Lizenz
 
 Dieses Repository steht unter der permissiven **MIT-Lizenz**. Siehe [`LICENSE`](LICENSE). Jedes komponierte Modul unterliegt seiner eigenen Open-Source-Lizenz.
 
 ---
 
-## 14. Haftung / Liability
+## 15. Haftung / Liability
 
 Dieses Projekt ist eine **unentgeltliche Open-Source-Schenkung** im Sinne der §§ 516 ff. BGB. Die Haftung des Urhebers ist gemäß **§ 521 BGB** auf **Vorsatz und grobe Fahrlässigkeit** beschränkt. Die komponierten Module unterliegen jeweils ihrer eigenen Lizenz (siehe verlinkte Repositories).
