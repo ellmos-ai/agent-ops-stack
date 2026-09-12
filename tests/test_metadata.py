@@ -75,9 +75,9 @@ def test_readme_and_readme_de_exist_and_bilingual_parity():
 def test_readme_badges_present():
     expected_badges = [
         "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
-        "img.shields.io/badge/version-1.3.2-blue.svg",
+        "img.shields.io/badge/version-1.3.3-blue.svg",
         "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-19%20passed%20%7C%20100%25-brightgreen.svg",
+        "img.shields.io/badge/tests-25%20passed%20%7C%20100%25-brightgreen.svg",
         "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
         "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
         "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
@@ -197,7 +197,7 @@ def test_pyproject_pep621_metadata_and_urls():
 
     project = data.get("project", {})
     assert project.get("name") == "agent-ops-stack"
-    assert project.get("version") == "1.3.2"
+    assert project.get("version") == "1.3.3"
     assert "classifiers" in project
     assert any("Python :: 3.10" in c for c in project["classifiers"])
     assert any("Python :: 3.11" in c for c in project["classifiers"])
@@ -209,22 +209,27 @@ def test_pyproject_pep621_metadata_and_urls():
     assert "Documentation" in urls
     assert "Repository" in urls
     assert "Issues" in urls
+    assert "Bug Tracker" in urls
     assert "Changelog" in urls
     assert "Security" in urls
     assert "Third-Party Licenses" in urls
     assert "Marketing Log" in urls
+    assert "LLM Ready" in urls
     assert "Parent Organization" in urls
     assert "Umbrella Ecosystem" in urls
     assert urls["Parent Organization"] == "https://github.com/ellmos-ai"
     assert urls["Umbrella Ecosystem"] == "https://github.com/open-bricks"
 
     assert "tool" in data and "ruff" in data["tool"]
+    select = data["tool"]["ruff"].get("lint", {}).get("select", [])
+    for rule in ["E", "F", "W", "I", "UP", "B", "SIM", "C4", "RUF"]:
+        assert rule in select, f"Missing ruff rule {rule} in pyproject.toml"
 
 
 def test_version_parity_across_artifacts():
     pyproject = tomllib.loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     version = pyproject["project"]["version"]
-    assert version == "1.3.2"
+    assert version == "1.3.3"
 
     changelog_text = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     assert f"## {version}" in changelog_text
@@ -247,6 +252,11 @@ def test_gitignore_hygiene_patterns():
     assert "*.sync-temp-*" in text, "Missing *.sync-temp-* pattern in .gitignore"
     assert "*.conflict" in text, "Missing *.conflict pattern in .gitignore"
     assert "*-CONFLIT-*" in text, "Missing *-CONFLIT-* pattern in .gitignore"
+    assert "* (kopie)*" in text, "Missing * (kopie)* pattern in .gitignore"
+    assert "* (copy)*" in text, "Missing * (copy)* pattern in .gitignore"
+    assert "*-WORKSTATION*" in text, "Missing *-WORKSTATION* pattern in .gitignore"
+    assert "*-WORKSTATION-LG*" in text, "Missing *-WORKSTATION-LG* pattern in .gitignore"
+    assert "*-ASUS-GEI*" in text, "Missing *-ASUS-GEI* pattern in .gitignore"
 
     # Multi-agent lock patterns
     assert "\nLOCK\n" in f"\n{text}\n", "Missing standalone LOCK in .gitignore"
@@ -254,11 +264,13 @@ def test_gitignore_hygiene_patterns():
     assert "*.lock" in text, "Missing *.lock pattern in .gitignore"
     assert "LOCK*.txt" in text, "Missing LOCK*.txt pattern in .gitignore"
     assert "LOCK.permissions.json" in text, "Missing LOCK.permissions.json in .gitignore"
+    assert "uv.lock" in text, "Missing uv.lock in .gitignore"
 
     # Test & packaging caches
     assert ".pytest_cache/" in text, "Missing .pytest_cache/ in .gitignore"
     assert ".ruff_cache/" in text, "Missing .ruff_cache/ in .gitignore"
     assert ".coverage" in text, "Missing .coverage in .gitignore"
+    assert ".coverage.*" in text, "Missing .coverage.* in .gitignore"
     assert "wheelhouse/" in text, "Missing wheelhouse/ in .gitignore"
     assert ".wheel-smoke/" in text, "Missing .wheel-smoke/ in .gitignore"
 
@@ -280,6 +292,9 @@ def test_ci_workflow_hardening():
     text = ci_file.read_text(encoding="utf-8")
 
     assert "cancel-in-progress: true" in text, "CI must enable cancel-in-progress"
+    assert "timeout-minutes: 15" in text, "CI must define 15-minute runaway timeout guardrail"
+    assert "permissions:" in text, "CI must define permissions block"
+    assert "contents: read" in text, "CI must restrict permissions to contents: read"
     assert "python -m compileall -q tests" in text, "CI must contain bytecode compilation gate"
     assert "pytest -ra -v" in text, "CI must run standardized pytest -ra -v"
     for os_name in ["ubuntu-latest", "windows-latest", "macos-latest"]:
@@ -288,8 +303,8 @@ def test_ci_workflow_hardening():
 
 def test_changelog_release_entry():
     changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    assert "## 1.3.2 (2026-09-10)" in changelog, "CHANGELOG.md missing 1.3.2 release entry"
-    assert "Pfad B" in changelog, "CHANGELOG.md 1.3.2 entry must reference Pfad B"
+    assert "## 1.3.3 (2026-09-12)" in changelog, "CHANGELOG.md missing 1.3.3 release entry"
+    assert "Pfad A" in changelog, "CHANGELOG.md 1.3.3 entry must reference Pfad A"
 
 
 def test_third_party_licenses_inventory():
@@ -333,9 +348,9 @@ def test_llms_txt_structure_and_parity():
     assert llms_file.exists(), "llms.txt must exist"
     text = llms_file.read_text(encoding="utf-8")
 
-    assert "Last-checked: 2026-09-10" in text
-    assert "Version: 1.3.2" in text
-    assert "19 passed contract tests" in text
+    assert "Last-checked: 2026-09-12" in text
+    assert "Version: 1.3.3" in text
+    assert "25 passed contract tests" in text
     assert "THIRD_PARTY_LICENSES.md" in text
     assert "MARKETING-LOG.txt" in text
 
@@ -353,3 +368,71 @@ def test_banner_assets_and_media_integrity():
     readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
     assert "assets/banner.png" in readme_en
     assert "assets/banner.svg" in readme_de
+
+
+def test_ci_timeout_minutes_guardrail():
+    ci_file = REPO_ROOT / ".github" / "workflows" / "ci.yml"
+    assert ci_file.exists(), ".github/workflows/ci.yml must exist"
+    text = ci_file.read_text(encoding="utf-8")
+    assert "timeout-minutes: 15" in text, "CI must define 15-minute runaway timeout guardrail"
+    assert "permissions:\n  contents: read" in text, (
+        "CI must restrict permissions to contents: read"
+    )
+
+
+def test_pep621_llm_ready_and_bug_tracker_urls():
+    pyproject_file = REPO_ROOT / "pyproject.toml"
+    assert pyproject_file.exists(), "pyproject.toml must exist"
+    data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
+    urls = data.get("project", {}).get("urls", {})
+    assert "LLM Ready" in urls, "pyproject.toml must define 'LLM Ready' URL"
+    assert urls["LLM Ready"].endswith("/llms.txt"), "'LLM Ready' URL must point to llms.txt"
+    assert "Bug Tracker" in urls, "pyproject.toml must define 'Bug Tracker' URL"
+    assert urls["Bug Tracker"].endswith("/issues"), "'Bug Tracker' URL must point to issues"
+
+
+def test_ruff_lint_configuration_and_rulesets():
+    pyproject_file = REPO_ROOT / "pyproject.toml"
+    assert pyproject_file.exists(), "pyproject.toml must exist"
+    data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
+    select = data.get("tool", {}).get("ruff", {}).get("lint", {}).get("select", [])
+    expected_rules = ["E", "F", "W", "I", "UP", "B", "SIM", "C4", "RUF"]
+    for r in expected_rules:
+        assert r in select, f"Ruff config missing rule {r}"
+
+
+def test_extended_gitignore_multi_host_and_lock_defense():
+    gitignore_file = REPO_ROOT / ".gitignore"
+    assert gitignore_file.exists(), ".gitignore must exist"
+    text = gitignore_file.read_text(encoding="utf-8")
+    expected_patterns = [
+        "* (kopie)*",
+        "* (copy)*",
+        "*-WORKSTATION*",
+        "*-WORKSTATION-LG*",
+        "*-ASUS-GEI*",
+        "*.orig",
+        "uv.lock",
+        "!package-lock.json",
+        ".coverage.*",
+        ".tox/",
+        ".turbo/",
+        ".nyc_output/",
+        ".mypy_cache/",
+    ]
+    for pattern in expected_patterns:
+        assert pattern in text, f"Missing pattern {pattern} in .gitignore"
+
+
+def test_changelog_recent_pfad_a_entry():
+    changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    assert "## 1.3.3 (2026-09-12)" in changelog, "Missing 1.3.3 entry in CHANGELOG.md"
+    assert "Pfad A (Repository Hygiene, CI Timeout Hardening & Lock Defense)" in changelog
+
+
+def test_marketing_log_recent_hygiene_entry():
+    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
+    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
+    text = mkt_file.read_text(encoding="utf-8")
+    assert "8. TECHNICAL HYGIENE & AUTOMATION READINESS (v1.3.3 -- 2026-09-12) [Pfad A]" in text
+    assert "timeout-minutes: 15" in text

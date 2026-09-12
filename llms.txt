@@ -2,9 +2,9 @@
 
 > Machine-readable project context for LLMs, crawlers, and agentic coding tools.
 
-## Last-checked: 2026-09-10
-## Version: 1.3.2
-## Status: 19 passed contract tests | 100% green | Local-First Zero-Egress
+## Last-checked: 2026-09-12
+## Version: 1.3.3
+## Status: 25 passed contract tests | 100% green | Local-First Zero-Egress
 
 ## Canonical Links
 
@@ -96,7 +96,7 @@ each module's own repository before deploying it.
 ## Validation
 
 ```bash
-pytest -v                               # automated contract & parity tests (19 passed)
+pytest -v                               # automated contract & parity tests (25 passed)
 ruff check .                           # code hygiene & style checks
 bash -n install.sh                     # bash script syntax check
 python -c "import json; json.load(open('agent-ops.manifest.json', encoding='utf-8'))"

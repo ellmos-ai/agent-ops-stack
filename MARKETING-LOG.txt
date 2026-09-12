@@ -135,10 +135,25 @@ without any external network egress, telemetry, or administrative privilege elev
     - tests/test_metadata.py expanded to 19 contract tests (100% green).
 
 --------------------------------------------------------------------------------
-7. VERIFICATION & QUALITY GATES
+7. VERIFICATION & QUALITY GATES (v1.3.2)
 --------------------------------------------------------------------------------
 - Static Analysis: ruff check . passed with 0 errors.
 - Test Suite: pytest tests/test_metadata.py (19 tests passed, 100% green).
 - Shell Script: bash -n install.sh passed syntax check.
 - Manifest: python JSON validation of agent-ops.manifest.json passed.
+
+--------------------------------------------------------------------------------
+8. TECHNICAL HYGIENE & AUTOMATION READINESS (v1.3.3 -- 2026-09-12) [Pfad A]
+--------------------------------------------------------------------------------
+[2026-09-12 07:18 CEST] [GITHUBBOT_ONE_REPO_CLEANER] (Pfad A)
+Maintainer: Lukas Geiger (ellmos-ai / open-bricks)
+Repository: ellmos-ai/agent-ops-stack
+Target Version: 1.3.3
+
+- CI Workflow Hardening: Added `timeout-minutes: 15` runaway guardrail and `permissions: contents: read` to .github/workflows/ci.yml; standardized pytest execution via `python -m pytest -ra -v`.
+- Multi-Host Sync & Canonical Lock Defense: Extended .gitignore with cloud sync conflict patterns (`* (kopie)*`, `* (copy)*`, `*-WORKSTATION*`, `*-WORKSTATION-LG*`, `*-ASUS-GEI*`, `*.orig`), lock defense tokens (`uv.lock`, `!package-lock.json`), and test artifacts (`.coverage.*`, `.tox/`, `.turbo/`, `.nyc_output/`, `.mypy_cache/`).
+- PEP 621 Standard Ecosystem URLs: Registered `"LLM Ready"` and `"Bug Tracker"` in pyproject.toml [project.urls]; expanded Ruff linter configuration with rulesets `UP`, `B`, `SIM`, `C4`, `RUF`.
+- Machine-Readable Context: Refreshed llms.txt with Last-checked `2026-09-12`, version `1.3.3`, and 25 passed contract tests.
+- Bilingual Parity & Shields.io Status: Updated README.md and README_de.md to v1.3.3 and 25 passed contract tests (100% green).
+- Contract Test Suite: Expanded tests/test_metadata.py to 25 automated contract tests (100% green).
 ================================================================================

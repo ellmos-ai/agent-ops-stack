@@ -11,9 +11,13 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -54,4 +58,4 @@ jobs:
 
       - name: Run metadata and contract tests
         run: |
-          pytest -ra -v
+          python -m pytest -ra -v

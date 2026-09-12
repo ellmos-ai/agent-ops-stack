@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.3.3 (2026-09-12)
+
+- **Pfad A (Repository Hygiene, CI Timeout Hardening & Lock Defense)**:
+  - Hardened GitHub Actions CI (`.github/workflows/ci.yml`) with 15-minute execution timeout guardrail (`timeout-minutes: 15`), least-privilege security block (`permissions: contents: read`), and standardized `python -m pytest -ra -v` execution across Ubuntu, Windows, and macOS.
+  - Hardened `.gitignore` against multi-host cloud sync conflicts and canonical lock patterns (`* (kopie)*`, `* (copy)*`, `*-WORKSTATION*`, `*-WORKSTATION-LG*`, `*-ASUS-GEI*`, `*.orig`, `uv.lock`, `!package-lock.json`, `.coverage.*`, `.tox/`, `.turbo/`, `.nyc_output/`, `.mypy_cache/`).
+  - Standardized PEP 621 metadata in `pyproject.toml` by registering `"LLM Ready"` and `"Bug Tracker"` in `[project.urls]` and expanding Ruff linting rule sets to include `UP`, `B`, `SIM`, `C4`, `RUF`.
+  - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-09-12`, version `1.3.3`, and updated contract test suite count (25 tests passed | 100% green).
+  - Synchronized Shields.io status badges across bilingual landing pages (`README.md` and `README_de.md`) to reflect version `1.3.3` and 25 passed contract tests.
+  - Expanded automated contract test suite (`tests/test_metadata.py`) from 19 to 25 tests (100% green) adding assertions for CI timeout guardrail, PEP 621 URLs, Ruff rulesets, extended `.gitignore` patterns, and CHANGELOG Pfad A release entry.
+  - Recorded Pfad A hygiene operations in local `MARKETING-LOG.txt`.
+
 ## 1.3.2 (2026-09-10)
 
 - **Pfad B (Marketing & Design / Discoverability) Upgrade**:

@@ -36,23 +36,36 @@ removed_sections/
 .pytest_cache/
 .ruff_cache/
 .coverage
+.coverage.*
 coverage/
 htmlcov/
 wheelhouse/
 .wheel-smoke/
 dist/
 build/
+.tox/
+.turbo/
+.nyc_output/
+.mypy_cache/
 
-# Multi-host sync conflicts
+# Multi-host sync conflicts & cloud copies
 *-conflict-*
 *.sync-conflict-*
 *.conflict
 *-CONFLIT-*
 *.sync-temp-*
+* (kopie)*
+* (copy)*
+*-WORKSTATION*
+*-WORKSTATION-LG*
+*-ASUS-GEI*
+*.orig
 
-# Multi-agent locks
+# Multi-agent locks & lock defense
 LOCK
 LOCK.*
 *.lock
 LOCK*.txt
 LOCK.permissions.json
+uv.lock
+!package-lock.json
