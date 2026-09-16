@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agent-ops-stack"
-version = "1.3.3"
+version = "1.3.4"
 description = "Local-first coordination layer for multi-agent CLI coding workflows: ticket routing, file locking, decision avatars, shared skills, and MCP control plane"
 readme = "README.md"
 requires-python = ">=3.10"

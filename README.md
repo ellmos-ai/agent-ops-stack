@@ -2,9 +2,9 @@
 
 <p align="center">
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
-  <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.3-blue.svg" alt="Version"></a>
+  <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.4-blue.svg" alt="Version"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg" alt="CI Status"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/tests-25%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-31%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
   <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Composed Modules"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg" alt="Python Versions">
   <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Platforms">
@@ -45,25 +45,34 @@ Machine-readable context for LLMs and agentic tools: [`llms.txt`](llms.txt).
 
 ### Quick Navigation
 
-1. [Architecture & Overview](#1-architecture--overview)
+1. [Overview & Architecture](#1-overview--architecture)
 2. [What is Agent-Ops?](#2-what-is-agent-ops)
-3. [Composed Modules (The 7 Pillars)](#3-composed-modules-the-7-pillars)
-4. [System Architecture Flowchart](#4-system-architecture-flowchart)
-5. [Multi-Agent Operational Lifecycle Sequence](#5-multi-agent-operational-lifecycle-sequence)
-6. [Governance & Runtime Invariants](#6-governance--runtime-invariants)
-7. [How an Agent Uses This Stack](#7-how-an-agent-uses-this-stack)
-8. [Quickstart & Installation](#8-quickstart--installation)
-9. [Manifest Schema Specification](#9-manifest-schema-specification)
-10. [Sibling Ecosystem & Cross-Integration Matrix](#10-sibling-ecosystem--cross-integration-matrix)
-11. [Search & Disambiguation](#11-search--disambiguation)
-12. [Security & Verification](#12-security--verification)
-13. [Third-Party Licenses & Transparency](#13-third-party-licenses--transparency)
-14. [License](#14-license)
-15. [Liability / Haftung](#15-liability--haftung)
+3. [Target Personas & Discoverability](#3-target-personas--discoverability)
+4. [Comparative Matrix vs. Alternatives](#4-comparative-matrix-vs-alternatives)
+5. [Composed Modules (The 7 Pillars)](#5-composed-modules-the-7-pillars)
+6. [System Architecture Flowchart](#6-system-architecture-flowchart)
+7. [Multi-Agent Operational Lifecycle Sequence](#7-multi-agent-operational-lifecycle-sequence)
+8. [Governance & Runtime Invariants](#8-governance--runtime-invariants)
+9. [How an Agent Uses This Stack](#9-how-an-agent-uses-this-stack)
+10. [Quickstart & Installation](#10-quickstart--installation)
+11. [Manifest Schema Specification](#11-manifest-schema-specification)
+12. [Sibling Ecosystem & Cross-Integration Matrix](#12-sibling-ecosystem--cross-integration-matrix)
+13. [Search, SEO & Disambiguation](#13-search-seo--disambiguation)
+14. [Security Model & Threat Mitigation](#14-security-model--threat-mitigation)
+15. [Third-Party Licenses & Transparency](#15-third-party-licenses--transparency)
+16. [Verification & Automated Test Suite](#16-verification--automated-test-suite)
+17. [Security Policy & SLAs](#17-security-policy--slas)
+18. [License & Liability / Haftung](#18-license--liability--haftung)
 
 ---
 
-## 1. Architecture & Overview
+<a id="1-overview--architecture"></a>
+<a id="overview--architecture"></a>
+<a id="1-ueberblick--architektur"></a>
+<a id="ueberblick--architektur"></a>
+<a id="1-architecture--overview"></a>
+<a id="architecture--overview"></a>
+## 1. Overview & Architecture
 
 When multiple autonomous or interactive CLI coding agents operate simultaneously on a
 developer's machine, standard file systems lack native concurrency controls, shared task
@@ -94,6 +103,10 @@ your AI coding agent
 
 ---
 
+<a id="2-what-is-agent-ops"></a>
+<a id="what-is-agent-ops"></a>
+<a id="2-was-ist-agent-ops"></a>
+<a id="was-ist-agent-ops"></a>
 ## 2. What is Agent-Ops?
 
 Any AI coding agent operating on the user's local system repeatedly encounters the same
@@ -110,7 +123,70 @@ yet harmonized through declarative wiring.
 
 ---
 
-## 3. Composed Modules (The 7 Pillars)
+<a id="3-target-personas--discoverability"></a>
+<a id="target-personas--discoverability"></a>
+<a id="3-zielgruppen--auffindbarkeit"></a>
+<a id="zielgruppen--auffindbarkeit"></a>
+## 3. Target Personas & Discoverability
+
+`agent-ops-stack` is purposefully engineered for four key stakeholder personas across autonomous engineering and enterprise toolchains:
+
+- **`[PERSONA-01]` Autonomous AI Agent Framework & Multi-Agent Swarm Engineers**:
+  Engineers deploying multiple autonomous CLI coding agents (Claude Code, OpenAI Codex, Google Antigravity / Gemini, Moonshot Kimi) on shared local workspaces who require bulletproof, fail-closed file locking (`lock-master`) and structured ticket routing (`ticket-master`) to eliminate race conditions and conflicting write edits.
+- **`[PERSONA-02]` Multi-Host & Edge Infrastructure Systems Engineers**:
+  Developers working interchangeably across multiple workstations, laptops, and remote servers who require slot-gated synchronization (`sync-master`) to coordinate project files safely without Git index corruption, split-brain merge collisions, or cloud storage lockouts.
+- **`[PERSONA-03]` Solo Developers & Tool Builders**:
+  Individual programmers needing a lightweight, non-monolithic harness that manages ticket backlogs, captures task requirements, and provides an empirical decision avatar (`build-your-users-mind`) that answers ambiguous architectural questions when the human operator is away.
+- **`[PERSONA-04]` Enterprise Tooling, Safety & Governance Compliance Officers**:
+  Compliance leaders mandating 100% offline, local-first operations with zero external network egress, unprivileged user-mode execution (`RunAsInvoker`), auditable third-party license inventories, and formal 48h vulnerability response SLAs.
+
+### High-Intent Search Queries & Discovery Keywords
+
+| Query Type | English Intent Target | German Intent Target |
+|:---|:---|:---|
+| **Primary Architectural** | `local-first multi-agent coordination stack` | `lokaler Multi-Agenten Koordinations-Stack` |
+| **Concurrency & Locks** | `CLI coding agent file locking and ticket routing` | `Dateisperren und Ticket-Routing für KI Coding Agenten` |
+| **Agent Interoperability** | `Claude Code Codex Gemini Kimi local coordination` | `lokale Koordination Claude Codex Antigravity Kimi` |
+| **Control Plane & MCP** | `MCP control plane for local AI agents` | `MCP Steuerebene für lokale Entwickler-Agenten` |
+| **Zero Egress & Safety** | `offline zero-egress agent harness` | `Zero-Egress Multi-Agenten Kollisionsschutz` |
+| **Manifest Composition** | `declarative agent ops manifest schema` | `deklaratives Agent-Ops Manifest Schema` |
+
+---
+
+<a id="4-comparative-matrix-vs-alternatives"></a>
+<a id="comparative-matrix-vs-alternatives"></a>
+<a id="4-vergleichsmatrix-gegenueber-alternativen"></a>
+<a id="vergleichsmatrix-gegenueber-alternativen"></a>
+## 4. Comparative Matrix vs. Alternatives
+
+The table below contrasts `agent-ops-stack` against four common industry alternatives across 10 core architectural and governance dimensions:
+
+1. **Cloud SaaS Observability**: Hosted monitoring and telemetry platforms (e.g. AgentOps.ai, LangSmith, Helicone).
+2. **Monolithic Frameworks**: Heavy multi-agent execution runtimes (e.g. AutoGen Studio, CrewAI Enterprise, LangGraph Cloud).
+3. **Ad-Hoc Scripts & Worktrees**: Manual Git worktrees, raw bash wrappers, and uncoordinated local shell scripts.
+4. **Traditional Message Brokers**: Heavy server daemons (e.g. RabbitMQ, Redis Pub/Sub, Celery).
+
+| Dimension & Invariant | agent-ops-stack | Cloud SaaS Observability | Monolithic Frameworks | Ad-Hoc Scripts / Worktrees | Traditional Brokers |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| **1. 100% Local-First & Zero Egress** (`INV-LOCAL-01`) | **Yes (Strictly Local)** | No (Cloud Egress Required) | Partial (Often Phone-Home) | Yes (Local Only) | Partial (Network Port Needed) |
+| **2. Unprivileged User-Mode** (`INV-USER-02`) | **Yes (`RunAsInvoker`)** | Yes (User-Level API) | Often Needs Daemon / Docker | Yes (Standard User) | No (Daemon / Root Ports) |
+| **3. Fail-Closed File Lock Integrity** (`INV-LOCK-03`) | **Yes (`lock-master`)** | No (Observability Only) | Proprietary In-Memory | No (Blind Git Overwrites) | No (Requires External Broker) |
+| **4. Structured Ticket & Bug Routing** (`INV-ROUT-04`) | **Yes (`ticket-master`)** | No (Telemetry Traces Only) | Ad-Hoc Task Memory | No (Untracked Modifs) | Message Passing Only |
+| **5. Decision-Avatar Theory-of-Mind** (`INV-AVAT-05`) | **Yes (`build-your-users-mind`)**| No (Telemetry Only) | No (Stateless System Prompts) | No (Manual Human Input) | No (Payload Agnostic) |
+| **6. Declarative Manifest Blueprint** (`INV-MANI-06`) | **Yes (`ellmos-stack-manifest-v1`)**| Proprietary Cloud Schema | Complex Python DSL Config | None (Hardcoded Paths) | Complex Broker Config |
+| **7. Immutable Release-Tag Pinning** (`INV-PIN-07`) | **Yes (Release Tags)** | SaaS Controlled Updates | Fast-Moving Package Drift | No (Unversioned Scripts) | Package Manager Driven |
+| **8. Sandboxed Installer Boundary** (`INV-SAND-08`) | **Yes (Isolated `./modules/`)**| Remote Agent Binaries | System-Wide pip / npm Bloat | Ad-Hoc Repository Sprawl | System Service Daemons |
+| **9. Cross-Device Slot-Gated Sync** (`INV-SYNC-09`) | **Yes (`sync-master`)** | Cloud Vendor Lock-In | Single-Host Only | High Merge / Cloud Race Risk | Cluster Infrastructure Required |
+| **10. 48h Security & Triage SLA** (`INV-SLA-10`) | **Yes (Formal 48h/5d SLA)** | Standard SaaS Terms | Best-Effort Community | No SLA / Unmaintained | Upstream Vendor SLAs |
+
+---
+
+<a id="5-composed-modules-the-7-pillars"></a>
+<a id="composed-modules-the-7-pillars"></a>
+<a id="5-komponierte-module-die-7-saeulen"></a>
+<a id="komponierte-module-die-7-saeulen"></a>
+<a id="3-composed-modules-the-7-pillars"></a>
+## 5. Composed Modules (The 7 Pillars)
 
 | Module | Role | Provides | Consumes | Repository |
 |:---|:---|:---|:---|:---|
@@ -124,7 +200,12 @@ yet harmonized through declarative wiring.
 
 ---
 
-## 4. System Architecture Flowchart
+<a id="6-system-architecture-flowchart"></a>
+<a id="system-architecture-flowchart"></a>
+<a id="6-systemarchitektur-flussdiagramm"></a>
+<a id="systemarchitektur-flussdiagramm"></a>
+<a id="4-system-architecture-flowchart"></a>
+## 6. System Architecture Flowchart
 
 The following interactive Mermaid flowchart illustrates how the seven modules organize
 into functional operational layers around the active coding agents:
@@ -170,7 +251,12 @@ flowchart TD
 
 ---
 
-## 5. Multi-Agent Operational Lifecycle Sequence
+<a id="7-multi-agent-operational-lifecycle-sequence"></a>
+<a id="multi-agent-operational-lifecycle-sequence"></a>
+<a id="7-multi-agenten-lebenszyklus-sequenz"></a>
+<a id="multi-agenten-lebenszyklus-sequenz"></a>
+<a id="5-multi-agent-operational-lifecycle-sequence"></a>
+## 7. Multi-Agent Operational Lifecycle Sequence
 
 The sequence below depicts the end-to-end execution flow of an AI coding agent performing
 a task within the `agent-ops-stack` operational harness:
@@ -207,7 +293,12 @@ sequenceDiagram
 
 ---
 
-## 6. Governance & Runtime Invariants
+<a id="8-governance--runtime-invariants"></a>
+<a id="governance--runtime-invariants"></a>
+<a id="8-governance--laufzeit-invarianten"></a>
+<a id="governance--laufzeit-invarianten"></a>
+<a id="6-governance--runtime-invariants"></a>
+## 8. Governance & Runtime Invariants
 
 The `agent-ops-stack` architecture operates under ten immutable governance and safety
 invariants to protect project trees from concurrent corruption and unbounded actions:
@@ -227,7 +318,12 @@ invariants to protect project trees from concurrent corruption and unbounded act
 
 ---
 
-## 7. How an Agent Uses This Stack
+<a id="9-how-an-agent-uses-this-stack"></a>
+<a id="how-an-agent-uses-this-stack"></a>
+<a id="9-wie-ein-agent-diesen-stack-nutzt"></a>
+<a id="wie-ein-agent-diesen-stack-nutzt"></a>
+<a id="7-how-an-agent-uses-this-stack"></a>
+## 9. How an Agent Uses This Stack
 
 When entering an unfamiliar workspace or starting an operational session, an agent follows
 this structured procedure:
@@ -244,7 +340,12 @@ this structured procedure:
 
 ---
 
-## 8. Quickstart & Installation
+<a id="10-quickstart--installation"></a>
+<a id="quickstart--installation"></a>
+<a id="10-schnellstart--installation"></a>
+<a id="schnellstart--installation"></a>
+<a id="8-quickstart--installation"></a>
+## 10. Quickstart & Installation
 
 Clone `agent-ops-stack` and execute the installer script to inspect or set up local modules:
 
@@ -266,7 +367,12 @@ capabilities. It makes no destructive system changes and sets no environment var
 
 ---
 
-## 9. Manifest Schema Specification
+<a id="11-manifest-schema-specification"></a>
+<a id="manifest-schema-specification"></a>
+<a id="11-manifest-schema-spezifikation"></a>
+<a id="manifest-schema-spezifikation"></a>
+<a id="9-manifest-schema-specification"></a>
+## 11. Manifest Schema Specification
 
 [`agent-ops.manifest.json`](agent-ops.manifest.json) implements the `ellmos-stack-manifest-v1`
 specification:
@@ -295,7 +401,12 @@ specification:
 
 ---
 
-## 10. Sibling Ecosystem & Cross-Integration Matrix
+<a id="12-sibling-ecosystem--cross-integration-matrix"></a>
+<a id="sibling-ecosystem--cross-integration-matrix"></a>
+<a id="12-geschwister-oekosystem--integrationsmatrix"></a>
+<a id="geschwister-oekosystem--integrationsmatrix"></a>
+<a id="10-sibling-ecosystem--cross-integration-matrix"></a>
+## 12. Sibling Ecosystem & Cross-Integration Matrix
 
 `agent-ops-stack` serves as the central coordination hub connecting tooling across the
 `ellmos-ai`, `dev-bricks`, and `open-bricks` ecosystems:
@@ -317,21 +428,68 @@ specification:
 
 ---
 
-## 11. Search & Disambiguation
+<a id="13-search-seo--disambiguation"></a>
+<a id="search-seo--disambiguation"></a>
+<a id="13-suche-seo--begriffsklaerung"></a>
+<a id="suche-seo--begriffsklaerung"></a>
+<a id="11-search--disambiguation"></a>
+## 13. Search, SEO & Disambiguation
 
 - **Canonical Identity**: `ellmos-ai/agent-ops-stack` is a declarative, local-first multi-agent coordination stack composing file locking, ticket routing, user-decision avatars, skills, and an MCP control plane.
 - **Disambiguation**: Unrelated to cloud SaaS observability platforms (such as AgentOps.ai), generic AgentStack scaffolding, or remote LLMOps telemetry servers.
-- **Keywords & Search Anchors**: `ellmos-ai agent-ops-stack`, `local CLI agent coordination stack`, `MCP control plane for coding agents`, `manifest-driven agent ops stack`, `lock-master ticket-master sync-master stack`.
+- **Keywords & Search Anchors**: `ellmos-ai agent-ops-stack`, `local CLI agent coordination stack`, `MCP control plane for coding agents`, `manifest-driven agent ops stack`, `lock-master ticket-master sync-master stack`, `zero-egress multi-agent harness`, `autonomous agent collision defense`.
 
 ---
 
-## 12. Security & Verification
+<a id="14-security-model--threat-mitigation"></a>
+<a id="security-model--threat-mitigation"></a>
+<a id="14-sicherheitsmodell--bedrohungsabwehr"></a>
+<a id="sicherheitsmodell--bedrohungsabwehr"></a>
+## 14. Security Model & Threat Mitigation
+
+`agent-ops-stack` operates under a defense-in-depth security model specifically tailored for autonomous coding environments:
+
+- **Strict Local-First Boundary (`INV-LOCAL-01`)**: All operations, manifests, and coordination artifacts exist purely on the local file system. Zero network sockets are opened, zero background telemetry packets are transmitted, and zero remote credentials are used.
+- **Unprivileged RunAsInvoker Execution (`INV-USER-02`)**: All scripts (`install.sh`, tests, verification routines) execute strictly within user privileges without administrative or root elevation prompts.
+- **Fail-Closed Locking Against Concurrency Corruption (`INV-LOCK-03`)**: Active locks created by `lock-master` immediately halt write attempts, preventing multiple agents from destroying source code via uncoordinated concurrent writes.
+- **Isolated Module Sandboxing (`INV-SAND-08`)**: The declarative installer clones sibling repositories strictly into the local, gitignored `./modules/` directory, preventing pollution of system-wide paths, global python environments, or global agent configs.
+- **Fast-Response Vulnerability Triage (`INV-SLA-10`)**: We commit to an initial acknowledgment within 48 hours and formal security triage within 5 business days for any reported coordination or security defects.
+
+---
+
+<a id="15-third-party-licenses--transparency"></a>
+<a id="third-party-licenses--transparency"></a>
+<a id="15-drittanbieter-lizenzen--transparenz"></a>
+<a id="drittanbieter-lizenzen--transparenz"></a>
+<a id="13-third-party-licenses--transparency"></a>
+## 15. Third-Party Licenses & Transparency
+
+`agent-ops-stack` maintains an exhaustive, auditable inventory of all runtime, development, and tooling dependencies in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).
+
+| Category | Component / Dependency | License | Policy / Boundary |
+|:---|:---|:---|:---|
+| **Runtime & Core** | Python standard library (`json`, `re`, `pathlib`, `tomllib`, `typing`) | PSFL-2.0 | 100% Offline, Zero-Egress |
+| **Packaging & Build** | `setuptools >= 61.0` | MIT | Local packaging build-backend |
+| **Testing & Contracts** | `pytest >= 7.0.0` | MIT | Automated contract test harness |
+| **Linting & Hygiene** | `ruff >= 0.1.0` | MIT / Apache-2.0 | Fast static analysis and formatting |
+| **Shell Automation** | POSIX Shell (`install.sh`) / `git` / `jq` | System / GPL / MIT | Non-elevated repository cloning |
+
+All dependencies are strictly permissive and comply with the project's zero-egress, local-first operational invariants.
+
+---
+
+<a id="16-verification--automated-test-suite"></a>
+<a id="verification--automated-test-suite"></a>
+<a id="16-verifikation--automatisierte-testsuite"></a>
+<a id="verifikation--automatisierte-testsuite"></a>
+<a id="12-security--verification"></a>
+## 16. Verification & Automated Test Suite
 
 `agent-ops-stack` enforces strict integrity verification through static linting and
 automated parity test suites:
 
 ```bash
-# 1. Run automated metadata, schema, and parity contract tests
+# 1. Run automated metadata, schema, and parity contract tests (31 tests passed | 100% green)
 pytest -v
 
 # 2. Validate linter standards
@@ -348,28 +506,27 @@ For complete vulnerability reporting guidelines and response timelines, consult 
 
 ---
 
-## 13. Third-Party Licenses & Transparency
+<a id="17-security-policy--slas"></a>
+<a id="security-policy--slas"></a>
+<a id="17-sicherheitsrichtlinie--slas"></a>
+<a id="sicherheitsrichtlinie--slas"></a>
+## 17. Security Policy & SLAs
 
-`agent-ops-stack` maintains an exhaustive, auditable inventory of all runtime, development, and tooling dependencies in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).
-
-| Category | Component / Dependency | License | Policy / Boundary |
-|:---|:---|:---|:---|
-| **Runtime & Core** | Python standard library (`json`, `re`, `pathlib`, `tomllib`, `typing`) | PSFL-2.0 | 100% Offline, Zero-Egress |
-| **Packaging & Build** | `setuptools >= 61.0` | MIT | Local packaging build-backend |
-| **Testing & Contracts** | `pytest >= 7.0.0` | MIT | Automated contract test harness |
-| **Linting & Hygiene** | `ruff >= 0.1.0` | MIT / Apache-2.0 | Fast static analysis and formatting |
-| **Shell Automation** | POSIX Shell (`install.sh`) / `git` / `jq` | System / GPL / MIT | Non-elevated repository cloning |
-
-All dependencies are strictly permissive and comply with the project's zero-egress, local-first operational invariants.
+For vulnerability disclosure protocols, coordinated security reports, and response SLAs, see [`SECURITY.md`](SECURITY.md):
+- **Acknowledgment SLA**: Within 48 hours.
+- **Triage SLA**: Within 5 business days.
+- **Security Advisories**: Coordinated privately via [GitHub Security Advisories](https://github.com/ellmos-ai/agent-ops-stack/security/advisories).
 
 ---
 
-## 14. License
+<a id="18-license--liability--haftung"></a>
+<a id="license--liability--haftung"></a>
+<a id="18-lizenz--haftung--liability"></a>
+<a id="lizenz--haftung--liability"></a>
+<a id="14-license"></a>
+<a id="15-liability--haftung"></a>
+## 18. License & Liability / Haftung
 
 This repository is distributed under the permissive **MIT License**. See [`LICENSE`](LICENSE) for details. Each composed module remains under its respective open-source license.
-
----
-
-## 15. Liability / Haftung
 
 Dieses Projekt ist eine **unentgeltliche Open-Source-Schenkung** im Sinne der §§ 516 ff. BGB. Die Haftung des Urhebers ist gemäß **§ 521 BGB** auf **Vorsatz und grobe Fahrlässigkeit** beschränkt. Die komponierten Module unterliegen jeweils ihrer eigenen Lizenz (siehe verlinkte Repositories).

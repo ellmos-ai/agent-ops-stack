@@ -1,8 +1,9 @@
 # Third-Party Licenses & Transparency Notice
 
-> **Project:** `ellmos-ai/agent-ops-stack`  
-> **Audited:** 2026-09-10  
-> **Repository License:** [MIT License](LICENSE)  
+> **Project:** `ellmos-ai/agent-ops-stack`<br>
+> **Version:** `1.3.4`<br>
+> **Audited:** 2026-09-16<br>
+> **Repository License:** [MIT License](LICENSE)<br>
 > **Architecture & Privacy:** 100% Local-First, Zero-Egress by default, Unprivileged User-Mode (`RunAsInvoker`)
 
 ---
@@ -13,12 +14,20 @@
 
 All direct, optional, and development dependencies utilized in `agent-ops-stack` are distributed under strictly **permissive open-source licenses** (MIT, Apache-2.0, PSFL). There are **zero copyleft, GPL, or AGPL dependencies** in the core composition or packaging harness, ensuring maximum flexibility for enterprise engineering teams, multi-agent frameworks, and autonomous developer workflows.
 
-Furthermore, `agent-ops-stack` strictly guarantees:
-1. **100% Local-First & Zero Egress:** All manifest parsing, installer execution, and agent coordination operations occur strictly on the local machine. Zero external network egress, telemetry, or remote tracking.
-2. **Unprivileged User-Mode (`RunAsInvoker`):** Operates entirely without administrative elevation or root permissions.
-3. **Non-Destructive Declarative Composition:** Cloned modules are isolated within `./modules/` (gitignored). The stack never mutates system directories, global environment paths, or agent credentials.
-4. **Deterministic Pinning:** Manifest components pin immutable release tags to guarantee reproducible behavior and prevent silent upstream drift.
-5. **Fail-Closed Locking & Safety SLA:** Integrates with `lock-master` for exclusive write boundaries and commits to a 48-hour response SLA for security disclosures.
+Furthermore, `agent-ops-stack` strictly guarantees compliance across ten canonical governance and runtime invariants:
+
+| Invariant ID | Name | Architectural Guarantee | Compliance Status |
+|:---:|:---|:---|:---:|
+| **INV-LOCAL-01** | 100% Local-First & Zero Egress | Manifest parsing and coordination run 100% offline; zero telemetry. | :white_check_mark: Verified |
+| **INV-USER-02** | Unprivileged User-Mode | Runs under standard user rights (`RunAsInvoker`); zero root/admin elevation. | :white_check_mark: Verified |
+| **INV-LOCK-03** | Fail-Closed Lock Integrity | Mutating operations halt immediately upon active `LOCK*.txt` files. | :white_check_mark: Verified |
+| **INV-ROUT-04** | Structured Ticket Routing | Problem reports and tasks are dispatched through `ticket-master`. | :white_check_mark: Verified |
+| **INV-AVAT-05** | Empirical Decision-Avatar | Operator absence resolves ambiguity via `build-your-users-mind`. | :white_check_mark: Verified |
+| **INV-MANI-06** | Deterministic Manifest Blueprint | Manifest schema `ellmos-stack-manifest-v1` governs all wiring. | :white_check_mark: Verified |
+| **INV-PIN-07** | Immutable Release-Tag Pinning | Composed sources reference immutable tags; zero unpinned branch drift. | :white_check_mark: Verified |
+| **INV-SAND-08** | Sandboxed Installer Boundary | `install.sh` clones exclusively into gitignored `./modules/`. | :white_check_mark: Verified |
+| **INV-SYNC-09** | Cross-Device Slot-Gated Sync | Multi-host file sync relies on dedicated `sync-master` host slots. | :white_check_mark: Verified |
+| **INV-SLA-10** | 48h Security & Triage SLA | Security disclosures acknowledged within 48h; triage within 5 days. | :white_check_mark: Verified |
 
 ---
 

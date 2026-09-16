@@ -156,4 +156,36 @@ Target Version: 1.3.3
 - Machine-Readable Context: Refreshed llms.txt with Last-checked `2026-09-12`, version `1.3.3`, and 25 passed contract tests.
 - Bilingual Parity & Shields.io Status: Updated README.md and README_de.md to v1.3.3 and 25 passed contract tests (100% green).
 - Contract Test Suite: Expanded tests/test_metadata.py to 25 automated contract tests (100% green).
+
+--------------------------------------------------------------------------------
+9. DISCOVERABILITY, 18-POINT NAVIGATION & COMPARATIVE MATRIX AUDIT (v1.3.4 -- 2026-09-16) [Pfad B]
+--------------------------------------------------------------------------------
+[2026-09-16 14:50 CEST] [GITHUBBOT_ONE_REPO_MARKETING_AND_DESIGN] (Pfad B)
+Maintainer: Lukas Geiger (ellmos-ai / open-bricks)
+Repository: ellmos-ai/agent-ops-stack
+Branch: main
+Target Version: 1.3.4
+Umbrella Collective: open-bricks
+
+- 18-Point Quick Navigation & Dual-Anchor Reciprocal Parity:
+  * Upgraded navigation from 15 to 18 standardized points across README.md and README_de.md.
+  * Injected dual HTML anchors (`<a id="..."></a>`) supporting English anchors, German anchors, and legacy anchors across both files for 100% reciprocal cross-linking parity.
+- Dedicated Target Personas & Discoverability (Section 3):
+  * [PERSONA-01]: Autonomous AI Agent Framework & Multi-Agent Swarm Engineers
+  * [PERSONA-02]: Multi-Host & Edge Infrastructure Systems Engineers
+  * [PERSONA-03]: Solo Developers & Tool Builders
+  * [PERSONA-04]: Enterprise Tooling, Safety & Governance Compliance Officers
+  * High-intent bilingual search queries in English and German.
+- 10-Dimension Comparative Matrix vs. 4 Alternatives (Section 4):
+  * Benchmarked against Cloud SaaS Observability (AgentOps.ai, LangSmith), Monolithic Frameworks (CrewAI, LangGraph), Ad-Hoc Scripts / Worktrees, and Traditional Brokers (RabbitMQ, Redis).
+  * 1-to-1 mapping across 10 invariants: INV-LOCAL-01 (Zero Egress), INV-USER-02 (RunAsInvoker), INV-LOCK-03 (Lock Integrity), INV-ROUT-04 (Ticket Routing), INV-AVAT-05 (Decision Avatar), INV-MANI-06 (Manifest Blueprint), INV-PIN-07 (Immutable Pinning), INV-SAND-08 (Sandboxed Isolation), INV-SYNC-09 (Slot-Gated Sync), INV-SLA-10 (48h Security SLA).
+- Re-Audited Third-Party Licenses Inventory (THIRD_PARTY_LICENSES.md):
+  * Updated audit date to 2026-09-16 and version to 1.3.4.
+  * Added 10-invariant compliance confirmation table, reaffirmed zero copyleft and unprivileged user-mode RunAsInvoker.
+- Synchronized Shields.io Status Badges:
+  * Updated badges to version 1.3.4 and 31 passed contract tests (100% green).
+- Refreshed Machine-Readable LLM Context (llms.txt):
+  * Verification timestamp 2026-09-16, version 1.3.4, and updated test suite count.
+- Expanded Contract Test Suite (tests/test_metadata.py):
+  * Expanded automated test suite to 31 tests (100% green) validating 18-point quick navigation, reciprocal anchors, personas, 10-dimension comparative matrix, license inventory recency, and v1.3.4 parity.
 ================================================================================

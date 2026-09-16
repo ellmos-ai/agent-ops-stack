@@ -75,9 +75,9 @@ def test_readme_and_readme_de_exist_and_bilingual_parity():
 def test_readme_badges_present():
     expected_badges = [
         "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
-        "img.shields.io/badge/version-1.3.3-blue.svg",
+        "img.shields.io/badge/version-1.3.4-blue.svg",
         "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-25%20passed%20%7C%20100%25-brightgreen.svg",
+        "img.shields.io/badge/tests-31%20passed%20%7C%20100%25-brightgreen.svg",
         "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
         "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
         "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
@@ -97,27 +97,58 @@ def test_readme_badges_present():
             assert badge in text, f"Missing badge {badge} in {filename}"
 
 
-def test_quick_navigation_15_points():
+def test_quick_navigation_18_points_and_reciprocal_anchor_parity():
     readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
 
-    # Match numbered markdown list items 1. through 15.
+    # Match numbered markdown list items 1. through 18.
     en_nav_items = re.findall(r"^\d+\.\s+\[.+?\]\(#.+?\)", readme_en, flags=re.MULTILINE)
     de_nav_items = re.findall(r"^\d+\.\s+\[.+?\]\(#.+?\)", readme_de, flags=re.MULTILINE)
 
-    assert len(en_nav_items) == 15, (
-        f"README.md must have 15 quick nav items, found {len(en_nav_items)}"
+    assert len(en_nav_items) == 18, (
+        f"README.md must have 18 quick nav items, found {len(en_nav_items)}"
     )
-    assert len(de_nav_items) == 15, (
-        f"README_de.md must have 15 quick nav items, found {len(de_nav_items)}"
+    assert len(de_nav_items) == 18, (
+        f"README_de.md must have 18 quick nav items, found {len(de_nav_items)}"
     )
 
-    # Check that major target sections 1 through 15 exist in both
-    for section_num in range(1, 16):
+    # Check that major target sections 1 through 18 exist in both
+    for section_num in range(1, 19):
         assert f"## {section_num}. " in readme_en, f"Missing section ## {section_num}. in README.md"
         assert f"## {section_num}. " in readme_de, (
             f"Missing section ## {section_num}. in README_de.md"
         )
+
+    # Check reciprocal anchor parity between English and German READMEs
+    reciprocal_anchor_pairs = [
+        ("1-overview--architecture", "1-ueberblick--architektur"),
+        ("2-what-is-agent-ops", "2-was-ist-agent-ops"),
+        ("3-target-personas--discoverability", "3-zielgruppen--auffindbarkeit"),
+        ("4-comparative-matrix-vs-alternatives", "4-vergleichsmatrix-gegenueber-alternativen"),
+        ("5-composed-modules-the-7-pillars", "5-komponierte-module-die-7-saeulen"),
+        ("6-system-architecture-flowchart", "6-systemarchitektur-flussdiagramm"),
+        ("7-multi-agent-operational-lifecycle-sequence", "7-multi-agenten-lebenszyklus-sequenz"),
+        ("8-governance--runtime-invariants", "8-governance--laufzeit-invarianten"),
+        ("9-how-an-agent-uses-this-stack", "9-wie-ein-agent-diesen-stack-nutzt"),
+        ("10-quickstart--installation", "10-schnellstart--installation"),
+        ("11-manifest-schema-specification", "11-manifest-schema-spezifikation"),
+        (
+            "12-sibling-ecosystem--cross-integration-matrix",
+            "12-geschwister-oekosystem--integrationsmatrix",
+        ),
+        ("13-search-seo--disambiguation", "13-suche-seo--begriffsklaerung"),
+        ("14-security-model--threat-mitigation", "14-sicherheitsmodell--bedrohungsabwehr"),
+        ("15-third-party-licenses--transparency", "15-drittanbieter-lizenzen--transparenz"),
+        ("16-verification--automated-test-suite", "16-verifikation--automatisierte-testsuite"),
+        ("17-security-policy--slas", "17-sicherheitsrichtlinie--slas"),
+        ("18-license--liability--haftung", "18-lizenz--haftung--liability"),
+    ]
+    for en_anchor, de_anchor in reciprocal_anchor_pairs:
+        # Check that both anchors exist in both README files
+        assert f'id="{en_anchor}"' in readme_en, f"Missing en anchor {en_anchor} in README.md"
+        assert f'id="{de_anchor}"' in readme_en, f"Missing de anchor {de_anchor} in README.md"
+        assert f'id="{en_anchor}"' in readme_de, f"Missing en anchor {en_anchor} in README_de.md"
+        assert f'id="{de_anchor}"' in readme_de, f"Missing de anchor {de_anchor} in README_de.md"
 
 
 def test_mermaid_diagrams_syntax_and_subgraphs():
@@ -197,7 +228,7 @@ def test_pyproject_pep621_metadata_and_urls():
 
     project = data.get("project", {})
     assert project.get("name") == "agent-ops-stack"
-    assert project.get("version") == "1.3.3"
+    assert project.get("version") == "1.3.4"
     assert "classifiers" in project
     assert any("Python :: 3.10" in c for c in project["classifiers"])
     assert any("Python :: 3.11" in c for c in project["classifiers"])
@@ -229,7 +260,7 @@ def test_pyproject_pep621_metadata_and_urls():
 def test_version_parity_across_artifacts():
     pyproject = tomllib.loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     version = pyproject["project"]["version"]
-    assert version == "1.3.3"
+    assert version == "1.3.4"
 
     changelog_text = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     assert f"## {version}" in changelog_text
@@ -348,9 +379,9 @@ def test_llms_txt_structure_and_parity():
     assert llms_file.exists(), "llms.txt must exist"
     text = llms_file.read_text(encoding="utf-8")
 
-    assert "Last-checked: 2026-09-12" in text
-    assert "Version: 1.3.3" in text
-    assert "25 passed contract tests" in text
+    assert "Last-checked: 2026-09-16" in text
+    assert "Version: 1.3.4" in text
+    assert "31 passed contract tests" in text
     assert "THIRD_PARTY_LICENSES.md" in text
     assert "MARKETING-LOG.txt" in text
 
@@ -436,3 +467,87 @@ def test_marketing_log_recent_hygiene_entry():
     text = mkt_file.read_text(encoding="utf-8")
     assert "8. TECHNICAL HYGIENE & AUTOMATION READINESS (v1.3.3 -- 2026-09-12) [Pfad A]" in text
     assert "timeout-minutes: 15" in text
+
+
+def test_target_personas_four_profiles():
+    personas = [
+        "[PERSONA-01]",
+        "[PERSONA-02]",
+        "[PERSONA-03]",
+        "[PERSONA-04]",
+    ]
+    for filename in ["README.md", "README_de.md"]:
+        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
+        for p in personas:
+            assert p in text, f"Missing persona {p} in {filename}"
+
+
+def test_comparative_matrix_ten_dimensions_and_invariants():
+    invariants = [
+        "INV-LOCAL-01",
+        "INV-USER-02",
+        "INV-LOCK-03",
+        "INV-ROUT-04",
+        "INV-AVAT-05",
+        "INV-MANI-06",
+        "INV-PIN-07",
+        "INV-SAND-08",
+        "INV-SYNC-09",
+        "INV-SLA-10",
+    ]
+    for filename in ["README.md", "README_de.md"]:
+        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
+        for inv in invariants:
+            assert inv in text, f"Missing invariant {inv} in {filename} comparative matrix"
+
+
+def test_security_model_and_sla_sections():
+    for filename in ["README.md", "README_de.md"]:
+        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
+        assert "## 14. " in text, f"Missing section 14 in {filename}"
+        assert "## 17. " in text, f"Missing section 17 in {filename}"
+        assert "48h" in text or "48 hours" in text or "48 Stunden" in text, (
+            f"Missing 48h SLA in {filename}"
+        )
+        assert "5d" in text or "5 business days" in text or "5 Werktagen" in text, (
+            f"Missing 5-day triage SLA in {filename}"
+        )
+
+
+def test_changelog_recent_pfad_b_entry():
+    changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    assert "## 1.3.4 (2026-09-16)" in changelog, "Missing 1.3.4 entry in CHANGELOG.md"
+    assert "Pfad B" in changelog, "CHANGELOG.md 1.3.4 entry must reference Pfad B"
+
+
+def test_marketing_log_recent_pfad_b_entry():
+    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
+    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
+    text = mkt_file.read_text(encoding="utf-8")
+    assert (
+        "9. DISCOVERABILITY, 18-POINT NAVIGATION & COMPARATIVE MATRIX AUDIT "
+        "(v1.3.4 -- 2026-09-16) [Pfad B]"
+    ) in text
+    assert "Target Personas & Discoverability" in text
+
+
+def test_third_party_licenses_audit_2026_09_16():
+    lic_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
+    assert lic_file.exists(), "THIRD_PARTY_LICENSES.md must exist"
+    text = lic_file.read_text(encoding="utf-8")
+    assert "2026-09-16" in text, "Missing 2026-09-16 audit date in THIRD_PARTY_LICENSES.md"
+    assert "1.3.4" in text, "Missing 1.3.4 version in THIRD_PARTY_LICENSES.md"
+    expected_invariants = [
+        "INV-LOCAL-01",
+        "INV-USER-02",
+        "INV-LOCK-03",
+        "INV-ROUT-04",
+        "INV-AVAT-05",
+        "INV-MANI-06",
+        "INV-PIN-07",
+        "INV-SAND-08",
+        "INV-SYNC-09",
+        "INV-SLA-10",
+    ]
+    for inv in expected_invariants:
+        assert inv in text, f"Missing invariant {inv} in THIRD_PARTY_LICENSES.md"

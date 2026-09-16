@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.3.4 (2026-09-16)
+
+- **Pfad B (Marketing & Design / Discoverability Upgrade)**:
+  - Standardized bilingual documentation architecture across `README.md` and `README_de.md` to 18-Point Quick Navigation with 100% reciprocal anchor parity, supporting both English and German anchor tags alongside legacy navigation anchors.
+  - Added dedicated Section 3 "Target Personas & Discoverability" defining 4 target personas (`[PERSONA-01]` Autonomous AI Agent Framework & Multi-Agent Swarm Engineers, `[PERSONA-02]` Multi-Host & Edge Infrastructure Systems Engineers, `[PERSONA-03]` Solo Developers & Tool Builders, `[PERSONA-04]` Enterprise Tooling, Safety & Governance Compliance Officers) and bilingual high-intent search queries.
+  - Added dedicated Section 4 "Comparative Matrix vs. Alternatives" evaluating `agent-ops-stack` against 4 alternatives (Cloud SaaS Agent Hubs / Telemetry SaaS, Monolithic Agent Orchestration Frameworks, Ad-Hoc Shell Scripts & Uncoordinated Worktrees, Traditional Message Queues / Heavy Brokers) across 10 architectural and governance dimensions mapped to `INV-LOCAL-01` through `INV-SLA-10`.
+  - Re-audited `THIRD_PARTY_LICENSES.md` (Stand 2026-09-16) confirming all 10 governance & runtime invariants, zero copyleft, and unprivileged user-mode `RunAsInvoker`.
+  - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-09-16`, version `1.3.4`, and updated contract test suite count (31 tests passed | 100% green).
+  - Synchronized Shields.io status badges across bilingual landing pages to reflect version `1.3.4` and 31 passed contract tests (100% green).
+  - Appended Section 9 to `MARKETING-LOG.txt` documenting the Pfad B Discoverability, 18-Point Navigation & Comparative Matrix Audit Record (Stand 2026-09-16).
+  - Expanded automated contract test suite (`tests/test_metadata.py`) from 25 to 31 tests (100% green) covering 18-point navigation, reciprocal anchor parity, personas, 10-dimension comparative matrix, license inventory, invariants, and version parity.
+
 ## 1.3.3 (2026-09-12)
 
 - **Pfad A (Repository Hygiene, CI Timeout Hardening & Lock Defense)**:
