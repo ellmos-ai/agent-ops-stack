@@ -4,7 +4,7 @@
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.4-blue.svg" alt="Version"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg" alt="CI-Status"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/tests-31%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-37%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
   <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Komponierte Module"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg" alt="Python Versionen">
   <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Plattformen">
@@ -15,6 +15,7 @@
   <a href="MARKETING-LOG.txt"><img src="https://img.shields.io/badge/Marketing%20Log-Active-informational.svg" alt="Marketing Log"></a>
   <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/badge/code%20style-ruff-000000.svg" alt="Code style: Ruff"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="Lizenz"></a>
+  <a href="NOTICE"><img src="https://img.shields.io/badge/Attribution-NOTICE-blue.svg" alt="Attribution"></a>
   <a href="https://github.com/ellmos-ai"><img src="https://img.shields.io/badge/Ecosystem-ellmos--ai-purple.svg" alt="Ökosystem"></a>
   <a href="https://github.com/open-bricks"><img src="https://img.shields.io/badge/Umbrella-open--bricks-blue.svg" alt="Dachorganisation"></a>
   <a href="llms.txt"><img src="https://img.shields.io/badge/LLM--Ready-llms.txt-success.svg" alt="LLM-Bereit"></a>
@@ -490,7 +491,7 @@ Alle Abhängigkeiten sind strikt permissiv und entsprechen den lokalen Zero-Egre
 `agent-ops-stack` erzwingt standardisierte statische Analysen und automatisierte Vertragstests:
 
 ```bash
-# 1. Automatisierte Metadaten-, Schema- und Vertragstests ausführen (31 Tests bestanden | 100% grün)
+# 1. Automatisierte Metadaten-, Schema- und Vertragstests ausführen (37 Tests bestanden | 100% grün)
 pytest -v
 
 # 2. Linter-Standards prüfen
@@ -528,6 +529,6 @@ Verbindliche Richtlinien zur Offenlegung von Schwachstellen, koordinierte Sicher
 <a id="15-haftung--liability"></a>
 ## 18. Lizenz & Haftung / Liability
 
-Dieses Repository steht unter der permissiven **MIT-Lizenz**. Siehe [`LICENSE`](LICENSE). Jedes komponierte Modul unterliegt seiner eigenen Open-Source-Lizenz.
+Dieses Repository steht unter der permissiven **MIT-Lizenz**. Siehe [`LICENSE`](LICENSE). Formelle Zuschreibungen sind in [`NOTICE`](NOTICE) deklariert. Drittanbieter-Lizenzen sind in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md) aufgeführt. Jedes komponierte Modul unterliegt seiner eigenen Open-Source-Lizenz.
 
 Dieses Projekt ist eine **unentgeltliche Open-Source-Schenkung** im Sinne der §§ 516 ff. BGB. Die Haftung des Urhebers ist gemäß **§ 521 BGB** auf **Vorsatz und grobe Fahrlässigkeit** beschränkt. Die komponierten Module unterliegen jeweils ihrer eigenen Lizenz (siehe verlinkte Repositories).

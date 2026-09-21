@@ -9,6 +9,7 @@ description = "Local-first coordination layer for multi-agent CLI coding workflo
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_LICENSES.md"]
 authors = [
     { name = "ellmos-ai Team", email = "support@ellmos.ai" }
 ]
@@ -52,6 +53,7 @@ Issues = "https://github.com/ellmos-ai/agent-ops-stack/issues"
 Changelog = "https://github.com/ellmos-ai/agent-ops-stack/blob/main/CHANGELOG.md"
 Security = "https://github.com/ellmos-ai/agent-ops-stack/blob/main/SECURITY.md"
 "Third-Party Licenses" = "https://github.com/ellmos-ai/agent-ops-stack/blob/main/THIRD_PARTY_LICENSES.md"
+Notice = "https://github.com/ellmos-ai/agent-ops-stack/blob/main/NOTICE"
 "Marketing Log" = "https://github.com/ellmos-ai/agent-ops-stack/blob/main/MARKETING-LOG.txt"
 "LLM Ready" = "https://github.com/ellmos-ai/agent-ops-stack/blob/main/llms.txt"
 "Parent Organization" = "https://github.com/ellmos-ai"
@@ -64,9 +66,11 @@ test = [
 ]
 
 [tool.pytest.ini_options]
+minversion = "7.0"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "-ra -v"
+norecursedirs = [".git", ".pytest_cache", "__pycache__", "build", "dist", ".venv"]
 
 [tool.ruff]
 line-length = 100

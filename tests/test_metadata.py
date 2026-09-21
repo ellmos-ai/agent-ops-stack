@@ -77,7 +77,7 @@ def test_readme_badges_present():
         "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
         "img.shields.io/badge/version-1.3.4-blue.svg",
         "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-31%20passed%20%7C%20100%25-brightgreen.svg",
+        "img.shields.io/badge/tests-37%20passed%20%7C%20100%25-brightgreen.svg",
         "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
         "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
         "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
@@ -87,6 +87,7 @@ def test_readme_badges_present():
         "img.shields.io/badge/Marketing%20Log-Active-informational.svg",
         "img.shields.io/badge/code%20style-ruff-000000.svg",
         "img.shields.io/badge/License-MIT-green.svg",
+        "img.shields.io/badge/Attribution-NOTICE-blue.svg",
         "img.shields.io/badge/Ecosystem-ellmos--ai-purple.svg",
         "img.shields.io/badge/Umbrella-open--bricks-blue.svg",
         "img.shields.io/badge/LLM--Ready-llms.txt-success.svg",
@@ -244,10 +245,12 @@ def test_pyproject_pep621_metadata_and_urls():
     assert "Changelog" in urls
     assert "Security" in urls
     assert "Third-Party Licenses" in urls
+    assert "Notice" in urls
     assert "Marketing Log" in urls
     assert "LLM Ready" in urls
     assert "Parent Organization" in urls
     assert "Umbrella Ecosystem" in urls
+    assert urls["Notice"].endswith("/NOTICE")
     assert urls["Parent Organization"] == "https://github.com/ellmos-ai"
     assert urls["Umbrella Ecosystem"] == "https://github.com/open-bricks"
 
@@ -379,11 +382,12 @@ def test_llms_txt_structure_and_parity():
     assert llms_file.exists(), "llms.txt must exist"
     text = llms_file.read_text(encoding="utf-8")
 
-    assert "Last-checked: 2026-09-16" in text
+    assert "Last-checked: 2026-09-21" in text
     assert "Version: 1.3.4" in text
-    assert "31 passed contract tests" in text
+    assert "37 passed contract tests" in text
     assert "THIRD_PARTY_LICENSES.md" in text
     assert "MARKETING-LOG.txt" in text
+    assert "NOTICE" in text
 
 
 def test_banner_assets_and_media_integrity():
@@ -536,6 +540,8 @@ def test_third_party_licenses_audit_2026_09_16():
     assert lic_file.exists(), "THIRD_PARTY_LICENSES.md must exist"
     text = lic_file.read_text(encoding="utf-8")
     assert "2026-09-16" in text, "Missing 2026-09-16 audit date in THIRD_PARTY_LICENSES.md"
+    assert "2026-09-21" in text, "Missing 2026-09-21 audit date in THIRD_PARTY_LICENSES.md"
+    assert "NOTICE" in text, "Missing NOTICE in THIRD_PARTY_LICENSES.md"
     assert "1.3.4" in text, "Missing 1.3.4 version in THIRD_PARTY_LICENSES.md"
     expected_invariants = [
         "INV-LOCAL-01",
@@ -551,3 +557,106 @@ def test_third_party_licenses_audit_2026_09_16():
     ]
     for inv in expected_invariants:
         assert inv in text, f"Missing invariant {inv} in THIRD_PARTY_LICENSES.md"
+
+
+def test_notice_attribution_file_exists_and_content():
+    notice_file = REPO_ROOT / "NOTICE"
+    assert notice_file.exists(), "NOTICE file must exist in repo root"
+    text = notice_file.read_text(encoding="utf-8")
+    assert "agent-ops-stack" in text
+    assert "Lukas Geiger" in text
+    assert "ellmos-ai" in text
+    assert "open-bricks" in text
+    assert "THIRD_PARTY_LICENSES.md" in text
+
+
+def test_stale_and_welcome_workflows_exist_and_hardened():
+    stale_file = REPO_ROOT / ".github" / "workflows" / "stale.yml"
+    welcome_file = REPO_ROOT / ".github" / "workflows" / "welcome.yml"
+    assert stale_file.exists(), ".github/workflows/stale.yml must exist"
+    assert welcome_file.exists(), ".github/workflows/welcome.yml must exist"
+
+    stale_text = stale_file.read_text(encoding="utf-8")
+    assert "actions/stale@v9" in stale_text
+    assert "timeout-minutes: 10" in stale_text
+    assert "cancel-in-progress: true" in stale_text
+    assert "issues: write" in stale_text
+    assert "pull-requests: write" in stale_text
+
+    welcome_text = welcome_file.read_text(encoding="utf-8")
+    assert "actions/first-interaction@v3" in welcome_text
+    assert "timeout-minutes: 5" in welcome_text
+    assert "cancel-in-progress: true" in welcome_text
+    assert "issues: write" in welcome_text
+    assert "pull-requests: write" in welcome_text
+
+
+def test_pyproject_license_files_and_pytest_norecursedirs():
+    pyproject_file = REPO_ROOT / "pyproject.toml"
+    assert pyproject_file.exists(), "pyproject.toml must exist"
+    data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
+
+    license_files = data.get("project", {}).get("license-files", [])
+    assert "LICENSE" in license_files
+    assert "NOTICE" in license_files
+    assert "THIRD_PARTY_LICENSES.md" in license_files
+
+    urls = data.get("project", {}).get("urls", {})
+    assert "Notice" in urls
+    assert urls["Notice"].endswith("/NOTICE")
+
+    pytest_cfg = data.get("tool", {}).get("pytest", {}).get("ini_options", {})
+    assert pytest_cfg.get("minversion") == "7.0"
+    norecursedirs = pytest_cfg.get("norecursedirs", [])
+    for d in [".git", ".pytest_cache", "__pycache__", "build", "dist", ".venv"]:
+        assert d in norecursedirs
+
+
+def test_gitignore_multihost_extended_patterns():
+    gitignore_file = REPO_ROOT / ".gitignore"
+    assert gitignore_file.exists(), ".gitignore must exist"
+    text = gitignore_file.read_text(encoding="utf-8")
+
+    extended_patterns = [
+        "*conflicted copy*",
+        "* (Kopie)*",
+        "* (Copy)*",
+        "*-ASUS*",
+        "*-LAPTOP*",
+        "*-Mac Studio*",
+        "*-MacBook*",
+        "*.rej",
+        "LOCK.user.*",
+        "LOCK.until.*",
+        "LOCK.condition.*",
+        ".automation-lock",
+        ".hypothesis/",
+    ]
+    for pat in extended_patterns:
+        assert pat in text, f"Missing extended pattern {pat} in .gitignore"
+
+
+def test_changelog_unreleased_pfad_a_entry():
+    changelog_file = REPO_ROOT / "CHANGELOG.md"
+    assert changelog_file.exists(), "CHANGELOG.md must exist"
+    text = changelog_file.read_text(encoding="utf-8")
+
+    assert "## [Unreleased]" in text, "CHANGELOG.md must contain ## [Unreleased] section"
+    assert "Pfad A" in text, "CHANGELOG.md must reference Pfad A"
+    assert "2026-09-21" in text, "CHANGELOG.md must reference 2026-09-21"
+    assert "NOTICE" in text, "CHANGELOG.md must reference NOTICE"
+
+
+def test_marketing_log_pfad_a_section_10():
+    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
+    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
+    text = mkt_file.read_text(encoding="utf-8")
+
+    assert (
+        "10. TECHNICAL HYGIENE, CI LIFECYCLE & MULTI-HOST PROTECTION AUDIT "
+        "(v1.3.4 -- 2026-09-21) [Pfad A]"
+    ) in text
+    assert "stale.yml" in text
+    assert "welcome.yml" in text
+    assert "timeout-minutes: 10" in text
+    assert "NOTICE" in text

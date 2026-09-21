@@ -188,4 +188,32 @@ Umbrella Collective: open-bricks
   * Verification timestamp 2026-09-16, version 1.3.4, and updated test suite count.
 - Expanded Contract Test Suite (tests/test_metadata.py):
   * Expanded automated test suite to 31 tests (100% green) validating 18-point quick navigation, reciprocal anchors, personas, 10-dimension comparative matrix, license inventory recency, and v1.3.4 parity.
+
+--------------------------------------------------------------------------------
+10. TECHNICAL HYGIENE, CI LIFECYCLE & MULTI-HOST PROTECTION AUDIT (v1.3.4 -- 2026-09-21) [Pfad A]
+--------------------------------------------------------------------------------
+[2026-09-21 14:18 CEST] [GITHUBBOT_ONE_REPO_CLEANER] (Pfad A)
+Maintainer: Lukas Geiger (ellmos-ai / open-bricks)
+Repository: ellmos-ai/agent-ops-stack
+Target Version: 1.3.4 (Version freeze preserved per T-20260920-167562623)
+Umbrella Collective: open-bricks
+
+- CI Workflow Lifecycle & Onboarding Deployment:
+  * Deployed .github/workflows/stale.yml lifecycle automation: actions/stale@v9, daily cron 30 1 * * *, 10-minute timeout guardrail (timeout-minutes: 10), cancel-in-progress concurrency, least-privilege permissions (issues: write, pull-requests: write), 30 ops/run.
+  * Deployed .github/workflows/welcome.yml onboarding automation: actions/first-interaction@v3, 5-minute timeout guardrail (timeout-minutes: 5), cancel-in-progress concurrency, least-privilege permissions (issues: write, pull-requests: write).
+  * Validated .github/workflows/ci.yml: least-privilege permissions (contents: read), 15-minute runaway timeout guardrail (timeout-minutes: 15), cancel-in-progress concurrency, multi-OS matrix (Ubuntu, Windows, macOS) across Python 3.10-3.13.
+- Extended Multi-Host Sync & Canonical Lock Defense:
+  * Extended .gitignore with cloud sync collision defense (*conflicted copy*, * (Kopie)*, * (Copy)*, *-ASUS*, *-LAPTOP*, *-Mac Studio*, *-MacBook*, *.rej), canonical multi-agent lock patterns (LOCK.user.*, LOCK.until.*, LOCK.condition.*, .automation-lock), and testing framework artifacts (.hypothesis/).
+- Canonical Root Attribution & PEP 621 Alignment:
+  * Added root NOTICE file providing formal attribution to Lukas Geiger, ellmos-ai, and open-bricks.
+  * Updated pyproject.toml PEP 621 license-files specification: license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_LICENSES.md"].
+  * Added Notice URL to pyproject.toml [project.urls] pointing to canonical NOTICE file.
+  * Hardened [tool.pytest.ini_options] with minversion = "7.0" and norecursedirs protecting .git, .pytest_cache, __pycache__, build, dist, .venv.
+- Re-Audited Third-Party Licenses (THIRD_PARTY_LICENSES.md):
+  * Re-audited inventory (Stand 2026-09-21), certifying zero copyleft, unprivileged user-mode RunAsInvoker non-elevation, and 100% offline zero-egress architecture across all 10 invariants.
+- Documentation & Machine-Readable Context:
+  * Updated llms.txt Last-checked timestamp to 2026-09-21, updated contract test suite count, and added canonical NOTICE link.
+  * Updated CHANGELOG.md under ## [Unreleased] documenting all hygiene enhancements while respecting version freeze.
+- Contract Test Suite:
+  * Expanded tests/test_metadata.py with automated verification of CI lifecycle workflows, NOTICE attribution, pyproject PEP 621 metadata, extended .gitignore patterns, and unreleased CHANGELOG / MARKETING-LOG entries.
 ================================================================================

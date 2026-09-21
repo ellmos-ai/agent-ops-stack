@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased]
+
+- **Pfad A (Repository Hygiene, CI Lifecycle Hardening & Multi-Host Protection Audit - 2026-09-21)**:
+  - Deployed `.github/workflows/stale.yml` lifecycle automation with `actions/stale@v9`, daily cron `30 1 * * *`, 10-minute runaway timeout guardrail (`timeout-minutes: 10`), concurrency control (`cancel-in-progress: true`), and least-privilege permissions (`issues: write`, `pull-requests: write`).
+  - Deployed `.github/workflows/welcome.yml` first-interaction onboarding automation with `actions/first-interaction@v3`, 5-minute timeout (`timeout-minutes: 5`), concurrency control, and least-privilege permissions (`issues: write`, `pull-requests: write`).
+  - Hardened `.gitignore` with extended canonical lock defense (`LOCK.user.*`, `LOCK.until.*`, `LOCK.condition.*`, `.automation-lock`), multi-host cloud-sync collision protection (`*conflicted copy*`, `* (Kopie)*`, `* (Copy)*`, `*-ASUS*`, `*-LAPTOP*`, `*-Mac Studio*`, `*-MacBook*`, `*.rej`), and testing framework artifacts (`.hypothesis/`).
+  - Established canonical root attribution file `NOTICE` documenting copyright for Lukas Geiger, `ellmos-ai`, and umbrella ecosystem `open-bricks`.
+  - Standardized PEP 621 metadata in `pyproject.toml` with `license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_LICENSES.md"]`, canonical `"Notice"` URL under `[project.urls]`, and `[tool.pytest.ini_options]` options `minversion = "7.0"` and `norecursedirs` guarding `.git`, `.pytest_cache`, `__pycache__`, `build`, `dist`, `.venv`.
+  - Re-audited `THIRD_PARTY_LICENSES.md` (Stand 2026-09-21) confirming Level 1 SBOM transparency, zero-copyleft guarantee, unprivileged `RunAsInvoker` non-elevation, and 100% offline zero-egress architecture.
+  - Updated machine-readable LLM context (`llms.txt`) with verification timestamp `2026-09-21`, updated test suite count, and canonical `NOTICE` attribution link.
+  - Recorded Section 10 in local `MARKETING-LOG.txt` documenting the 2026-09-21 Pfad A Technical Hygiene & Multi-Host Security Audit.
+  - Expanded automated contract test suite in `tests/test_metadata.py` validating CI lifecycle workflows, NOTICE attribution, pyproject PEP 621 metadata, extended `.gitignore` patterns, and unreleased CHANGELOG / MARKETING-LOG entries.
+  - Version freeze discipline: preserved version `1.3.4` strictly unchanged per `T-20260920-167562623`.
+
 ## 1.3.4 (2026-09-16)
 
 - **Pfad B (Marketing & Design / Discoverability Upgrade)**:

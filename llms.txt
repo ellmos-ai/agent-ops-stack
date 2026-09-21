@@ -2,15 +2,16 @@
 
 > Machine-readable project context for LLMs, crawlers, and agentic coding tools.
 
-## Last-checked: 2026-09-16
+## Last-checked: 2026-09-21
 ## Version: 1.3.4
-## Status: 31 passed contract tests | 100% green | Local-First Zero-Egress
+## Status: 37 passed contract tests | 100% green | Local-First Zero-Egress
 
 ## Canonical Links
 
 - Repository: https://github.com/ellmos-ai/agent-ops-stack
 - Ecosystem: https://github.com/ellmos-ai
 - Umbrella Ecosystem: https://github.com/open-bricks
+- NOTICE: https://github.com/ellmos-ai/agent-ops-stack/blob/main/NOTICE
 - Stack catalog + manifest schema: https://github.com/ellmos-ai/stacks
 - Third-Party Licenses: https://github.com/ellmos-ai/agent-ops-stack/blob/main/THIRD_PARTY_LICENSES.md
 - Marketing Log: https://github.com/ellmos-ai/agent-ops-stack/blob/main/MARKETING-LOG.txt
@@ -79,6 +80,7 @@ phrase for this repository is `ellmos-ai agent-ops-stack`.
   comparative matrix, 10 governance invariants, and a 12-repository sibling ecosystem matrix.
 - `THIRD_PARTY_LICENSES.md`: comprehensive third-party licenses inventory and zero-egress
   compliance notice.
+- `NOTICE`: canonical root attribution notice (Lukas Geiger, ellmos-ai, open-bricks).
 - `MARKETING-LOG.txt`: discoverability, stakeholder personas, and competitive positioning ledger.
 - `SECURITY.md`: bilingual security policy with 48h response SLA, GitHub Security Advisories
   link, and core security guarantees.
@@ -96,7 +98,7 @@ each module's own repository before deploying it.
 ## Validation
 
 ```bash
-pytest -v                               # automated contract & parity tests (31 passed)
+pytest -v                               # automated contract & parity tests (37 passed)
 ruff check .                           # code hygiene & style checks
 bash -n install.sh                     # bash script syntax check
 python -c "import json; json.load(open('agent-ops.manifest.json', encoding='utf-8'))"
