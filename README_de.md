@@ -4,7 +4,7 @@
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.4-blue.svg" alt="Version"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg" alt="CI-Status"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/tests-37%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-42%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
   <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Komponierte Module"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg" alt="Python Versionen">
   <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Plattformen">
@@ -200,6 +200,18 @@ Die folgende Matrix vergleicht `agent-ops-stack` mit vier typischen Industrie- u
 | **controlcenter-mcp** | MCP-Steuerebene: Erkennt lokale MCP-Server, liest Profil-Dateien, bildet Fähigkeitsbündel und empfiehlt Werkzeugkonfigurationen | `control-plane` | `skill-pack` | [ellmos-ai/ellmos-controlcenter-mcp](https://github.com/ellmos-ai/ellmos-controlcenter-mcp) |
 | **homebase-mcp** | Local-First-MCP-Server für gemeinsamen Zustand, Wissensspeicher, Routing und Task-Fassade über kanonischen lokalen Speichern | `mcp-runtime`, `memory-facade`, `task-facade` | `locking`, `ticket-routing` | [ellmos-ai/ellmos-homebase-mcp](https://github.com/ellmos-ai/ellmos-homebase-mcp) |
 
+### Komponenten-Interoperabilität & Kommunikations-Protokolle
+
+| Protokoll / Schicht | Beteiligte Module | Kommunikationsmechanismus | Transport & Format | Offline-Garantie |
+|:---|:---|:---|:---|:---:|
+| **Dateibasierte Sperr-Semaphor** | `lock-master`, Agenten, Skripte | Atomare Dateierstellung (`LOCK*.txt`, `LOCK.user.*`) | Lokales Dateisystem POSIX / NTFS | 100% Offline |
+| **Deklaratives Ticket-Register** | `ticket-master`, Agenten | Strukturierte Ticketdateien & Prioritäts-Warteschlangen | Lokale Markdown- / JSON-Dateien | 100% Offline |
+| **Modell-Theory-of-Mind** | `build-your-users-mind`, Agenten | Empirische Präferenzvektoren & Entscheidungsheuristiken | Lokale SQLite- / JSON-Dateien | 100% Offline |
+| **MCP-Steuerungsebene (Control Plane)** | `controlcenter-mcp`, Agenten | Dynamische Profilauflösung & Werkzeug-Bündel | stdio JSON-RPC (Model Context Protocol) | 100% Offline |
+| **Laufzeit-Gedächtnis & Status-Fassade** | `homebase-mcp`, Agenten | Persistenter Swarm-Speicher, Checkpoints, Locks | stdio JSON-RPC über lokalen Speicher | 100% Offline |
+| **Slot-basierter Multi-Host-Abgleich** | `sync-master`, Rechner/Laptops | Host-Token-Validierung & kollisionsfreie Rechner-Slots | Lokales Git & Cloud-Spiegel-Staging | 100% Offline |
+| **Skill-Paketierung** | `skills`, Agenten | Standardisierte Ablaufanweisungen (`SKILL.md`) | YAML-Frontmatter + Markdown | 100% Offline |
+
 ---
 
 <a id="6-systemarchitektur-flussdiagramm"></a>
@@ -291,6 +303,32 @@ sequenceDiagram
   Agent->>LockMaster: Release lock & clean lockfile
   LockMaster-->>Agent: Project scope released
   Agent-->>User: Report completed execution & test results
+```
+
+### Multi-Agenten-Nebenläufigkeits- und Zustandsautomat-Lebenszyklus
+
+Der folgende Zustandsautomat zeigt, wie ein autonomer Coding-Agent zwischen deterministischen
+Zuständen wechselt, um Fail-Closed-Sperrschutz, Entscheidungs-Erdung und Test-Gating zu erzwingen:
+
+```mermaid
+stateDiagram-v2
+  [*] --> TaskReceived: Auftrag durch Operator übergeben
+  TaskReceived --> TicketRouting: ticket-master Routing & Priorisierung
+  TicketRouting --> LockCheck: Ziel-Repository identifiziert
+  LockCheck --> LockAcquired: lock-master LOCK*.txt (Exklusive Grenze)
+  LockCheck --> LockDenied: Aktive Sperrdatei vorhanden (Fail-Closed)
+  LockDenied --> [*]: Mutation abbrechen / Nur-Lese-Modus
+  LockAcquired --> AmbiguityEvaluation: Operator-Verfügbarkeit prüfen
+  AmbiguityEvaluation --> AvatarConsultation: Operator abwesend / Entscheidung nötig
+  AvatarConsultation --> ToolDiscovery: build-your-users-mind Theory-of-Mind
+  AmbiguityEvaluation --> ToolDiscovery: Klare Vorgaben vorhanden
+  ToolDiscovery --> ContextLoading: controlcenter-mcp Bündel-Auflösung
+  ContextLoading --> TaskExecution: skills & homebase-mcp Gedächtnis
+  TaskExecution --> VerificationGates: Code-Mutation & Datei-Änderungen
+  VerificationGates --> TicketResolution: pytest & ruff (100% Erfolgreich)
+  TicketResolution --> LockRelease: ticket-master Erledigung erfasst
+  LockRelease --> SyncAlignment: lock-master Sperre freigeben
+  SyncAlignment --> [*]: sync-master Slot-Abgleich (Sauberer Stand)
 ```
 
 ---
@@ -440,7 +478,8 @@ Repositories und gibt eine Übersicht aller gelieferten (`provides`) und benöti
 
 - **Kanonische Identität**: `ellmos-ai/agent-ops-stack` ist ein deklarativer, lokaler Koordinations-Stack für Multi-Agenten-Workflows (Dateisperren, Ticket-Routing, Entscheidungsavatar, Skills, MCP-Steuerebene).
 - **Begriffsklärung**: Nicht verwandt mit Cloud-Observability-SaaS-Produkten (wie AgentOps.ai), generischen AgentStack-Templates oder externen LLMOps-Servern.
-- **Suchbegriffe**: `ellmos-ai agent-ops-stack`, `local CLI agent coordination stack`, `MCP control plane for coding agents`, `manifest-driven agent ops stack`, `lock-master ticket-master sync-master stack`, `Zero-Egress Multi-Agenten Kollisionsschutz`, `lokale Koordination Claude Codex Antigravity Kimi`.
+- **Suchbegriffe**: `ellmos-ai agent-ops-stack`, `local CLI agent coordination stack`, `MCP control plane for coding agents`, `manifest-driven agent ops stack`, `lock-master ticket-master sync-master stack`, `Zero-Egress Multi-Agenten Kollisionsschutz`, `lokale Koordination Claude Codex Antigravity Kimi`, `Multi-Agenten Schreibkollisions-Schutz`, `lokale Coding-Agenten Orchestrierung`, `Offline-First Agent-Harness`.
+- **Einsatzszenarien**: Schutz vor parallelen Dateimodifikationen durch KI-Agenten, Vermeidung von Git-Schreibkonflikten, unprivilegierte lokale MCP-Werkzeugauflösung, Multi-Host-Dateiabgleich ohne Cloud-Sync-Races.
 
 ---
 
@@ -491,7 +530,7 @@ Alle Abhängigkeiten sind strikt permissiv und entsprechen den lokalen Zero-Egre
 `agent-ops-stack` erzwingt standardisierte statische Analysen und automatisierte Vertragstests:
 
 ```bash
-# 1. Automatisierte Metadaten-, Schema- und Vertragstests ausführen (37 Tests bestanden | 100% grün)
+# 1. Automatisierte Metadaten-, Schema- und Vertragstests ausführen (42 Tests bestanden | 100% grün)
 pytest -v
 
 # 2. Linter-Standards prüfen

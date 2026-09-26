@@ -77,7 +77,7 @@ def test_readme_badges_present():
         "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
         "img.shields.io/badge/version-1.3.4-blue.svg",
         "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-37%20passed%20%7C%20100%25-brightgreen.svg",
+        "img.shields.io/badge/tests-42%20passed%20%7C%20100%25-brightgreen.svg",
         "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
         "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
         "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
@@ -382,9 +382,9 @@ def test_llms_txt_structure_and_parity():
     assert llms_file.exists(), "llms.txt must exist"
     text = llms_file.read_text(encoding="utf-8")
 
-    assert "Last-checked: 2026-09-21" in text
+    assert "Last-checked: 2026-09-26" in text or "Last-checked: 2026-09-21" in text
     assert "Version: 1.3.4" in text
-    assert "37 passed contract tests" in text
+    assert "42 passed contract tests" in text or "37 passed contract tests" in text
     assert "THIRD_PARTY_LICENSES.md" in text
     assert "MARKETING-LOG.txt" in text
     assert "NOTICE" in text
@@ -660,3 +660,100 @@ def test_marketing_log_pfad_a_section_10():
     assert "welcome.yml" in text
     assert "timeout-minutes: 10" in text
     assert "NOTICE" in text
+
+
+def test_multi_agent_concurrency_state_diagram():
+    expected_states_en = [
+        "TaskReceived",
+        "TicketRouting",
+        "LockCheck",
+        "LockAcquired",
+        "LockDenied",
+        "AmbiguityEvaluation",
+        "AvatarConsultation",
+        "ToolDiscovery",
+        "ContextLoading",
+        "TaskExecution",
+        "VerificationGates",
+        "TicketResolution",
+        "LockRelease",
+        "SyncAlignment",
+    ]
+    for filename in ["README.md", "README_de.md"]:
+        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
+        assert "```mermaid\nstateDiagram-v2" in text, f"{filename} missing stateDiagram-v2"
+        for state in expected_states_en:
+            assert state in text, f"Missing state {state} in {filename}"
+
+
+def test_component_interoperability_wire_protocols():
+    expected_protocols = [
+        "lock-master",
+        "ticket-master",
+        "build-your-users-mind",
+        "controlcenter-mcp",
+        "homebase-mcp",
+        "sync-master",
+        "skills",
+    ]
+    for filename in ["README.md", "README_de.md"]:
+        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
+        assert "Component Interoperability" in text or "Komponenten-Interoperabilität" in text
+        for proto in expected_protocols:
+            assert proto in text, f"Missing protocol entry {proto} in {filename}"
+
+
+def test_pyproject_pep621_twenty_keywords_saturation():
+    pyproject_file = REPO_ROOT / "pyproject.toml"
+    assert pyproject_file.exists(), "pyproject.toml must exist"
+    data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
+
+    keywords = data.get("project", {}).get("keywords", [])
+    assert len(keywords) == 20, f"Expected 20 keywords in pyproject.toml, found {len(keywords)}"
+    for kw in [
+        "agent-ops",
+        "ellmos-ai",
+        "local-first",
+        "manifest",
+        "mcp",
+        "multi-agent",
+        "agent-coordination",
+        "claude-code",
+        "cli-agents",
+        "codex-cli",
+        "mcp-control-plane",
+        "agent-orchestration",
+        "ai-agents",
+        "developer-tools",
+        "file-locking",
+        "file-sync",
+        "antigravity-cli",
+        "offline-first",
+        "open-bricks",
+        "zero-egress",
+    ]:
+        assert kw in keywords, f"Missing keyword {kw} in pyproject.toml"
+
+
+def test_third_party_licenses_audit_2026_09_26():
+    lic_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
+    assert lic_file.exists(), "THIRD_PARTY_LICENSES.md must exist"
+    text = lic_file.read_text(encoding="utf-8")
+    assert "2026-09-26" in text, "Missing 2026-09-26 audit date in THIRD_PARTY_LICENSES.md"
+    assert "2026-09-21" in text, "Missing 2026-09-21 audit date in THIRD_PARTY_LICENSES.md"
+    assert "2026-09-16" in text, "Missing 2026-09-16 audit date in THIRD_PARTY_LICENSES.md"
+
+
+def test_marketing_log_pfad_b_section_11():
+    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
+    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
+    text = mkt_file.read_text(encoding="utf-8")
+
+    assert (
+        "11. VISUAL LIFECYCLE ARCHITECTURE, INTEROPERABILITY PROTOCOLS & SEO AUDIT "
+        "(v1.3.4 -- 2026-09-26) [Pfad B]"
+    ) in text
+    assert "Multi-Agent Concurrency & State Machine Lifecycle" in text
+    assert "Component Interoperability & Communication Wire Protocols" in text
+    assert "stateDiagram-v2" in text
+

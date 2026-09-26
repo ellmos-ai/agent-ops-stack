@@ -2,7 +2,7 @@
 
 > **Project:** `ellmos-ai/agent-ops-stack`<br>
 > **Version:** `1.3.4`<br>
-> **Audited:** 2026-09-21 (Re-audited; baseline audit 2026-09-16)<br>
+> **Audited:** 2026-09-26 (Pfad B Re-audit; previous audits 2026-09-21, 2026-09-16)<br>
 > **Repository License:** [MIT License](LICENSE)<br>
 > **Attribution:** [NOTICE](NOTICE)<br>
 > **Architecture & Privacy:** 100% Local-First, Zero-Egress by default, Unprivileged User-Mode (`RunAsInvoker`)

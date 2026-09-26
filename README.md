@@ -4,7 +4,7 @@
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.4-blue.svg" alt="Version"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg" alt="CI Status"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/tests-37%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-42%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
   <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Composed Modules"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg" alt="Python Versions">
   <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Platforms">
@@ -199,6 +199,18 @@ The table below contrasts `agent-ops-stack` against four common industry alterna
 | **controlcenter-mcp** | MCP control plane: discovers local MCP servers, reads profile files, resolves capability bundles, and recommends task-specific tool configurations | `control-plane` | `skill-pack` | [ellmos-ai/ellmos-controlcenter-mcp](https://github.com/ellmos-ai/ellmos-controlcenter-mcp) |
 | **homebase-mcp** | Local-first MCP server for shared memory, knowledge, routing, swarm patterns, and task facade over canonical local stores | `mcp-runtime`, `memory-facade`, `task-facade` | `locking`, `ticket-routing` | [ellmos-ai/ellmos-homebase-mcp](https://github.com/ellmos-ai/ellmos-homebase-mcp) |
 
+### Component Interoperability & Communication Wire Protocols
+
+| Protocol / Layer | Modules Involved | Communication Mechanism | Transport & Format | Offline Guarantee |
+|:---|:---|:---|:---|:---:|
+| **File-Based Lock Semaphore** | `lock-master`, Agents, Scripts | Atomic file creation (`LOCK*.txt`, `LOCK.user.*`) | Local Filesystem POSIX / NTFS | 100% Offline |
+| **Declarative Ticket Registry** | `ticket-master`, Agents | Structured ticket files & priority dispatch queues | Markdown / JSON local files | 100% Offline |
+| **Model Theory-of-Mind** | `build-your-users-mind`, Agents | Grounded preference vectors & decision heuristics | Local SQLite / JSON files | 100% Offline |
+| **MCP Tool Control Plane** | `controlcenter-mcp`, Agents | Dynamic profile resolution & capability bundles | stdio JSON-RPC (Model Context Protocol) | 100% Offline |
+| **Runtime Memory & State Facade** | `homebase-mcp`, Agents | Persistent swarm memory, task checkpoints, locks | stdio JSON-RPC over local storage | 100% Offline |
+| **Slot-Gated Multi-Host Sync** | `sync-master`, Workstations/Laptops | Host token validation & non-colliding file slots | Local Git & Cloud-Mirror Staging | 100% Offline |
+| **Skill Definition Packaging** | `skills`, Agents | Standardized workflow instructions (`SKILL.md`) | YAML Frontmatter + Markdown | 100% Offline |
+
 ---
 
 <a id="6-system-architecture-flowchart"></a>
@@ -290,6 +302,32 @@ sequenceDiagram
   Agent->>LockMaster: Release lock & clean lockfile
   LockMaster-->>Agent: Project scope released
   Agent-->>User: Report completed execution & test results
+```
+
+### Multi-Agent Concurrency & State Machine Lifecycle
+
+The following state machine details how an autonomous coding agent transitions between
+deterministic states, enforcing fail-closed lock defense, decision grounding, and test gating:
+
+```mermaid
+stateDiagram-v2
+  [*] --> TaskReceived: Goal Submitted by Operator
+  TaskReceived --> TicketRouting: ticket-master dispatch & scoring
+  TicketRouting --> LockCheck: Target Workspace Identified
+  LockCheck --> LockAcquired: lock-master LOCK*.txt (Exclusive Boundary)
+  LockCheck --> LockDenied: Active Lockfile Present (Fail-Closed)
+  LockDenied --> [*]: Abort Mutation / Read-Only Inspection
+  LockAcquired --> AmbiguityEvaluation: Check Operator Availability
+  AmbiguityEvaluation --> AvatarConsultation: Operator Absent / Decision Needed
+  AvatarConsultation --> ToolDiscovery: build-your-users-mind Theory-of-Mind
+  AmbiguityEvaluation --> ToolDiscovery: Clear Requirements
+  ToolDiscovery --> ContextLoading: controlcenter-mcp Bundle Resolution
+  ContextLoading --> TaskExecution: skills & homebase-mcp Memory
+  TaskExecution --> VerificationGates: Code Mutation & File Edits
+  VerificationGates --> TicketResolution: pytest & ruff (100% Passing)
+  TicketResolution --> LockRelease: ticket-master Resolution Recorded
+  LockRelease --> SyncAlignment: lock-master Release Lock
+  SyncAlignment --> [*]: sync-master Slot Gating (Clean Tree)
 ```
 
 ---
@@ -438,7 +476,8 @@ specification:
 
 - **Canonical Identity**: `ellmos-ai/agent-ops-stack` is a declarative, local-first multi-agent coordination stack composing file locking, ticket routing, user-decision avatars, skills, and an MCP control plane.
 - **Disambiguation**: Unrelated to cloud SaaS observability platforms (such as AgentOps.ai), generic AgentStack scaffolding, or remote LLMOps telemetry servers.
-- **Keywords & Search Anchors**: `ellmos-ai agent-ops-stack`, `local CLI agent coordination stack`, `MCP control plane for coding agents`, `manifest-driven agent ops stack`, `lock-master ticket-master sync-master stack`, `zero-egress multi-agent harness`, `autonomous agent collision defense`.
+- **Keywords & Search Anchors**: `ellmos-ai agent-ops-stack`, `local CLI agent coordination stack`, `MCP control plane for coding agents`, `manifest-driven agent ops stack`, `lock-master ticket-master sync-master stack`, `zero-egress multi-agent harness`, `autonomous agent collision defense`, `multi-agent write collision prevention`, `local-first coding agent orchestration`, `Claude Code Codex Gemini Kimi coordination`.
+- **Target Use Cases**: Cross-agent workspace concurrency, preventing simultaneous git overwrites by LLMs, unprivileged local tool discovery via MCP stdio, machine-to-machine file synchronization without cloud races.
 
 ---
 
@@ -490,7 +529,7 @@ All dependencies are strictly permissive and comply with the project's zero-egre
 automated parity test suites:
 
 ```bash
-# 1. Run automated metadata, schema, and parity contract tests (37 tests passed | 100% green)
+# 1. Run automated metadata, schema, and parity contract tests (42 tests passed | 100% green)
 pytest -v
 
 # 2. Validate linter standards
