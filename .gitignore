@@ -1,9 +1,12 @@
 # OS / editor noise
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 .vscode/
 .idea/
 *.swp
+*.swo
 *~
 *.bak
 *.tmp
@@ -34,6 +37,8 @@ removed_sections/
 
 # Test, coverage & packaging caches
 .pytest_cache/
+.pytest_temp/
+.pytest_tmp*/
 .ruff_cache/
 .coverage
 .coverage.*
@@ -61,9 +66,12 @@ build/
 * (Copy)*
 *-WORKSTATION*
 *-WORKSTATION-LG*
+*-WORKSTATION.*
+*-WORKSTATION-LG.*
 *-ASUS*
 *-ASUS-GEI*
 *-LAPTOP*
+*-IDEAPAD*
 *-Mac Studio*
 *-MacBook*
 *.orig

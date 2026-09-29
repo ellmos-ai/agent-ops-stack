@@ -1,0 +1,147 @@
+THIRD-PARTY LICENSES & LEVEL 1 SBOM NOTICE
+Project: ellmos-ai/agent-ops-stack
+Audited: 2026-09-29 (Prior audits: 2026-09-26, 2026-09-21, 2026-09-16)
+Repository Version: 1.3.4 (Version Freeze per T-20260920-167562623)
+Repository License: MIT License (see LICENSE)
+Repository Attribution Notice: NOTICE (see NOTICE)
+Architecture & Privacy: 100% Local-First, Zero-Egress by default, Unprivileged User-Mode (RunAsInvoker), Fail-Closed
+
+================================================================================
+1. EXECUTIVE SUMMARY & COMPLIANCE ASSURANCE
+================================================================================
+
+agent-ops-stack is engineered as a declarative, manifest-driven composition layer
+for multi-agent CLI coordination (Claude Code, OpenAI Codex, Google Antigravity /
+Gemini, Moonshot Kimi). The repository itself contains zero mandatory runtime
+dependencies beyond the standard Python runtime and POSIX shell utilities.
+
+All direct, optional, and development dependencies utilized in agent-ops-stack
+are distributed under strictly permissive open-source licenses (MIT, Apache-2.0,
+PSFL-2.0). There are zero copyleft, GPL, or AGPL dependencies in the core
+composition or packaging harness, ensuring maximum flexibility for enterprise
+engineering teams, multi-agent frameworks, and autonomous developer workflows.
+Canonical copyright and ecosystem attributions are formally preserved in the
+root NOTICE file.
+
+================================================================================
+2. LEVEL 1 SBOM & INVARIANT CROSS-REFERENCE MATRIX
+================================================================================
+
+Invariant ID  | Operational Scope & Guarantee       | Technical Enforcement                  | License Scope
+--------------+-------------------------------------+----------------------------------------+-------------------
+INV-LOCAL-01  | 100% Local-First & Zero Egress      | Manifest parsing offline, zero egress  | PSFL-2.0 / MIT
+INV-USER-02   | Unprivileged User-Mode              | Standard user mode (RunAsInvoker)      | PSFL-2.0 / MIT
+INV-LOCK-03   | Fail-Closed Lock Integrity          | dev-bricks/lock-master boundaries      | MIT License
+INV-ROUT-04   | Structured Ticket Routing           | dev-bricks/ticket-master dispatch      | MIT License
+INV-AVAT-05   | Empirical Decision-Avatar           | ellmos-ai/build-your-users-mind        | MIT License
+INV-MANI-06   | Deterministic Manifest Blueprint    | Schema ellmos-stack-manifest-v1        | MIT License
+INV-PIN-07    | Immutable Release-Tag Pinning       | Pinned release tags & sources          | MIT License
+INV-SAND-08   | Sandboxed Installer Boundary        | install.sh clones into ./modules/      | MIT License
+INV-SYNC-09   | Cross-Device Slot-Gated Sync        | dev-bricks/sync-master host slots      | MIT License
+INV-SLA-10    | 48h Security & 5d Triage SLA        | SECURITY.md (security@open-bricks.org) | MIT License
+
+================================================================================
+3. ZERO-COPYLEFT ISOLATION GUARANTEE & RUNASINVOKER CERTIFICATION
+================================================================================
+
+1. Zero-Copyleft Isolation Guarantee:
+   All core runtime and tooling dependencies operate strictly under permissive
+   open-source licenses (MIT, Apache-2.0, PSFL-2.0). The codebase, packaging
+   specifications, and installer harness are completely free of GPL, AGPL,
+   LGPL, SSPL, or reciprocal copyleft obligations.
+
+2. Unprivileged Execution (RunAsInvoker):
+   agent-ops-stack enforces unprivileged user-mode execution under INV-USER-02.
+   All manifest validation, shell installation, and module coordination operate
+   strictly within non-elevated user context without requiring administrative
+   elevation, root privileges, or daemon background services.
+
+3. Fail-Closed Security & Concurrency Defense:
+   Under INV-LOCK-03 and INV-ROUT-04, any mutating action checks lock state
+   and routing tickets. Conflicting operations fail closed immediately,
+   preventing split-brain states or destructive Git index corruption across
+   concurrent AI agent sessions.
+
+================================================================================
+4. RUNTIME DEPENDENCY INVENTORY
+================================================================================
+
+Package                  | Version Range  | SPDX License   | Purpose / Functional Scope
+-------------------------+----------------+----------------+---------------------------------------------------
+Python Standard Library  | >=3.10         | PSFL-2.0       | Manifest validation, tomllib, json, re, pathlib
+POSIX Shell / Git        | System tools   | System/GPL/MIT | Declarative installer script (install.sh)
+
+================================================================================
+5. COMPOSED MODULES (REFERENCED VIA MANIFEST)
+================================================================================
+
+Module Name              | Repository                               | Kind / Role                     | License
+-------------------------+------------------------------------------+---------------------------------+------------
+ticket-master            | dev-bricks/ticket-master                 | coordination (ticket-routing)   | MIT License
+lock-master              | dev-bricks/lock-master                   | coordination (file locking)     | MIT License
+sync-master              | dev-bricks/sync-master                   | sync (machine slot file-sync)   | MIT License
+build-your-users-mind    | ellmos-ai/build-your-users-mind          | decision (decision-avatar)      | MIT License
+skills                   | ellmos-ai/skills                         | skills (reusable skill pack)    | MIT License
+ellmos-controlcenter-mcp | ellmos-ai/ellmos-controlcenter-mcp       | mcp (control plane)             | MIT License
+ellmos-homebase-mcp      | ellmos-ai/ellmos-homebase-mcp            | mcp (runtime & memory facade)   | MIT License
+
+================================================================================
+6. DEVELOPMENT & QUALITY ASSURANCE TOOLING
+================================================================================
+
+Package                  | Category       | SPDX License   | Purpose / Functional Scope
+-------------------------+----------------+----------------+---------------------------------------------------
+pytest                   | Dev / QA       | MIT            | Automated test runner & metadata contract tests
+ruff                     | Dev / QA       | MIT / Apache-2 | Fast AST linter and code formatting enforcement
+setuptools               | Dev / Build    | MIT            | PEP 517 / PEP 621 package build backend
+
+================================================================================
+7. FULL LICENSE TEXTS
+================================================================================
+
+--- MIT License (MIT) ---
+Applies to: pytest, setuptools, all composed modules, agent-ops-stack
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--- Apache License Version 2.0 (Apache-2.0) ---
+Applies to: ruff (co-licensed)
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+
+--- Python Software Foundation License Version 2 (PSFL-2.0) ---
+Applies to: Python Standard Library
+
+1. This LICENSE AGREEMENT is between the Python Software Foundation ("PSF"), and
+   the Individual or Organization ("Licensee") accessing and otherwise using this
+   software ("Python") in source or binary form and its associated documentation.
+2. Subject to the terms and conditions of this License Agreement, PSF hereby
+   grants Licensee a nonexclusive, royalty-free, world-wide license to reproduce,
+   analyze, test, perform and/or display publicly, prepare derivative works,
+   distribute, and otherwise use Python alone or in any derivative version,
+   provided, however, that PSF's License Agreement and PSF's notice of copyright,
+   i.e., "Copyright (c) 2001-2026 Python Software Foundation; All Rights Reserved"
+   are retained in Python alone or in any derivative version prepared by Licensee.

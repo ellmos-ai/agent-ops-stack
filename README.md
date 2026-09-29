@@ -4,7 +4,7 @@
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.4-blue.svg" alt="Version"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg" alt="CI Status"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/tests-42%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-49%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
   <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Composed Modules"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg" alt="Python Versions">
   <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Platforms">
@@ -504,7 +504,7 @@ specification:
 <a id="13-third-party-licenses--transparency"></a>
 ## 15. Third-Party Licenses & Transparency
 
-`agent-ops-stack` maintains an exhaustive, auditable inventory of all runtime, development, and tooling dependencies in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).
+`agent-ops-stack` maintains an exhaustive, auditable inventory of all runtime, development, and tooling dependencies in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md) as well as the plain text Level 1 SBOM companion [`THIRD_PARTY_LICENSES.txt`](THIRD_PARTY_LICENSES.txt).
 
 | Category | Component / Dependency | License | Policy / Boundary |
 |:---|:---|:---|:---|

@@ -246,4 +246,35 @@ Umbrella Collective: open-bricks
   * Preserved version 1.3.4 strictly unchanged per T-20260920-167562623; additions documented under ## [Unreleased] in CHANGELOG.md.
 - Automated Contract Test Suite:
   * Expanded tests/test_metadata.py from 37 to 42 tests (100% green) adding validations for state machine diagrams, wire protocols table, PEP 621 20 keywords saturation, license audit recency 2026-09-26, and Section 11 marketing ledger.
+
+--------------------------------------------------------------------------------
+12. TECHNICAL HYGIENE, CI WORKFLOW LIFECYCLE & LEVEL 1 SBOM AUDIT (v1.3.4 -- 2026-09-29) [Pfad A]
+--------------------------------------------------------------------------------
+[2026-09-29 04:30 CEST] [GITHUBBOT_ONE_REPO_CLEANER] (Pfad A)
+Maintainer: Lukas Geiger (ellmos-ai / open-bricks)
+Repository: ellmos-ai/agent-ops-stack
+Target Version: 1.3.4 (Version freeze preserved per T-20260920-167562623)
+Umbrella Collective: open-bricks
+
+- CI Workflow Lifecycle & Automation Expansion:
+  * Deployed .github/workflows/auto-assign.yml: PR auto-assignment via actions/github-script@v7, 5-minute execution timeout guardrail (timeout-minutes: 5), cancel-in-progress concurrency, least-privilege permissions (pull-requests: write).
+  * Deployed .github/workflows/label-sync.yml: automated label synchronization via EndBug/label-sync@v2, config-file .github/labels.yml, 5-minute timeout guardrail, cancel-in-progress concurrency, least-privilege permissions (issues: write).
+  * Deployed .github/labels.yml: standardized 11 governance labels per GOVERNANCE.md §4.2 (bug, enhancement, good first issue, help wanted, documentation, duplicate, wontfix, priority: high, priority: low, needs-triage, stale).
+  * Validated existing .github/workflows/stale.yml (actions/stale@v9, timeout 10m) and .github/workflows/welcome.yml (actions/first-interaction@v3, timeout 5m).
+- Extended Multi-Host Sync, Cloud Collision & Lock Defense:
+  * Hardened .gitignore with *-IDEAPAD*, *-WORKSTATION.*, *-WORKSTATION-LG.*, OS noise (Desktop.ini, ehthumbs.db, *.swo), and test execution temp caches (.pytest_temp/, .pytest_tmp*/).
+- PEP 621 Standard & Pytest Isolation:
+  * Updated pyproject.toml license-files to include THIRD_PARTY_LICENSES.txt: license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_LICENSES.md", "THIRD_PARTY_LICENSES.txt"].
+  * Added "Third-Party Licenses (Text)" to pyproject.toml [project.urls] pointing to canonical THIRD_PARTY_LICENSES.txt.
+  * Hardened [tool.pytest.ini_options] with addopts = "-ra -v --basetemp=.pytest_temp" and expanded norecursedirs protecting .pytest_temp, .pytest_tmp*, .tox, .hypothesis.
+- Level 1 SBOM Text Companion (THIRD_PARTY_LICENSES.txt):
+  * Established canonical plain text companion THIRD_PARTY_LICENSES.txt for automated package parsers and air-gapped compliance tools.
+  * Re-audited full inventory (Stand 2026-09-29) across all 10 governance & runtime invariants (INV-LOCAL-01 through INV-SLA-10), unprivileged RunAsInvoker non-elevation, zero-copyleft guarantee, and 100% offline local-first execution.
+  * Synchronized NOTICE with cross-reference to both THIRD_PARTY_LICENSES.md and THIRD_PARTY_LICENSES.txt.
+- Documentation & Machine-Readable Context:
+  * Refreshed machine-readable LLM context (llms.txt) with verification timestamp 2026-09-29, test suite baseline 49 passed contract tests, and THIRD_PARTY_LICENSES.txt reference.
+  * Synchronized Shields.io test status badges in README.md and README_de.md to reflect 49 passed contract tests (100% green).
+  * Updated CHANGELOG.md under ## [Unreleased] documenting Pfad A technical hygiene operations.
+- Contract Test Suite:
+  * Expanded tests/test_metadata.py from 42 to 49 contract tests (100% green) adding automated assertions for auto-assign workflow, label-sync workflow and labels.yml, Level 1 SBOM text companion and NOTICE parity, pytest basetemp and norecursedirs hardening, extended gitignore patterns, 2026-09-29 audit timestamp, and Section 12 marketing ledger.
 ================================================================================

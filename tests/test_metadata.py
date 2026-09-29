@@ -77,7 +77,7 @@ def test_readme_badges_present():
         "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
         "img.shields.io/badge/version-1.3.4-blue.svg",
         "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-42%20passed%20%7C%20100%25-brightgreen.svg",
+        "img.shields.io/badge/tests-49%20passed%20%7C%20100%25-brightgreen.svg",
         "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
         "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
         "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
@@ -382,10 +382,19 @@ def test_llms_txt_structure_and_parity():
     assert llms_file.exists(), "llms.txt must exist"
     text = llms_file.read_text(encoding="utf-8")
 
-    assert "Last-checked: 2026-09-26" in text or "Last-checked: 2026-09-21" in text
+    assert (
+        "Last-checked: 2026-09-29" in text
+        or "Last-checked: 2026-09-26" in text
+        or "Last-checked: 2026-09-21" in text
+    )
     assert "Version: 1.3.4" in text
-    assert "42 passed contract tests" in text or "37 passed contract tests" in text
+    assert (
+        "49 passed contract tests" in text
+        or "42 passed contract tests" in text
+        or "37 passed contract tests" in text
+    )
     assert "THIRD_PARTY_LICENSES.md" in text
+    assert "THIRD_PARTY_LICENSES.txt" in text
     assert "MARKETING-LOG.txt" in text
     assert "NOTICE" in text
 
@@ -600,10 +609,13 @@ def test_pyproject_license_files_and_pytest_norecursedirs():
     assert "LICENSE" in license_files
     assert "NOTICE" in license_files
     assert "THIRD_PARTY_LICENSES.md" in license_files
+    assert "THIRD_PARTY_LICENSES.txt" in license_files
 
     urls = data.get("project", {}).get("urls", {})
     assert "Notice" in urls
     assert urls["Notice"].endswith("/NOTICE")
+    assert "Third-Party Licenses (Text)" in urls
+    assert urls["Third-Party Licenses (Text)"].endswith("/THIRD_PARTY_LICENSES.txt")
 
     pytest_cfg = data.get("tool", {}).get("pytest", {}).get("ini_options", {})
     assert pytest_cfg.get("minversion") == "7.0"
@@ -756,4 +768,137 @@ def test_marketing_log_pfad_b_section_11():
     assert "Multi-Agent Concurrency & State Machine Lifecycle" in text
     assert "Component Interoperability & Communication Wire Protocols" in text
     assert "stateDiagram-v2" in text
+
+
+def test_auto_assign_workflow_integrity():
+    workflow_file = REPO_ROOT / ".github" / "workflows" / "auto-assign.yml"
+    assert workflow_file.exists(), ".github/workflows/auto-assign.yml must exist"
+    text = workflow_file.read_text(encoding="utf-8")
+
+    assert "actions/github-script@v7" in text
+    assert "timeout-minutes: 5" in text
+    assert "cancel-in-progress: true" in text
+    assert "pull-requests: write" in text
+    assert "pull_request_target:" in text
+
+
+def test_label_sync_workflow_and_labels_yml():
+    workflow_file = REPO_ROOT / ".github" / "workflows" / "label-sync.yml"
+    assert workflow_file.exists(), ".github/workflows/label-sync.yml must exist"
+    text = workflow_file.read_text(encoding="utf-8")
+
+    assert "EndBug/label-sync@v2" in text
+    assert "timeout-minutes: 5" in text
+    assert "cancel-in-progress: true" in text
+    assert "issues: write" in text
+
+    labels_file = REPO_ROOT / ".github" / "labels.yml"
+    assert labels_file.exists(), ".github/labels.yml must exist"
+    labels_text = labels_file.read_text(encoding="utf-8")
+    expected_labels = [
+        "bug",
+        "enhancement",
+        "good first issue",
+        "help wanted",
+        "documentation",
+        "duplicate",
+        "wontfix",
+        "priority: high",
+        "priority: low",
+        "needs-triage",
+        "stale",
+    ]
+    for label in expected_labels:
+        assert f"name: {label}" in labels_text or f"name: '{label}'" in labels_text, (
+            f"Missing standard label {label} in .github/labels.yml"
+        )
+
+
+def test_level_1_sbom_text_companion_and_parity():
+    txt_file = REPO_ROOT / "THIRD_PARTY_LICENSES.txt"
+    assert txt_file.exists(), "THIRD_PARTY_LICENSES.txt must exist in repo root"
+    text = txt_file.read_text(encoding="utf-8")
+
+    assert "THIRD-PARTY LICENSES & LEVEL 1 SBOM NOTICE" in text
+    assert "1.3.4" in text
+    assert "RunAsInvoker" in text
+    assert "Zero-Copyleft Isolation Guarantee" in text
+
+    expected_invariants = [
+        "INV-LOCAL-01",
+        "INV-USER-02",
+        "INV-LOCK-03",
+        "INV-ROUT-04",
+        "INV-AVAT-05",
+        "INV-MANI-06",
+        "INV-PIN-07",
+        "INV-SAND-08",
+        "INV-SYNC-09",
+        "INV-SLA-10",
+    ]
+    for inv in expected_invariants:
+        assert inv in text, f"Missing invariant {inv} in THIRD_PARTY_LICENSES.txt"
+
+    notice_text = (REPO_ROOT / "NOTICE").read_text(encoding="utf-8")
+    assert "THIRD_PARTY_LICENSES.txt" in notice_text
+
+
+def test_pytest_basetemp_and_norecursedirs_hardening():
+    pyproject_file = REPO_ROOT / "pyproject.toml"
+    assert pyproject_file.exists(), "pyproject.toml must exist"
+    data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
+
+    pytest_cfg = data.get("tool", {}).get("pytest", {}).get("ini_options", {})
+    addopts = pytest_cfg.get("addopts", "")
+    assert "--basetemp=.pytest_temp" in addopts, (
+        "pytest addopts must specify --basetemp=.pytest_temp"
+    )
+
+    norecursedirs = pytest_cfg.get("norecursedirs", [])
+    assert ".pytest_temp" in norecursedirs, "norecursedirs must include .pytest_temp"
+    assert ".pytest_tmp*" in norecursedirs, "norecursedirs must include .pytest_tmp*"
+
+
+def test_extended_lock_defense_and_pytest_temp_in_gitignore():
+    gitignore_file = REPO_ROOT / ".gitignore"
+    assert gitignore_file.exists(), ".gitignore must exist"
+    text = gitignore_file.read_text(encoding="utf-8")
+
+    expected_patterns = [
+        "*-IDEAPAD*",
+        "Desktop.ini",
+        "ehthumbs.db",
+        "*.swo",
+        ".pytest_temp/",
+        ".pytest_tmp*/",
+    ]
+    for pat in expected_patterns:
+        assert pat in text, f"Missing pattern {pat} in .gitignore"
+
+
+def test_third_party_licenses_audit_2026_09_29():
+    md_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
+    txt_file = REPO_ROOT / "THIRD_PARTY_LICENSES.txt"
+    assert md_file.exists() and txt_file.exists()
+
+    md_text = md_file.read_text(encoding="utf-8")
+    txt_text = txt_file.read_text(encoding="utf-8")
+
+    assert "2026-09-29" in md_text, "Missing 2026-09-29 in THIRD_PARTY_LICENSES.md"
+    assert "2026-09-29" in txt_text, "Missing 2026-09-29 in THIRD_PARTY_LICENSES.txt"
+    assert "THIRD_PARTY_LICENSES.txt" in md_text
+
+
+def test_marketing_log_pfad_a_section_12():
+    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
+    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
+    text = mkt_file.read_text(encoding="utf-8")
+
+    assert (
+        "12. TECHNICAL HYGIENE, CI WORKFLOW LIFECYCLE & LEVEL 1 SBOM AUDIT "
+        "(v1.3.4 -- 2026-09-29) [Pfad A]"
+    ) in text
+    assert "auto-assign.yml" in text
+    assert "label-sync.yml" in text
+    assert "THIRD_PARTY_LICENSES.txt" in text
 

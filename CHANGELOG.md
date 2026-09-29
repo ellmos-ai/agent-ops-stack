@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+- **Pfad A (Repository Hygiene, CI Lifecycle Workflows & Level 1 SBOM Audit - 2026-09-29)**:
+  - Deployed `.github/workflows/auto-assign.yml` with `actions/github-script@v7`, `timeout-minutes: 5`, concurrency control (`cancel-in-progress: true`), and least-privilege `pull-requests: write`.
+  - Deployed `.github/workflows/label-sync.yml` with `EndBug/label-sync@v2`, `timeout-minutes: 5`, concurrency control, and least-privilege `issues: write`.
+  - Established canonical `.github/labels.yml` with 11 standard governance labels per `GOVERNANCE.md` §4.2 (`bug`, `enhancement`, `good first issue`, `help wanted`, `documentation`, `duplicate`, `wontfix`, `priority: high`, `priority: low`, `needs-triage`, `stale`).
+  - Hardened `.gitignore` with `*-IDEAPAD*`, `*-WORKSTATION.*`, `*-WORKSTATION-LG.*`, OS noise (`Desktop.ini`, `ehthumbs.db`, `*.swo`), and isolated test caches (`.pytest_temp/`, `.pytest_tmp*/`).
+  - Standardized PEP 621 metadata in `pyproject.toml` with `license-files` including `THIRD_PARTY_LICENSES.txt`, registered `"Third-Party Licenses (Text)"` under `[project.urls]`, and configured `[tool.pytest.ini_options]` with `addopts = "-ra -v --basetemp=.pytest_temp"` and `norecursedirs` protecting `.pytest_temp`, `.pytest_tmp*`, `.tox`, `.hypothesis`.
+  - Created canonical Level 1 SBOM plain text companion `THIRD_PARTY_LICENSES.txt` and re-audited `THIRD_PARTY_LICENSES.md` (Stand 2026-09-29) confirming zero copyleft, unprivileged `RunAsInvoker` user-mode non-elevation, and 100% offline zero-egress execution across all 10 invariants (`INV-LOCAL-01` through `INV-SLA-10`).
+  - Synchronized canonical `NOTICE` attribution file with cross-reference to both `THIRD_PARTY_LICENSES.md` and `THIRD_PARTY_LICENSES.txt`.
+  - Synchronized Shields.io test status badges in `README.md` and `README_de.md` to reflect 49 passed contract tests (100% green).
+  - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-09-29`, updated test suite count (49 passed), and Level 1 SBOM text companion reference.
+  - Appended Section 12 to `MARKETING-LOG.txt` documenting the Pfad A Technical Hygiene, CI Workflow Lifecycle & Level 1 SBOM Audit.
+  - Expanded automated contract test suite (`tests/test_metadata.py`) from 42 to 49 tests (100% green).
+  - Version freeze discipline: preserved version `1.3.4` strictly unchanged per `T-20260920-167562623`.
+
 - **Pfad B (Marketing & Design / Visual Lifecycle Architecture & SEO Enhancement - 2026-09-26)**:
   - Designed and integrated interactive multi-agent concurrency state machine (`stateDiagram-v2`) across bilingual landing pages (`README.md` and `README_de.md`) detailing complete lifecycle from task ingestion through fail-closed lock acquisition, decision avatar bounds, MCP profile resolution, test gates, lock release, to slot-gated sync.
   - Enriched Section 5 with comprehensive Component Interoperability & Communication Wire Protocols matrix documenting offline transport channels (POSIX/NTFS file atomics, stdio JSON-RPC, markdown queues, YAML skill definitions).
