@@ -4,13 +4,14 @@
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.4-blue.svg" alt="Version"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg" alt="CI-Status"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/tests-49%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-56%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
   <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Komponierte Module"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg" alt="Python Versionen">
   <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Plattformen">
   <img src="https://img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg" alt="Local-First Architektur">
   <img src="https://img.shields.io/badge/security-Non--Elevation%20%7C%20Sandboxed-informational.svg" alt="Sicherheits-Invariante">
   <a href="SECURITY.md"><img src="https://img.shields.io/badge/Security%20SLA-48h%20%7C%205d%20triage-informational.svg" alt="Sicherheits-SLA"></a>
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/Mitwirken-Richtlinien-blue.svg" alt="Mitwirken"></a>
   <a href="THIRD_PARTY_LICENSES.md"><img src="https://img.shields.io/badge/Third--Party-Audited-blue.svg" alt="Drittanbieter-Audit"></a>
   <a href="MARKETING-LOG.txt"><img src="https://img.shields.io/badge/Marketing%20Log-Active-informational.svg" alt="Marketing Log"></a>
   <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/badge/code%20style-ruff-000000.svg" alt="Code style: Ruff"></a>
@@ -530,7 +531,7 @@ Alle Abhängigkeiten sind strikt permissiv und entsprechen den lokalen Zero-Egre
 `agent-ops-stack` erzwingt standardisierte statische Analysen und automatisierte Vertragstests:
 
 ```bash
-# 1. Automatisierte Metadaten-, Schema- und Vertragstests ausführen (42 Tests bestanden | 100% grün)
+# 1. Automatisierte Metadaten-, Schema- und Vertragstests ausführen (56 Tests bestanden | 100% grün)
 pytest -v
 
 # 2. Linter-Standards prüfen

@@ -277,4 +277,34 @@ Umbrella Collective: open-bricks
   * Updated CHANGELOG.md under ## [Unreleased] documenting Pfad A technical hygiene operations.
 - Contract Test Suite:
   * Expanded tests/test_metadata.py from 42 to 49 contract tests (100% green) adding automated assertions for auto-assign workflow, label-sync workflow and labels.yml, Level 1 SBOM text companion and NOTICE parity, pytest basetemp and norecursedirs hardening, extended gitignore patterns, 2026-09-29 audit timestamp, and Section 12 marketing ledger.
+
+--------------------------------------------------------------------------------
+13. TECHNICAL HYGIENE, BILINGUAL CONTRIBUTING GUIDELINES & LEVEL 1 SBOM AUDIT (v1.3.4 -- 2026-10-02) [Pfad A]
+--------------------------------------------------------------------------------
+[2026-10-02 03:20 CEST] [GITHUBBOT_ONE_REPO_CLEANER] (Pfad A)
+Maintainer: Lukas Geiger (ellmos-ai / open-bricks)
+Repository: ellmos-ai/agent-ops-stack
+Target Version: 1.3.4 (Version freeze preserved per T-20260920-167562623)
+Umbrella Collective: open-bricks
+
+- Bilingual Contributing Guidelines (CONTRIBUTING.md):
+  * Established comprehensive, reciprocal bilingual developer guidelines in English and German.
+  * Formally specifies Plan D local development workflow (C:\_Local_DEV\repos\agent-ops-stack as canonical source of truth).
+  * Formalizes all 10 governance invariants (INV-LOCAL-01 through INV-SLA-10) with explicit cross-references.
+  * Documents unprivileged user-mode RunAsInvoker non-elevation (INV-USER-02), fail-closed lock defense (INV-LOCK-03), structured ticket routing (INV-ROUT-04), decision avatar fallback (INV-AVAT-05), deterministic manifest blueprints (INV-MANI-06), immutable release tag pinning (INV-PIN-07), sandboxed installer boundaries (INV-SAND-08), slot-gated cross-machine sync (INV-SYNC-09), and 48h Security Response SLA (INV-SLA-10).
+  * Codifies statutory limitation of liability (§ 521 BGB Gefälligkeitsrecht) and strict version freeze discipline per T-20260920-167562623.
+- Extended Multi-Host Lock & Sync Defense:
+  * Hardened .gitignore with *-IDEAPAD-GEI*, *-IDEAPAD-GEI.*, LOCK.dev.*, LOCK.antigravity.*, LOCK.bugsearch.*, TASKPLAN_*.md, and *-TASKPLAN*.
+- PEP 621 Metadata Alignment & Quality Gate Hardening:
+  * Registered Contributing, Level 1 SBOM, Level 1 SBOM (Text), and Plain-Text License endpoints in pyproject.toml [project.urls].
+  * Hardened [tool.pytest.ini_options].norecursedirs with .turbo and .nyc_output.
+- Level 1 SBOM Re-Audit & Statutory Transparency (Stand 2026-10-02):
+  * Re-audited THIRD_PARTY_LICENSES.txt (plain-text companion) and THIRD_PARTY_LICENSES.md.
+  * Confirmed 100% zero-copyleft permissive stack (MIT, Apache-2.0, PSFL-2.0) and offline zero-egress architecture.
+  * Added formal statutory liability limitation notice (§ 521 BGB Gefälligkeitsrecht) and CONTRIBUTING.md cross-references.
+- Documentation, Shields.io Badges & LLM Context Parity:
+  * Refreshed llms.txt with verification timestamp 2026-10-02, 56 passed tests baseline, and CONTRIBUTING.md interface documentation.
+  * Synchronized Shields.io test status badges in README.md and README_de.md to reflect 56 passed contract tests (100% green) and Contributing guidelines badge.
+- Automated Contract Test Suite:
+  * Expanded tests/test_metadata.py from 49 to 56 contract tests (100% green) validating bilingual CONTRIBUTING.md parity, all 10 invariants, PEP 621 URLs, extended .gitignore locks and multi-host tokens, 2026-10-02 Level 1 SBOM audit recency, Section 13 marketing ledger, and version freeze discipline.
 ================================================================================

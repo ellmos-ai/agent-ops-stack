@@ -2,9 +2,9 @@
 
 > **Project:** `ellmos-ai/agent-ops-stack`<br>
 > **Version:** `1.3.4`<br>
-> **Audited:** 2026-09-29 (Pfad A Re-audit; previous audits 2026-09-26, 2026-09-21, 2026-09-16)<br>
+> **Audited:** 2026-10-02 (Pfad A Re-audit; previous audits 2026-09-29, 2026-09-26, 2026-09-21, 2026-09-16)<br>
 > **Repository License:** [MIT License](LICENSE)<br>
-> **Attribution & SBOM:** [NOTICE](NOTICE) | [Plain Text SBOM Companion](THIRD_PARTY_LICENSES.txt)<br>
+> **Attribution & SBOM:** [NOTICE](NOTICE) | [Plain Text SBOM Companion](THIRD_PARTY_LICENSES.txt) | [Contributing](CONTRIBUTING.md)<br>
 > **Architecture & Privacy:** 100% Local-First, Zero-Egress by default, Unprivileged User-Mode (`RunAsInvoker`)
 
 ---
@@ -88,3 +88,9 @@ Co-licensed by `ruff`.
 > Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at:  
 > http://www.apache.org/licenses/LICENSE-2.0  
 > Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+---
+
+## Statutory Limitation of Liability (§ 521 BGB Gefälligkeitsrecht)
+
+Dieses Projekt ist eine unentgeltliche Open-Source-Schenkung im Sinne der §§ 516 ff. BGB. Die Haftung des Urhebers und der Beitragenden ist gemäß **§ 521 BGB** auf **Vorsatz und grobe Fahrlässigkeit** beschränkt. Die komponierten Module unterliegen jeweils ihren eigenen Lizenzen.

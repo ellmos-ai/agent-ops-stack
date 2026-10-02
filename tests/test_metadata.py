@@ -77,7 +77,7 @@ def test_readme_badges_present():
         "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
         "img.shields.io/badge/version-1.3.4-blue.svg",
         "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-49%20passed%20%7C%20100%25-brightgreen.svg",
+        "img.shields.io/badge/tests-56%20passed%20%7C%20100%25-brightgreen.svg",
         "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
         "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
         "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
@@ -96,6 +96,16 @@ def test_readme_badges_present():
         text = (REPO_ROOT / filename).read_text(encoding="utf-8")
         for badge in expected_badges:
             assert badge in text, f"Missing badge {badge} in {filename}"
+
+    readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
+    assert "Contributing-Guidelines-blue.svg" in readme_en, (
+        "Missing Contributing badge in README.md"
+    )
+    assert "Mitwirken-Richtlinien-blue.svg" in readme_de, (
+        "Missing Mitwirken badge in README_de.md"
+    )
+
 
 
 def test_quick_navigation_18_points_and_reciprocal_anchor_parity():
@@ -383,13 +393,15 @@ def test_llms_txt_structure_and_parity():
     text = llms_file.read_text(encoding="utf-8")
 
     assert (
-        "Last-checked: 2026-09-29" in text
+        "Last-checked: 2026-10-02" in text
+        or "Last-checked: 2026-09-29" in text
         or "Last-checked: 2026-09-26" in text
         or "Last-checked: 2026-09-21" in text
     )
     assert "Version: 1.3.4" in text
     assert (
-        "49 passed contract tests" in text
+        "56 passed contract tests" in text
+        or "49 passed contract tests" in text
         or "42 passed contract tests" in text
         or "37 passed contract tests" in text
     )
@@ -397,6 +409,7 @@ def test_llms_txt_structure_and_parity():
     assert "THIRD_PARTY_LICENSES.txt" in text
     assert "MARKETING-LOG.txt" in text
     assert "NOTICE" in text
+    assert "CONTRIBUTING.md" in text
 
 
 def test_banner_assets_and_media_integrity():
@@ -902,3 +915,128 @@ def test_marketing_log_pfad_a_section_12():
     assert "label-sync.yml" in text
     assert "THIRD_PARTY_LICENSES.txt" in text
 
+
+def test_contributing_guidelines_exist_and_bilingual_parity():
+    contrib_file = REPO_ROOT / "CONTRIBUTING.md"
+    assert contrib_file.exists(), "CONTRIBUTING.md must exist in repository root"
+    text = contrib_file.read_text(encoding="utf-8")
+
+    # Bilingual navigation parity
+    assert "[English](#english)" in text, "CONTRIBUTING.md must have English switcher"
+    assert "[Deutsch](#deutsch)" in text, "CONTRIBUTING.md must have Deutsch switcher"
+    assert '<a id="english"></a>' in text
+    assert '<a id="deutsch"></a>' in text
+
+    # Core architecture & governance invariants INV-LOCAL-01 through INV-SLA-10
+    expected_invariants = [
+        "INV-LOCAL-01",
+        "INV-USER-02",
+        "INV-LOCK-03",
+        "INV-ROUT-04",
+        "INV-AVAT-05",
+        "INV-MANI-06",
+        "INV-PIN-07",
+        "INV-SAND-08",
+        "INV-SYNC-09",
+        "INV-SLA-10",
+    ]
+    for inv in expected_invariants:
+        assert inv in text, f"Missing invariant {inv} in CONTRIBUTING.md"
+
+    # Execution and security guarantees
+    assert "RunAsInvoker" in text, "Missing RunAsInvoker in CONTRIBUTING.md"
+    assert "Plan D" in text, "CONTRIBUTING.md must mention Plan D local workflow"
+    assert "security@ellmos.ai" in text, "CONTRIBUTING.md must reference security contact"
+    assert "§ 521 BGB" in text, "CONTRIBUTING.md must include § 521 BGB disclaimer"
+    assert "T-20260920-167562623" in text, "CONTRIBUTING.md must cite version freeze directive"
+
+
+def test_pep621_contributing_and_sbom_urls():
+    pyproject_file = REPO_ROOT / "pyproject.toml"
+    assert pyproject_file.exists(), "pyproject.toml must exist"
+    data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
+
+    urls = data.get("project", {}).get("urls", {})
+    assert "Contributing" in urls, "pyproject.toml [project.urls] must include Contributing"
+    assert "CONTRIBUTING.md" in urls["Contributing"]
+    assert "Level 1 SBOM" in urls, "pyproject missing Level 1 SBOM URL"
+    assert "Level 1 SBOM (Text)" in urls, "pyproject missing Level 1 SBOM (Text) URL"
+    assert "Plain-Text License" in urls, "pyproject missing Plain-Text License URL"
+
+    pytest_opts = data.get("tool", {}).get("pytest", {}).get("ini_options", {})
+    norecursedirs = pytest_opts.get("norecursedirs", [])
+    assert ".turbo" in norecursedirs, "norecursedirs must include .turbo"
+    assert ".nyc_output" in norecursedirs, "norecursedirs must include .nyc_output"
+
+
+def test_extended_lock_defense_and_multihost_tokens():
+    gitignore_file = REPO_ROOT / ".gitignore"
+    assert gitignore_file.exists(), ".gitignore must exist"
+    text = gitignore_file.read_text(encoding="utf-8")
+
+    expected_patterns = [
+        "*-IDEAPAD-GEI*",
+        "*-IDEAPAD-GEI.*",
+        "LOCK.dev.*",
+        "LOCK.antigravity.*",
+        "LOCK.bugsearch.*",
+        "TASKPLAN_*.md",
+        "*-TASKPLAN*",
+    ]
+    for pat in expected_patterns:
+        assert pat in text, f"Missing pattern {pat} in .gitignore"
+
+
+def test_third_party_licenses_audit_2026_10_02():
+    md_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
+    txt_file = REPO_ROOT / "THIRD_PARTY_LICENSES.txt"
+    assert md_file.exists() and txt_file.exists()
+
+    md_text = md_file.read_text(encoding="utf-8")
+    txt_text = txt_file.read_text(encoding="utf-8")
+
+    assert "2026-10-02" in md_text, "Missing 2026-10-02 in THIRD_PARTY_LICENSES.md"
+    assert "2026-10-02" in txt_text, "Missing 2026-10-02 in THIRD_PARTY_LICENSES.txt"
+    assert "§ 521 BGB" in md_text, "Missing § 521 BGB in THIRD_PARTY_LICENSES.md"
+    assert "§ 521 BGB" in txt_text, "Missing § 521 BGB in THIRD_PARTY_LICENSES.txt"
+    assert "CONTRIBUTING.md" in md_text, "Missing CONTRIBUTING.md in THIRD_PARTY_LICENSES.md"
+    assert "CONTRIBUTING.md" in txt_text, "Missing CONTRIBUTING.md in THIRD_PARTY_LICENSES.txt"
+
+
+def test_changelog_recent_pfad_a_entry_2026_10_02():
+    changelog_file = REPO_ROOT / "CHANGELOG.md"
+    assert changelog_file.exists(), "CHANGELOG.md must exist"
+    text = changelog_file.read_text(encoding="utf-8")
+
+    assert "2026-10-02" in text, "Missing 2026-10-02 in CHANGELOG.md"
+    assert "CONTRIBUTING.md" in text, "Missing CONTRIBUTING.md in CHANGELOG.md"
+    assert "Level 1 SBOM" in text, "Missing Level 1 SBOM in CHANGELOG.md"
+    assert "T-20260920-167562623" in text, "Missing version freeze directive in CHANGELOG.md"
+
+
+def test_marketing_log_pfad_a_section_13():
+    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
+    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
+    text = mkt_file.read_text(encoding="utf-8")
+
+    assert (
+        "13. TECHNICAL HYGIENE, BILINGUAL CONTRIBUTING GUIDELINES & LEVEL 1 SBOM AUDIT "
+        "(v1.3.4 -- 2026-10-02) [Pfad A]"
+    ) in text
+    assert "CONTRIBUTING.md" in text
+    assert "THIRD_PARTY_LICENSES.txt" in text
+    assert "§ 521 BGB" in text
+
+
+def test_version_freeze_discipline_t_20260920():
+    pyproject_file = REPO_ROOT / "pyproject.toml"
+    assert pyproject_file.exists()
+    data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
+    assert data["project"]["version"] == "1.3.4", (
+        "Version must remain strictly 1.3.4 per T-20260920-167562623"
+    )
+
+    manifest_file = REPO_ROOT / "agent-ops.manifest.json"
+    assert manifest_file.exists()
+    mdata = json.loads(manifest_file.read_text(encoding="utf-8"))
+    assert mdata["name"] == "agent-ops-stack"

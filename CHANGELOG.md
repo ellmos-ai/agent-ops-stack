@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+- **Pfad A (Repository Hygiene, Bilingual Contributing Guidelines, CI Matrix & Level 1 SBOM Audit - 2026-10-02)**:
+  - Authored comprehensive bilingual `CONTRIBUTING.md` guidelines (English and German) with reciprocal quick navigation anchors, formalizing Plan D local development workflow (`C:\_Local_DEV\repos\agent-ops-stack`), unprivileged `RunAsInvoker` non-elevation mode (`INV-USER-02`), all 10 governance invariants (`INV-LOCAL-01` through `INV-SLA-10`), version freeze discipline per `T-20260920-167562623`, statutory liability limitation (§ 521 BGB Gefälligkeitsrecht), and binding 48h Security Response SLA (`security@ellmos.ai`, `security@open-bricks.org`).
+  - Hardened `.gitignore` with extended multi-host tokens (`*-IDEAPAD-GEI*`, `*-IDEAPAD-GEI.*`), multi-agent lock patterns (`LOCK.dev.*`, `LOCK.antigravity.*`, `LOCK.bugsearch.*`), and agent task planning files (`TASKPLAN_*.md`, `*-TASKPLAN*`).
+  - Standardized PEP 621 metadata in `pyproject.toml` by registering `"Contributing"`, `"Level 1 SBOM"`, `"Level 1 SBOM (Text)"`, and `"Plain-Text License"` under `[project.urls]`, and expanding `[tool.pytest.ini_options].norecursedirs` with `.turbo` and `.nyc_output`.
+  - Re-audited Level 1 SBOM plain text companion `THIRD_PARTY_LICENSES.txt` and markdown transparency inventory `THIRD_PARTY_LICENSES.md` (Stand 2026-10-02), adding formal statutory liability limitation notice under § 521 BGB Gefälligkeitsrecht and confirming 100% zero-copyleft and offline zero-egress compliance across all 10 invariants.
+  - Synchronized Shields.io status badges across bilingual landing pages (`README.md` and `README_de.md`) to reflect 56 passed contract tests (100% green) and dedicated Contributing guidelines badge.
+  - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-10-02`, updated test suite count (56 passed), and canonical `CONTRIBUTING.md` interface reference.
+  - Appended Section 13 to `MARKETING-LOG.txt` documenting the Pfad A Technical Hygiene, Bilingual Contributing Guidelines & Level 1 SBOM Re-Audit.
+  - Expanded automated contract test suite (`tests/test_metadata.py`) from 49 to 56 tests (100% green).
+  - Version freeze discipline: preserved version `1.3.4` strictly unchanged per `T-20260920-167562623`.
+
 - **Pfad A (Repository Hygiene, CI Lifecycle Workflows & Level 1 SBOM Audit - 2026-09-29)**:
   - Deployed `.github/workflows/auto-assign.yml` with `actions/github-script@v7`, `timeout-minutes: 5`, concurrency control (`cancel-in-progress: true`), and least-privilege `pull-requests: write`.
   - Deployed `.github/workflows/label-sync.yml` with `EndBug/label-sync@v2`, `timeout-minutes: 5`, concurrency control, and least-privilege `issues: write`.
