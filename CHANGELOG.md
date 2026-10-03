@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+- **Pfad B (Marketing & Design / Visual Architecture & ASCII Four-View Topology - 2026-10-03)**:
+  - Designed and integrated ASCII Four-View Architectural Topology projection in Section 1 of bilingual landing pages (`README.md` and `README_de.md`) covering `[VIEW 1: CALLER RUNTIMES, CLI AGENTS & HUMAN OPERATOR ENTRYPOINTS]`, `[VIEW 2: STACK MANIFEST COMPOSITION & ORCHESTRATION ENGINE]`, `[VIEW 3: RUNTIME PERSISTENCE, LOCAL STORAGE & STATE REGISTRIES]`, and `[VIEW 4: AIR-GAP DEFENSE PERIMETER, UNPRIVILEGED RUNASINVOKER & ZERO-EGRESS BOUNDARY]` (German: `[SICHT 1]` through `[SICHT 4]`).
+  - Implemented 18-point bilingual quick navigation parity with reciprocal dual HTML anchors (`<a id="sec-01"></a>` through `<a id="sec-18"></a>`) across all sections in `README.md` and `README_de.md`.
+  - Re-audited Level 1 SBOM plain text companion `THIRD_PARTY_LICENSES.txt` and markdown inventory `THIRD_PARTY_LICENSES.md` (Stand 2026-10-03) confirming 100% zero-copyleft permissive stack, unprivileged `RunAsInvoker` user-mode non-elevation (`INV-USER-02`), offline zero-egress architecture (`INV-LOCAL-01`), and statutory liability limitation (§ 521 BGB Gefälligkeitsrecht) across all 10 governance invariants (`INV-LOCAL-01` through `INV-SLA-10`).
+  - Synchronized Shields.io test status badges in `README.md` and `README_de.md` to reflect 61 passed contract tests (100% green).
+  - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-10-03`, updated test suite count (61 passed), Section 1 ASCII 4-view topology notes, and quick navigation anchors.
+  - Recorded Section 14 in local `MARKETING-LOG.txt` documenting the 2026-10-03 Pfad B Visual Architecture, ASCII Four-View Topology & Level 1 SBOM Re-Audit.
+  - Expanded automated contract test suite (`tests/test_metadata.py`) from 56 to 61 contract tests (100% green), adding assertions for ASCII four-view architectural topology parity, quick navigation numeric `sec-01`..`sec-18` anchor parity, 2026-10-03 Level 1 SBOM audit currency, CHANGELOG Pfad B entry, and Section 14 marketing ledger.
+  - Version freeze discipline: preserved version `1.3.4` strictly unchanged per `T-20260920-167562623`.
+
 - **Pfad A (Repository Hygiene, Bilingual Contributing Guidelines, CI Matrix & Level 1 SBOM Audit - 2026-10-02)**:
   - Authored comprehensive bilingual `CONTRIBUTING.md` guidelines (English and German) with reciprocal quick navigation anchors, formalizing Plan D local development workflow (`C:\_Local_DEV\repos\agent-ops-stack`), unprivileged `RunAsInvoker` non-elevation mode (`INV-USER-02`), all 10 governance invariants (`INV-LOCAL-01` through `INV-SLA-10`), version freeze discipline per `T-20260920-167562623`, statutory liability limitation (§ 521 BGB Gefälligkeitsrecht), and binding 48h Security Response SLA (`security@ellmos.ai`, `security@open-bricks.org`).
   - Hardened `.gitignore` with extended multi-host tokens (`*-IDEAPAD-GEI*`, `*-IDEAPAD-GEI.*`), multi-agent lock patterns (`LOCK.dev.*`, `LOCK.antigravity.*`, `LOCK.bugsearch.*`), and agent task planning files (`TASKPLAN_*.md`, `*-TASKPLAN*`).

@@ -4,7 +4,7 @@
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.4-blue.svg" alt="Version"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg" alt="CI Status"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/tests-56%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-61%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
   <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Composed Modules"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg" alt="Python Versions">
   <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Platforms">
@@ -68,6 +68,7 @@ Machine-readable context for LLMs and agentic tools: [`llms.txt`](llms.txt).
 
 ---
 
+<a id="sec-01"></a>
 <a id="1-overview--architecture"></a>
 <a id="overview--architecture"></a>
 <a id="1-ueberblick--architektur"></a>
@@ -103,8 +104,53 @@ your AI coding agent
     └── skills                  → skill-pack
 ```
 
+```text
++====================================================================================================+
+|                              AGENT-OPS-STACK ARCHITECTURAL TOPOLOGY (4 VIEWS)                      |
++====================================================================================================+
+| [VIEW 1: CALLER RUNTIMES, CLI AGENTS & HUMAN OPERATOR ENTRYPOINTS]                                 |
+|  * Multi-Agent Orchestration Clients: Claude Code, OpenAI Codex, Antigravity / Gemini, Moonshot    |
+|    Kimi, and custom CLI developer toolchains operating concurrently in user workspaces            |
+|  * Interactive Developer Workstations: Bash / Zsh / PowerShell terminals, IDE task runners        |
+|  * Unprivileged User-Mode Invocation [INV-USER-02] -- Strict RunAsInvoker, zero root/admin bounds  |
+|  * Deterministic Local CLI Operations: Offline commands, stack installer (install.sh)             |
++----------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++----------------------------------------------------------------------------------------------------+
+| [VIEW 2: STACK MANIFEST COMPOSITION & ORCHESTRATION ENGINE]                                        |
+|  * Declarative Stack Manifest: ellmos-stack-manifest-v1 specification in agent-ops.manifest.json    |
+|  * 7 Composed Pillar Modules: Coordination (ticket-master, lock-master), Sync (sync-master),        |
+|    Decision (build-your-users-mind), Skills (skills), and MCP (controlcenter-mcp, homebase-mcp)     |
+|  * Sandboxed Installer Boundary [INV-SAND-08] -- Isolated cloning exclusively into ./modules/      |
+|  * Immutable Release-Tag Pinning [INV-PIN-07] -- Strict git tag pinning; zero unpinned branch drift|
+|  * MCP Protocol Facades: Stdio JSON-RPC interfaces exposed via controlcenter-mcp & homebase-mcp    |
++----------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++----------------------------------------------------------------------------------------------------+
+| [VIEW 3: RUNTIME PERSISTENCE, LOCAL STORAGE & STATE REGISTRIES]                                    |
+|  * Fail-Closed File Locking [INV-LOCK-03]: LOCK*.txt atomic tokens managed by dev-bricks/lock-master|
+|  * Structured Ticket Dispatch [INV-ROUT-04]: dev-bricks/ticket-master markdown queue & registries   |
+|  * Empirical Decision Avatar [INV-AVAT-05]: ellmos-ai/build-your-users-mind persona arbitration    |
+|  * Cross-Device Slot Synchronization [INV-SYNC-09]: dev-bricks/sync-master host slots & barriers   |
+|  * Reusable Skill Pack: ellmos-ai/skills catalog, agent role profiles & semantic tool bundles      |
++----------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++----------------------------------------------------------------------------------------------------+
+| [VIEW 4: AIR-GAP DEFENSE PERIMETER, UNPRIVILEGED RUNASINVOKER & ZERO-EGRESS BOUNDARY]             |
+|  * 100% Local-First & Zero-Egress Perimeter [INV-LOCAL-01] -- Zero telemetry, zero external calls  |
+|  * Zero-Copyleft Isolation Guarantee -- 100% permissive runtime (MIT, Apache-2.0, PSFL-2.0)        |
+|  * Strict Version-Freeze Discipline [T-20260920-167562623] -- Version 1.3.4 immutability           |
+|  * Binding 48h Security Response SLA [INV-SLA-10] -- Fast vulnerability response via SECURITY.md    |
+|  * Statutory Disclaimer -- § 521 BGB Gefälligkeitsrecht liability limitation for open-source gift  |
++====================================================================================================+
+```
+
 ---
 
+<a id="sec-02"></a>
 <a id="2-what-is-agent-ops"></a>
 <a id="what-is-agent-ops"></a>
 <a id="2-was-ist-agent-ops"></a>
@@ -125,6 +171,7 @@ yet harmonized through declarative wiring.
 
 ---
 
+<a id="sec-03"></a>
 <a id="3-target-personas--discoverability"></a>
 <a id="target-personas--discoverability"></a>
 <a id="3-zielgruppen--auffindbarkeit"></a>
@@ -155,6 +202,7 @@ yet harmonized through declarative wiring.
 
 ---
 
+<a id="sec-04"></a>
 <a id="4-comparative-matrix-vs-alternatives"></a>
 <a id="comparative-matrix-vs-alternatives"></a>
 <a id="4-vergleichsmatrix-gegenueber-alternativen"></a>
@@ -183,6 +231,7 @@ The table below contrasts `agent-ops-stack` against four common industry alterna
 
 ---
 
+<a id="sec-05"></a>
 <a id="5-composed-modules-the-7-pillars"></a>
 <a id="composed-modules-the-7-pillars"></a>
 <a id="5-komponierte-module-die-7-saeulen"></a>
@@ -214,6 +263,7 @@ The table below contrasts `agent-ops-stack` against four common industry alterna
 
 ---
 
+<a id="sec-06"></a>
 <a id="6-system-architecture-flowchart"></a>
 <a id="system-architecture-flowchart"></a>
 <a id="6-systemarchitektur-flussdiagramm"></a>
@@ -265,6 +315,7 @@ flowchart TD
 
 ---
 
+<a id="sec-07"></a>
 <a id="7-multi-agent-operational-lifecycle-sequence"></a>
 <a id="multi-agent-operational-lifecycle-sequence"></a>
 <a id="7-multi-agenten-lebenszyklus-sequenz"></a>
@@ -333,6 +384,7 @@ stateDiagram-v2
 
 ---
 
+<a id="sec-08"></a>
 <a id="8-governance--runtime-invariants"></a>
 <a id="governance--runtime-invariants"></a>
 <a id="8-governance--laufzeit-invarianten"></a>
@@ -358,6 +410,7 @@ invariants to protect project trees from concurrent corruption and unbounded act
 
 ---
 
+<a id="sec-09"></a>
 <a id="9-how-an-agent-uses-this-stack"></a>
 <a id="how-an-agent-uses-this-stack"></a>
 <a id="9-wie-ein-agent-diesen-stack-nutzt"></a>
@@ -380,6 +433,7 @@ this structured procedure:
 
 ---
 
+<a id="sec-10"></a>
 <a id="10-quickstart--installation"></a>
 <a id="quickstart--installation"></a>
 <a id="10-schnellstart--installation"></a>
@@ -407,6 +461,7 @@ capabilities. It makes no destructive system changes and sets no environment var
 
 ---
 
+<a id="sec-11"></a>
 <a id="11-manifest-schema-specification"></a>
 <a id="manifest-schema-specification"></a>
 <a id="11-manifest-schema-spezifikation"></a>
@@ -441,6 +496,7 @@ specification:
 
 ---
 
+<a id="sec-12"></a>
 <a id="12-sibling-ecosystem--cross-integration-matrix"></a>
 <a id="sibling-ecosystem--cross-integration-matrix"></a>
 <a id="12-geschwister-oekosystem--integrationsmatrix"></a>
@@ -468,6 +524,7 @@ specification:
 
 ---
 
+<a id="sec-13"></a>
 <a id="13-search-seo--disambiguation"></a>
 <a id="search-seo--disambiguation"></a>
 <a id="13-suche-seo--begriffsklaerung"></a>
@@ -482,6 +539,7 @@ specification:
 
 ---
 
+<a id="sec-14"></a>
 <a id="14-security-model--threat-mitigation"></a>
 <a id="security-model--threat-mitigation"></a>
 <a id="14-sicherheitsmodell--bedrohungsabwehr"></a>
@@ -498,6 +556,7 @@ specification:
 
 ---
 
+<a id="sec-15"></a>
 <a id="15-third-party-licenses--transparency"></a>
 <a id="third-party-licenses--transparency"></a>
 <a id="15-drittanbieter-lizenzen--transparenz"></a>
@@ -519,6 +578,7 @@ All dependencies are strictly permissive and comply with the project's zero-egre
 
 ---
 
+<a id="sec-16"></a>
 <a id="16-verification--automated-test-suite"></a>
 <a id="verification--automated-test-suite"></a>
 <a id="16-verifikation--automatisierte-testsuite"></a>
@@ -530,7 +590,7 @@ All dependencies are strictly permissive and comply with the project's zero-egre
 automated parity test suites:
 
 ```bash
-# 1. Run automated metadata, schema, and parity contract tests (56 tests passed | 100% green)
+# 1. Run automated metadata, schema, and parity contract tests (61 tests passed | 100% green)
 pytest -v
 
 # 2. Validate linter standards
@@ -547,6 +607,7 @@ For complete vulnerability reporting guidelines and response timelines, consult 
 
 ---
 
+<a id="sec-17"></a>
 <a id="17-security-policy--slas"></a>
 <a id="security-policy--slas"></a>
 <a id="17-sicherheitsrichtlinie--slas"></a>
@@ -560,6 +621,7 @@ For vulnerability disclosure protocols, coordinated security reports, and respon
 
 ---
 
+<a id="sec-18"></a>
 <a id="18-license--liability--haftung"></a>
 <a id="license--liability--haftung"></a>
 <a id="18-lizenz--haftung--liability"></a>

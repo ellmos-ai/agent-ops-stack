@@ -307,4 +307,34 @@ Umbrella Collective: open-bricks
   * Synchronized Shields.io test status badges in README.md and README_de.md to reflect 56 passed contract tests (100% green) and Contributing guidelines badge.
 - Automated Contract Test Suite:
   * Expanded tests/test_metadata.py from 49 to 56 contract tests (100% green) validating bilingual CONTRIBUTING.md parity, all 10 invariants, PEP 621 URLs, extended .gitignore locks and multi-host tokens, 2026-10-02 Level 1 SBOM audit recency, Section 13 marketing ledger, and version freeze discipline.
+--------------------------------------------------------------------------------
+14. VISUAL ARCHITECTURE, ASCII FOUR-VIEW TOPOLOGY & LEVEL 1 SBOM RE-AUDIT (v1.3.4 -- 2026-10-03) [Pfad B]
+--------------------------------------------------------------------------------
+[2026-10-03 11:55 CEST] [GITHUBBOT_ONE_REPO_MARKETING_AND_DESIGN] (Pfad B)
+Maintainer: Lukas Geiger (ellmos-ai / open-bricks)
+Repository: ellmos-ai/agent-ops-stack
+Target Version: 1.3.4 (Version freeze preserved per T-20260920-167562623)
+Umbrella Collective: open-bricks
+
+- Visual Architecture & ASCII Four-View Topology Projection:
+  * Designed and projected comprehensive ASCII Four-View Architectural Topology in Section 1 of README.md & README_de.md:
+    [VIEW 1: CALLER RUNTIMES, CLI AGENTS & HUMAN OPERATOR ENTRYPOINTS]
+    [VIEW 2: STACK MANIFEST COMPOSITION & ORCHESTRATION ENGINE]
+    [VIEW 3: RUNTIME PERSISTENCE, LOCAL STORAGE & STATE REGISTRIES]
+    [VIEW 4: AIR-GAP DEFENSE PERIMETER, UNPRIVILEGED RUNASINVOKER & ZERO-EGRESS BOUNDARY]
+    (German counterpart: [SICHT 1] through [SICHT 4]).
+  * Visualizes end-to-end multi-agent orchestration, declarative manifest parsing, fail-closed file locking, structured ticket routing, empirical decision avatar, and zero-egress governance.
+- 18-Point Quick Navigation Parity & Dual HTML Anchors:
+  * Established reciprocal numeric anchors <a id="sec-01"></a> through <a id="sec-18"></a> across all 18 sections in both README.md and README_de.md alongside existing descriptive anchors.
+- Level 1 SBOM Companion Re-Audit & Statutory Transparency (Stand 2026-10-03):
+  * Re-audited THIRD_PARTY_LICENSES.txt (plain-text companion) and THIRD_PARTY_LICENSES.md.
+  * Verified all 10 governance and runtime invariants (INV-LOCAL-01 through INV-SLA-10) with 100% verified status.
+  * Confirmed zero-copyleft permissive licensing (MIT, Apache-2.0, PSFL-2.0), unprivileged RunAsInvoker non-elevation (INV-USER-02), and statutory liability limitation (§ 521 BGB Gefälligkeitsrecht).
+- Documentation, Shields.io Badges & LLM Context Parity:
+  * Refreshed llms.txt with verification timestamp 2026-10-03, 61 passed contract tests baseline, and Section 1 ASCII four-view topology documentation.
+  * Synchronized Shields.io test status badges in README.md and README_de.md to reflect 61 passed contract tests (100% green).
+  * Documented Pfad B release notes under ## [Unreleased] in CHANGELOG.md.
+- Automated Contract Test Suite:
+  * Expanded tests/test_metadata.py from 56 to 61 contract tests (100% green) adding automated assertions for ASCII four-view architectural topology parity, quick navigation numeric sec-01..sec-18 anchor parity, 2026-10-03 Level 1 SBOM audit currency, CHANGELOG Pfad B entry, and Section 14 marketing ledger.
+  * Strict version freeze discipline: preserved version 1.3.4 unchanged per T-20260920-167562623.
 ================================================================================

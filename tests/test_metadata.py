@@ -77,7 +77,7 @@ def test_readme_badges_present():
         "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
         "img.shields.io/badge/version-1.3.4-blue.svg",
         "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-56%20passed%20%7C%20100%25-brightgreen.svg",
+        "img.shields.io/badge/tests-61%20passed%20%7C%20100%25-brightgreen.svg",
         "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
         "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
         "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
@@ -393,14 +393,16 @@ def test_llms_txt_structure_and_parity():
     text = llms_file.read_text(encoding="utf-8")
 
     assert (
-        "Last-checked: 2026-10-02" in text
+        "Last-checked: 2026-10-03" in text
+        or "Last-checked: 2026-10-02" in text
         or "Last-checked: 2026-09-29" in text
         or "Last-checked: 2026-09-26" in text
         or "Last-checked: 2026-09-21" in text
     )
     assert "Version: 1.3.4" in text
     assert (
-        "56 passed contract tests" in text
+        "61 passed contract tests" in text
+        or "56 passed contract tests" in text
         or "49 passed contract tests" in text
         or "42 passed contract tests" in text
         or "37 passed contract tests" in text
@@ -1040,3 +1042,80 @@ def test_version_freeze_discipline_t_20260920():
     assert manifest_file.exists()
     mdata = json.loads(manifest_file.read_text(encoding="utf-8"))
     assert mdata["name"] == "agent-ops-stack"
+
+
+def test_ascii_four_view_architectural_topology_parity():
+    readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
+
+    en_views = [
+        "[VIEW 1: CALLER RUNTIMES, CLI AGENTS & HUMAN OPERATOR ENTRYPOINTS]",
+        "[VIEW 2: STACK MANIFEST COMPOSITION & ORCHESTRATION ENGINE]",
+        "[VIEW 3: RUNTIME PERSISTENCE, LOCAL STORAGE & STATE REGISTRIES]",
+        "[VIEW 4: AIR-GAP DEFENSE PERIMETER, UNPRIVILEGED RUNASINVOKER & ZERO-EGRESS BOUNDARY]",
+    ]
+    de_views = [
+        "[SICHT 1: AUFRUFER-LAUFZEITEN, CLI-AGENTEN & BENUTZER-EINSTIEGSPUNKTE]",
+        "[SICHT 2: STACK-MANIFEST-KOMPOSITION & ORCHESTRIERUNGS-ENGINE]",
+        "[SICHT 3: LAUFZEIT-PERSISTENZ, LOKALE SPEICHER & STATUS-REGISTER]",
+        (
+            "[SICHT 4: AIR-GAP-SICHERHEITSPERIMETER, UNPRIVILEGIERTER "
+            "RUNASINVOKER & ZERO-EGRESS-GRENZE]"
+        ),
+    ]
+
+    for view in en_views:
+        assert view in readme_en, f"Missing {view} in README.md"
+    for sicht in de_views:
+        assert sicht in readme_de, f"Missing {sicht} in README_de.md"
+
+
+def test_quick_navigation_numeric_sec_anchors_parity():
+    readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
+
+    for num in range(1, 19):
+        anchor = f'id="sec-{num:02d}"'
+        assert anchor in readme_en, f"Missing {anchor} in README.md"
+        assert anchor in readme_de, f"Missing {anchor} in README_de.md"
+
+
+def test_third_party_licenses_audit_2026_10_03():
+    md_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
+    txt_file = REPO_ROOT / "THIRD_PARTY_LICENSES.txt"
+    assert md_file.exists() and txt_file.exists()
+
+    md_text = md_file.read_text(encoding="utf-8")
+    txt_text = txt_file.read_text(encoding="utf-8")
+
+    assert "2026-10-03" in md_text, "Missing 2026-10-03 in THIRD_PARTY_LICENSES.md"
+    assert "2026-10-03" in txt_text, "Missing 2026-10-03 in THIRD_PARTY_LICENSES.txt"
+    assert "§ 521 BGB" in md_text, "Missing § 521 BGB in THIRD_PARTY_LICENSES.md"
+    assert "§ 521 BGB" in txt_text, "Missing § 521 BGB in THIRD_PARTY_LICENSES.txt"
+    assert "INV-LOCAL-01" in md_text and "INV-LOCAL-01" in txt_text
+    assert "INV-SLA-10" in md_text and "INV-SLA-10" in txt_text
+
+
+def test_changelog_recent_pfad_b_entry_2026_10_03():
+    changelog_file = REPO_ROOT / "CHANGELOG.md"
+    assert changelog_file.exists(), "CHANGELOG.md must exist"
+    text = changelog_file.read_text(encoding="utf-8")
+
+    assert "2026-10-03" in text, "Missing 2026-10-03 in CHANGELOG.md"
+    assert "Pfad B" in text, "Missing Pfad B in CHANGELOG.md"
+    assert "Four-View" in text, "Missing Four-View in CHANGELOG.md"
+    assert "T-20260920-167562623" in text, "Missing version freeze directive in CHANGELOG.md"
+
+
+def test_marketing_log_pfad_b_section_14():
+    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
+    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
+    text = mkt_file.read_text(encoding="utf-8")
+
+    assert (
+        "14. VISUAL ARCHITECTURE, ASCII FOUR-VIEW TOPOLOGY & LEVEL 1 SBOM RE-AUDIT "
+        "(v1.3.4 -- 2026-10-03) [Pfad B]"
+    ) in text
+    assert "ASCII Four-View Architectural Topology" in text
+    assert "INV-LOCAL-01" in text
+    assert "INV-SLA-10" in text

@@ -4,7 +4,7 @@
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg" alt="Manifest Schema"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack"><img src="https://img.shields.io/badge/version-1.3.4-blue.svg" alt="Version"></a>
   <a href="https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg" alt="CI-Status"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/tests-56%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-61%20passed%20%7C%20100%25-brightgreen.svg" alt="Tests"></a>
   <a href="agent-ops.manifest.json"><img src="https://img.shields.io/badge/Composed__Modules-7-informational.svg" alt="Komponierte Module"></a>
   <img src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg" alt="Python Versionen">
   <img src="https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg" alt="Plattformen">
@@ -69,6 +69,7 @@ Maschinenlesbarer Kontext für LLMs und agentische Coding-Tools: [`llms.txt`](ll
 
 ---
 
+<a id="sec-01"></a>
 <a id="1-ueberblick--architektur"></a>
 <a id="ueberblick--architektur"></a>
 <a id="1-overview--architecture"></a>
@@ -104,8 +105,53 @@ dein KI-Coding-Agent
     └── skills                  → skill-pack
 ```
 
+```text
++====================================================================================================+
+|                              AGENT-OPS-STACK ARCHITEKTURTOPOLOGIE (4 SICHTEN)                      |
++====================================================================================================+
+| [SICHT 1: AUFRUFER-LAUFZEITEN, CLI-AGENTEN & BENUTZER-EINSTIEGSPUNKTE]                             |
+|  * Multi-Agenten-Orchestrierungs-Clients: Claude Code, OpenAI Codex, Antigravity / Gemini,         |
+|    Moonshot Kimi und individuelle CLI-Toolchains parallel in Entwickler-Workspaces                 |
+|  * Interaktive Entwickler-Arbeitsplätze: Bash-, Zsh-, PowerShell-Terminals, IDE-Aufgaben           |
+|  * Unprivilegierte Benutzermodus-Ausführung [INV-USER-02] -- Striktes RunAsInvoker, 0 Admin-Rechte |
+|  * Deterministische lokale CLI-Operationen: Offline-Befehle, Stack-Installer (install.sh)         |
++----------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++----------------------------------------------------------------------------------------------------+
+| [SICHT 2: STACK-MANIFEST-KOMPOSITION & ORCHESTRIERUNGS-ENGINE]                                     |
+|  * Deklaratives Stack-Manifest: ellmos-stack-manifest-v1 Spezifikation in agent-ops.manifest.json  |
+|  * 7 Komponierte Kern-Säulen: Koordination (ticket-master, lock-master), Sync (sync-master),        |
+|    Entscheidung (build-your-users-mind), Skills (skills) und MCP (controlcenter-mcp, homebase-mcp) |
+|  * Sandboxed-Installer-Grenze [INV-SAND-08] -- Isoliertes Klonen ausschließlich nach ./modules/    |
+|  * Unveränderliche Release-Tag-Fixierung [INV-PIN-07] -- Feste Git-Tags, kein unfixierter Drift    |
+|  * MCP-Protokoll-Fassaden: Stdio-JSON-RPC-Schnittstellen via controlcenter-mcp & homebase-mcp      |
++----------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++----------------------------------------------------------------------------------------------------+
+| [SICHT 3: LAUFZEIT-PERSISTENZ, LOKALE SPEICHER & STATUS-REGISTER]                                  |
+|  * Fail-Closed Datei-Sperren [INV-LOCK-03]: LOCK*.txt atomare Token via dev-bricks/lock-master     |
+|  * Strukturierte Ticket-Weiterleitung [INV-ROUT-04]: dev-bricks/ticket-master Markdown-Warteschlange|
+|  * Empirischer Entscheidungs-Avatar [INV-AVAT-05]: ellmos-ai/build-your-users-mind Persona-Urteil  |
+|  * Geräteübergreifende Slot-Synchronisation [INV-SYNC-09]: dev-bricks/sync-master Host-Slots       |
+|  * Wiederverwendbares Skill-Paket: ellmos-ai/skills Katalog, Agentenrollen-Profile & Tool-Bundles  |
++----------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++----------------------------------------------------------------------------------------------------+
+| [SICHT 4: AIR-GAP-SICHERHEITSPERIMETER, UNPRIVILEGIERTER RUNASINVOKER & ZERO-EGRESS-GRENZE]        |
+|  * 100% Local-First & Zero-Egress-Perimeter [INV-LOCAL-01] -- Keine Telemetrie, 0 externe Aufrufe  |
+|  * Zero-Copyleft-Isolationsgarantie -- 100% permissive Laufzeit (MIT, Apache-2.0, PSFL-2.0)        |
+|  * Strikte Version-Freeze-Disziplin [T-20260920-167562623] -- Version 1.3.4 Unveränderlichkeit    |
+|  * Verbindliche 48h Security Response SLA [INV-SLA-10] -- Schnelle Reaktion via SECURITY.md        |
+|  * Gesetzlicher Haftungsausschluss -- § 521 BGB Gefälligkeitsrecht für unentgeltliche Schenkung    |
++====================================================================================================+
+```
+
 ---
 
+<a id="sec-02"></a>
 <a id="2-was-ist-agent-ops"></a>
 <a id="was-ist-agent-ops"></a>
 <a id="2-what-is-agent-ops"></a>
@@ -126,6 +172,7 @@ jedoch über deklarative Schnittstellen harmonisiert.
 
 ---
 
+<a id="sec-03"></a>
 <a id="3-zielgruppen--auffindbarkeit"></a>
 <a id="zielgruppen--auffindbarkeit"></a>
 <a id="3-target-personas--discoverability"></a>
@@ -156,6 +203,7 @@ jedoch über deklarative Schnittstellen harmonisiert.
 
 ---
 
+<a id="sec-04"></a>
 <a id="4-vergleichsmatrix-gegenueber-alternativen"></a>
 <a id="vergleichsmatrix-gegenueber-alternativen"></a>
 <a id="4-comparative-matrix-vs-alternatives"></a>
@@ -184,6 +232,7 @@ Die folgende Matrix vergleicht `agent-ops-stack` mit vier typischen Industrie- u
 
 ---
 
+<a id="sec-05"></a>
 <a id="5-komponierte-module-die-7-saeulen"></a>
 <a id="komponierte-module-die-7-saeulen"></a>
 <a id="5-composed-modules-the-7-pillars"></a>
@@ -215,6 +264,7 @@ Die folgende Matrix vergleicht `agent-ops-stack` mit vier typischen Industrie- u
 
 ---
 
+<a id="sec-06"></a>
 <a id="6-systemarchitektur-flussdiagramm"></a>
 <a id="systemarchitektur-flussdiagramm"></a>
 <a id="6-system-architecture-flowchart"></a>
@@ -266,6 +316,7 @@ flowchart TD
 
 ---
 
+<a id="sec-07"></a>
 <a id="7-multi-agenten-lebenszyklus-sequenz"></a>
 <a id="multi-agenten-lebenszyklus-sequenz"></a>
 <a id="7-multi-agent-operational-lifecycle-sequence"></a>
@@ -334,6 +385,7 @@ stateDiagram-v2
 
 ---
 
+<a id="sec-08"></a>
 <a id="8-governance--laufzeit-invarianten"></a>
 <a id="governance--laufzeit-invarianten"></a>
 <a id="8-governance--runtime-invariants"></a>
@@ -359,6 +411,7 @@ Sicherheitsinvarianten, um Arbeitsbereiche vor Beschädigung und unkontrollierte
 
 ---
 
+<a id="sec-09"></a>
 <a id="9-wie-ein-agent-diesen-stack-nutzt"></a>
 <a id="wie-ein-agent-diesen-stack-nutzt"></a>
 <a id="9-how-an-agent-uses-this-stack"></a>
@@ -381,6 +434,7 @@ diesem standardisierten Ablauf:
 
 ---
 
+<a id="sec-10"></a>
 <a id="10-schnellstart--installation"></a>
 <a id="schnellstart--installation"></a>
 <a id="10-quickstart--installation"></a>
@@ -408,6 +462,7 @@ Repositories und gibt eine Übersicht aller gelieferten (`provides`) und benöti
 
 ---
 
+<a id="sec-11"></a>
 <a id="11-manifest-schema-spezifikation"></a>
 <a id="manifest-schema-spezifikation"></a>
 <a id="11-manifest-schema-specification"></a>
@@ -441,6 +496,7 @@ Repositories und gibt eine Übersicht aller gelieferten (`provides`) und benöti
 
 ---
 
+<a id="sec-12"></a>
 <a id="12-geschwister-oekosystem--integrationsmatrix"></a>
 <a id="geschwister-oekosystem--integrationsmatrix"></a>
 <a id="12-sibling-ecosystem--cross-integration-matrix"></a>
@@ -469,6 +525,7 @@ Repositories und gibt eine Übersicht aller gelieferten (`provides`) und benöti
 
 ---
 
+<a id="sec-13"></a>
 <a id="13-suche-seo--begriffsklaerung"></a>
 <a id="suche-seo--begriffsklaerung"></a>
 <a id="13-search-seo--disambiguation"></a>
@@ -484,6 +541,7 @@ Repositories und gibt eine Übersicht aller gelieferten (`provides`) und benöti
 
 ---
 
+<a id="sec-14"></a>
 <a id="14-sicherheitsmodell--bedrohungsabwehr"></a>
 <a id="sicherheitsmodell--bedrohungsabwehr"></a>
 <a id="14-security-model--threat-mitigation"></a>
@@ -500,6 +558,7 @@ Repositories und gibt eine Übersicht aller gelieferten (`provides`) und benöti
 
 ---
 
+<a id="sec-15"></a>
 <a id="15-drittanbieter-lizenzen--transparenz"></a>
 <a id="drittanbieter-lizenzen--transparenz"></a>
 <a id="15-third-party-licenses--transparency"></a>
@@ -521,6 +580,7 @@ Alle Abhängigkeiten sind strikt permissiv und entsprechen den lokalen Zero-Egre
 
 ---
 
+<a id="sec-16"></a>
 <a id="16-verifikation--automatisierte-testsuite"></a>
 <a id="verifikation--automatisierte-testsuite"></a>
 <a id="16-verification--automated-test-suite"></a>
@@ -531,7 +591,7 @@ Alle Abhängigkeiten sind strikt permissiv und entsprechen den lokalen Zero-Egre
 `agent-ops-stack` erzwingt standardisierte statische Analysen und automatisierte Vertragstests:
 
 ```bash
-# 1. Automatisierte Metadaten-, Schema- und Vertragstests ausführen (56 Tests bestanden | 100% grün)
+# 1. Automatisierte Metadaten-, Schema- und Vertragstests ausführen (61 Tests bestanden | 100% grün)
 pytest -v
 
 # 2. Linter-Standards prüfen
@@ -548,6 +608,7 @@ Ausführliche Richtlinien zur Meldung von Sicherheitsbedenken finden sich in [`S
 
 ---
 
+<a id="sec-17"></a>
 <a id="17-sicherheitsrichtlinie--slas"></a>
 <a id="sicherheitsrichtlinie--slas"></a>
 <a id="17-security-policy--slas"></a>
@@ -561,6 +622,7 @@ Verbindliche Richtlinien zur Offenlegung von Schwachstellen, koordinierte Sicher
 
 ---
 
+<a id="sec-18"></a>
 <a id="18-lizenz--haftung--liability"></a>
 <a id="lizenz--haftung--liability"></a>
 <a id="18-license--liability--haftung"></a>
