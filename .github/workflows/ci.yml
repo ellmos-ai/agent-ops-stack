@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest ruff
+          pip install pytest ruff "tomli>=2.0.0; python_version < '3.11'"
 
       - name: Check bash script syntax
         if: runner.os != 'Windows'
