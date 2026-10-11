@@ -24,6 +24,7 @@
 - skills: https://github.com/ellmos-ai/skills
 - ellmos-controlcenter-mcp: https://github.com/ellmos-ai/ellmos-controlcenter-mcp
 - ellmos-homebase-mcp: https://github.com/ellmos-ai/ellmos-homebase-mcp
+- COMA (related local agent lifecycle and job-file status tooling; optional sibling, not part of the stack manifest): https://github.com/ellmos-ai/coma
 
 ## Summary
 

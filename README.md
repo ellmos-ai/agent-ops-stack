@@ -519,6 +519,7 @@ specification:
 | [ellmos-ai/stacks](https://github.com/ellmos-ai/stacks) | `ellmos-ai` | Shared manifest schemas, validation utilities, and ecosystem stack catalog |
 | [ellmos-ai/convergence-reconciler](https://github.com/ellmos-ai/convergence-reconciler) | `ellmos-ai` | Reciprocal code evaluation, variant transplantation, and Pareto fitness |
 | [ellmos-ai/ellmos-chat](https://github.com/ellmos-ai/ellmos-chat) | `ellmos-ai` | Local-first chat and agent orchestration interface |
+| [ellmos-ai/coma](https://github.com/ellmos-ai/coma) | `ellmos-ai` | Complementary local agent-process lifecycle and job-file status tooling; not one of this repository's seven manifest modules |
 | [dev-bricks/CareCenter-for-Codex](https://github.com/dev-bricks/CareCenter-for-Codex) | `dev-bricks` | Background maintenance, health monitoring, and SQLite optimization |
 | [open-bricks/open-bricks](https://github.com/open-bricks/open-bricks) | `open-bricks` | Umbrella open-source developer tooling and standards collective |
 
