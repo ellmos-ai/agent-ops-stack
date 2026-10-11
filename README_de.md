@@ -520,6 +520,7 @@ Repositories und gibt eine Übersicht aller gelieferten (`provides`) und benöti
 | [ellmos-ai/stacks](https://github.com/ellmos-ai/stacks) | `ellmos-ai` | Gemeinsame Stack-Manifest-Schemas, Prüfwerkzeuge und Stack-Katalog |
 | [ellmos-ai/convergence-reconciler](https://github.com/ellmos-ai/convergence-reconciler) | `ellmos-ai` | Reziproke Code-Evaluation, Variantenverpflanzung und Pareto-Fitness |
 | [ellmos-ai/ellmos-chat](https://github.com/ellmos-ai/ellmos-chat) | `ellmos-ai` | Local-First Chat- und Agenten-Orchestrierungsoberfläche |
+| [ellmos-ai/coma](https://github.com/ellmos-ai/coma) | `ellmos-ai` | Ergänzende lokale Verwaltung von Agentenprozessen und Jobdatei-Status; kein Modul des Sieben-Modul-Manifests in diesem Repository |
 | [dev-bricks/CareCenter-for-Codex](https://github.com/dev-bricks/CareCenter-for-Codex) | `dev-bricks` | Hintergrundwartung, Zustandsmonitoring und SQLite-Optimierung |
 | [open-bricks/open-bricks](https://github.com/open-bricks/open-bricks) | `open-bricks` | Dachorganisation für quelloffene Entwicklerwerkzeuge und Standards |
 
