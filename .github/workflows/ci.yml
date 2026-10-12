@@ -59,3 +59,80 @@ jobs:
       - name: Run metadata and contract tests
         run: |
           python -m pytest -ra -v
+
+  package-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install build frontend
+        run: |
+          python -m pip install --upgrade pip build
+
+      - name: Build wheel and source archive
+        run: |
+          python -m build --sdist --wheel --outdir dist
+
+      - name: Check wheel metadata and source archive contents
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import tarfile
+          import zipfile
+
+          wheel_paths = list(Path("dist").glob("*.whl"))
+          source_paths = list(Path("dist").glob("*.tar.gz"))
+          assert len(wheel_paths) == 1, wheel_paths
+          assert len(source_paths) == 1, source_paths
+
+          with zipfile.ZipFile(wheel_paths[0]) as wheel:
+              names = wheel.namelist()
+              metadata_name = next(name for name in names if name.endswith(".dist-info/METADATA"))
+              metadata = wheel.read(metadata_name).decode("utf-8")
+              assert all(".dist-info/" in name for name in names), names
+              assert not any(name.endswith(".py") for name in names), names
+              for field in ("Version: 1.3.4", "License-Expression: MIT", "Provides-Extra: test"):
+                  assert field in metadata, field
+
+          with tarfile.open(source_paths[0], "r:gz") as source:
+              names = {member.name for member in source.getmembers() if member.isfile()}
+          required = (
+              "README.md",
+              "README_de.md",
+              "MANIFEST.in",
+              ".gitignore",
+              "agent-ops.manifest.json",
+              "install.sh",
+              "tests/test_metadata.py",
+              ".github/workflows/ci.yml",
+              "docs/archive/2026-10-12/README.md",
+              "docs/archive/2026-10-12/README_de.md",
+          )
+          for suffix in required:
+              assert any(name.endswith("/" + suffix) for name in names), suffix
+          forbidden_parts = {".git", ".venv", "build", "dist", "__pycache__"}
+          for name in names:
+              assert not forbidden_parts.intersection(Path(name).parts), name
+              assert not any(part.startswith("LOCK") for part in Path(name).parts), name
+          PY
+
+      - name: Install test extra from the source archive and run checks
+        run: |
+          mkdir extracted
+          tar -xzf dist/*.tar.gz -C extracted
+          sdist_root="$(python -c 'import glob,tarfile; print(tarfile.open(glob.glob("dist/*.tar.gz")[0]).getmembers()[0].name.split("/", 1)[0])')"
+          cd "extracted/$sdist_root"
+          python -m pip install '.[test]'
+          python -m pytest -o addopts='' -ra
+          python -m ruff check .
+          python -m compileall -q tests
+          bash -n install.sh
+          python -m json.tool agent-ops.manifest.json > /dev/null
