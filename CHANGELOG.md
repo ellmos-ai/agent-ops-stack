@@ -2,64 +2,20 @@
 
 ## [Unreleased]
 
-- **Pfad B (Marketing & Design / Visual Architecture & ASCII Four-View Topology - 2026-10-03)**:
-  - Designed and integrated ASCII Four-View Architectural Topology projection in Section 1 of bilingual landing pages (`README.md` and `README_de.md`) covering `[VIEW 1: CALLER RUNTIMES, CLI AGENTS & HUMAN OPERATOR ENTRYPOINTS]`, `[VIEW 2: STACK MANIFEST COMPOSITION & ORCHESTRATION ENGINE]`, `[VIEW 3: RUNTIME PERSISTENCE, LOCAL STORAGE & STATE REGISTRIES]`, and `[VIEW 4: AIR-GAP DEFENSE PERIMETER, UNPRIVILEGED RUNASINVOKER & ZERO-EGRESS BOUNDARY]` (German: `[SICHT 1]` through `[SICHT 4]`).
-  - Implemented 18-point bilingual quick navigation parity with reciprocal dual HTML anchors (`<a id="sec-01"></a>` through `<a id="sec-18"></a>`) across all sections in `README.md` and `README_de.md`.
-  - Re-audited Level 1 SBOM plain text companion `THIRD_PARTY_LICENSES.txt` and markdown inventory `THIRD_PARTY_LICENSES.md` (Stand 2026-10-03) confirming 100% zero-copyleft permissive stack, unprivileged `RunAsInvoker` user-mode non-elevation (`INV-USER-02`), offline zero-egress architecture (`INV-LOCAL-01`), and statutory liability limitation (§ 521 BGB Gefälligkeitsrecht) across all 10 governance invariants (`INV-LOCAL-01` through `INV-SLA-10`).
-  - Synchronized Shields.io test status badges in `README.md` and `README_de.md` to reflect 61 passed contract tests (100% green).
-  - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-10-03`, updated test suite count (61 passed), Section 1 ASCII 4-view topology notes, and quick navigation anchors.
-  - Recorded Section 14 in local `MARKETING-LOG.txt` documenting the 2026-10-03 Pfad B Visual Architecture, ASCII Four-View Topology & Level 1 SBOM Re-Audit.
-  - Expanded automated contract test suite (`tests/test_metadata.py`) from 56 to 61 contract tests (100% green), adding assertions for ASCII four-view architectural topology parity, quick navigation numeric `sec-01`..`sec-18` anchor parity, 2026-10-03 Level 1 SBOM audit currency, CHANGELOG Pfad B entry, and Section 14 marketing ledger.
-  - Version freeze discipline: preserved version `1.3.4` strictly unchanged per `T-20260920-167562623`.
+### Scope and documentation correction (2026-10-12)
 
-- **Pfad A (Repository Hygiene, Bilingual Contributing Guidelines, CI Matrix & Level 1 SBOM Audit - 2026-10-02)**:
-  - Authored comprehensive bilingual `CONTRIBUTING.md` guidelines (English and German) with reciprocal quick navigation anchors, formalizing Plan D local development workflow (`C:\_Local_DEV\repos\agent-ops-stack`), unprivileged `RunAsInvoker` non-elevation mode (`INV-USER-02`), all 10 governance invariants (`INV-LOCAL-01` through `INV-SLA-10`), version freeze discipline per `T-20260920-167562623`, statutory liability limitation (§ 521 BGB Gefälligkeitsrecht), and binding 48h Security Response SLA (`security@ellmos.ai`, `security@open-bricks.org`).
-  - Hardened `.gitignore` with extended multi-host tokens (`*-IDEAPAD-GEI*`, `*-IDEAPAD-GEI.*`), multi-agent lock patterns (`LOCK.dev.*`, `LOCK.antigravity.*`, `LOCK.bugsearch.*`), and agent task planning files (`TASKPLAN_*.md`, `*-TASKPLAN*`).
-  - Standardized PEP 621 metadata in `pyproject.toml` by registering `"Contributing"`, `"Level 1 SBOM"`, `"Level 1 SBOM (Text)"`, and `"Plain-Text License"` under `[project.urls]`, and expanding `[tool.pytest.ini_options].norecursedirs` with `.turbo` and `.nyc_output`.
-  - Re-audited Level 1 SBOM plain text companion `THIRD_PARTY_LICENSES.txt` and markdown transparency inventory `THIRD_PARTY_LICENSES.md` (Stand 2026-10-02), adding formal statutory liability limitation notice under § 521 BGB Gefälligkeitsrecht and confirming 100% zero-copyleft and offline zero-egress compliance across all 10 invariants.
-  - Synchronized Shields.io status badges across bilingual landing pages (`README.md` and `README_de.md`) to reflect 56 passed contract tests (100% green) and dedicated Contributing guidelines badge.
-  - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-10-02`, updated test suite count (56 passed), and canonical `CONTRIBUTING.md` interface reference.
-  - Appended Section 13 to `MARKETING-LOG.txt` documenting the Pfad A Technical Hygiene, Bilingual Contributing Guidelines & Level 1 SBOM Re-Audit.
-  - Expanded automated contract test suite (`tests/test_metadata.py`) from 49 to 56 tests (100% green).
-  - Version freeze discipline: preserved version `1.3.4` strictly unchanged per `T-20260920-167562623`.
+This entry supersedes earlier present-tense descriptions in the previous Unreleased notes and the archived long-form README pair. Dated released sections and dated entries in `MARKETING-LOG.txt` remain historical records, not current capability or compliance statements.
 
-- **Pfad A (Repository Hygiene, CI Lifecycle Workflows & Level 1 SBOM Audit - 2026-09-29)**:
-  - Deployed `.github/workflows/auto-assign.yml` with `actions/github-script@v7`, `timeout-minutes: 5`, concurrency control (`cancel-in-progress: true`), and least-privilege `pull-requests: write`.
-  - Deployed `.github/workflows/label-sync.yml` with `EndBug/label-sync@v2`, `timeout-minutes: 5`, concurrency control, and least-privilege `issues: write`.
-  - Established canonical `.github/labels.yml` with 11 standard governance labels per `GOVERNANCE.md` §4.2 (`bug`, `enhancement`, `good first issue`, `help wanted`, `documentation`, `duplicate`, `wontfix`, `priority: high`, `priority: low`, `needs-triage`, `stale`).
-  - Hardened `.gitignore` with `*-IDEAPAD*`, `*-WORKSTATION.*`, `*-WORKSTATION-LG.*`, OS noise (`Desktop.ini`, `ehthumbs.db`, `*.swo`), and isolated test caches (`.pytest_temp/`, `.pytest_tmp*/`).
-  - Standardized PEP 621 metadata in `pyproject.toml` with `license-files` including `THIRD_PARTY_LICENSES.txt`, registered `"Third-Party Licenses (Text)"` under `[project.urls]`, and configured `[tool.pytest.ini_options]` with `addopts = "-ra -v --basetemp=.pytest_temp"` and `norecursedirs` protecting `.pytest_temp`, `.pytest_tmp*`, `.tox`, `.hypothesis`.
-  - Created canonical Level 1 SBOM plain text companion `THIRD_PARTY_LICENSES.txt` and re-audited `THIRD_PARTY_LICENSES.md` (Stand 2026-09-29) confirming zero copyleft, unprivileged `RunAsInvoker` user-mode non-elevation, and 100% offline zero-egress execution across all 10 invariants (`INV-LOCAL-01` through `INV-SLA-10`).
-  - Synchronized canonical `NOTICE` attribution file with cross-reference to both `THIRD_PARTY_LICENSES.md` and `THIRD_PARTY_LICENSES.txt`.
-  - Synchronized Shields.io test status badges in `README.md` and `README_de.md` to reflect 49 passed contract tests (100% green).
-  - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-09-29`, updated test suite count (49 passed), and Level 1 SBOM text companion reference.
-  - Appended Section 12 to `MARKETING-LOG.txt` documenting the Pfad A Technical Hygiene, CI Workflow Lifecycle & Level 1 SBOM Audit.
-  - Expanded automated contract test suite (`tests/test_metadata.py`) from 42 to 49 tests (100% green).
-  - Version freeze discipline: preserved version `1.3.4` strictly unchanged per `T-20260920-167562623`.
-
-- **Pfad B (Marketing & Design / Visual Lifecycle Architecture & SEO Enhancement - 2026-09-26)**:
-  - Designed and integrated interactive multi-agent concurrency state machine (`stateDiagram-v2`) across bilingual landing pages (`README.md` and `README_de.md`) detailing complete lifecycle from task ingestion through fail-closed lock acquisition, decision avatar bounds, MCP profile resolution, test gates, lock release, to slot-gated sync.
-  - Enriched Section 5 with comprehensive Component Interoperability & Communication Wire Protocols matrix documenting offline transport channels (POSIX/NTFS file atomics, stdio JSON-RPC, markdown queues, YAML skill definitions).
-  - Saturated remote GitHub repository topics to full 20/20 limit and synchronized PEP 621 keywords in `pyproject.toml` identically (`agent-ops`, `ellmos-ai`, `local-first`, `manifest`, `mcp`, `multi-agent`, `agent-coordination`, `claude-code`, `cli-agents`, `codex-cli`, `mcp-control-plane`, `agent-orchestration`, `ai-agents`, `developer-tools`, `file-locking`, `file-sync`, `antigravity-cli`, `offline-first`, `open-bricks`, `zero-egress`).
-  - Expanded Section 13 discoverability and SEO keywords across bilingual documentation targeting zero-egress multi-agent coding harnesses, write collision mitigation, and cross-agent workspace concurrency.
-  - Re-audited `THIRD_PARTY_LICENSES.md` (Stand 2026-09-26) confirming 100% local-first compliance, zero copyleft, and unprivileged user-mode execution across all 10 governance invariants.
-  - Synchronized Shields.io test status badges to reflect 42 passed contract tests (100% green).
-  - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-09-26` and updated test suite count (42 passed).
-  - Appended Section 11 to `MARKETING-LOG.txt` documenting the Pfad B Visual Architecture, Interoperability Protocols & Discoverability Audit.
-  - Expanded automated contract test suite (`tests/test_metadata.py`) to 42 tests (100% green) adding assertions for state machine diagrams, wire protocols table, PEP 621 20 keywords saturation, updated license audit date 2026-09-26, and Section 11 marketing ledger.
-  - Version freeze discipline: preserved version `1.3.4` strictly unchanged per `T-20260920-167562623`.
-
-- **Pfad A (Repository Hygiene, CI Lifecycle Hardening & Multi-Host Protection Audit - 2026-09-21)**:
-  - Deployed `.github/workflows/stale.yml` lifecycle automation with `actions/stale@v9`, daily cron `30 1 * * *`, 10-minute runaway timeout guardrail (`timeout-minutes: 10`), concurrency control (`cancel-in-progress: true`), and least-privilege permissions (`issues: write`, `pull-requests: write`).
-  - Deployed `.github/workflows/welcome.yml` first-interaction onboarding automation with `actions/first-interaction@v3`, 5-minute timeout (`timeout-minutes: 5`), concurrency control, and least-privilege permissions (`issues: write`, `pull-requests: write`).
-  - Hardened `.gitignore` with extended canonical lock defense (`LOCK.user.*`, `LOCK.until.*`, `LOCK.condition.*`, `.automation-lock`), multi-host cloud-sync collision protection (`*conflicted copy*`, `* (Kopie)*`, `* (Copy)*`, `*-ASUS*`, `*-LAPTOP*`, `*-Mac Studio*`, `*-MacBook*`, `*.rej`), and testing framework artifacts (`.hypothesis/`).
-  - Established canonical root attribution file `NOTICE` documenting copyright for Lukas Geiger, `ellmos-ai`, and umbrella ecosystem `open-bricks`.
-  - Standardized PEP 621 metadata in `pyproject.toml` with `license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_LICENSES.md"]`, canonical `"Notice"` URL under `[project.urls]`, and `[tool.pytest.ini_options]` options `minversion = "7.0"` and `norecursedirs` guarding `.git`, `.pytest_cache`, `__pycache__`, `build`, `dist`, `.venv`.
-  - Re-audited `THIRD_PARTY_LICENSES.md` (Stand 2026-09-21) confirming Level 1 SBOM transparency, zero-copyleft guarantee, unprivileged `RunAsInvoker` non-elevation, and 100% offline zero-egress architecture.
-  - Updated machine-readable LLM context (`llms.txt`) with verification timestamp `2026-09-21`, updated test suite count, and canonical `NOTICE` attribution link.
-  - Recorded Section 10 in local `MARKETING-LOG.txt` documenting the 2026-09-21 Pfad A Technical Hygiene & Multi-Host Security Audit.
-  - Expanded automated contract test suite in `tests/test_metadata.py` validating CI lifecycle workflows, NOTICE attribution, pyproject PEP 621 metadata, extended `.gitignore` patterns, and unreleased CHANGELOG / MARKETING-LOG entries.
-  - Version freeze discipline: preserved version `1.3.4` strictly unchanged per `T-20260920-167562623`.
+- Replaced the long-form English and German entrypoints with concise source-scoped guides and archived their predecessors under `docs/archive/2026-10-12/` with a supersession notice.
+- Described `install.sh` as a Git-based fetch-and-report script. It uses network access to clone listed sources and does not enforce manifest boundaries or install/configure the independent modules.
+- Replaced absolute and host-specific development paths in current guidance with repository-relative instructions.
+- Replaced broad license and security claims with a dated, bounded direct-LICENSE inventory and a description of the installer, required tools, and maintainer response policy.
+- Corrected current security, contribution, LLM-context, and license documentation. Earlier zero-egress, sandbox, privilege, lock-enforcement, complete-SBOM, copyleft, and blanket statutory-liability descriptions are superseded where they conflict with the current source-scoped documentation.
+- Corrected the Python build metadata to PEP 639 SPDX syntax, retained version `1.3.4`, and defined an explicit source-distribution allowlist for project files, tests, and documentation. The wheel remains metadata-only; the Git checkout and `install.sh` are the project workflow.
+- Added one Ubuntu CI package-smoke job that builds a PEP 517 wheel and source archive, checks their metadata and contents, then installs the test extra from the source archive and runs the checks there.
+- Added manifest refs and declared capabilities to the bilingual module overview and illustrated the existing installer fetch-and-report sequence.
+- Removed only redundant host-suffixed `.gitignore` patterns; generic conflict patterns remain.
+- Kept the existing 48-hour acknowledgement and five-business-day initial-triage maintainer response policy as policy, not a runtime guarantee.
 
 ## 1.3.4 (2026-09-16)
 
@@ -77,7 +33,7 @@
 
 - **Pfad A (Repository Hygiene, CI Timeout Hardening & Lock Defense)**:
   - Hardened GitHub Actions CI (`.github/workflows/ci.yml`) with 15-minute execution timeout guardrail (`timeout-minutes: 15`), least-privilege security block (`permissions: contents: read`), and standardized `python -m pytest -ra -v` execution across Ubuntu, Windows, and macOS.
-  - Hardened `.gitignore` against multi-host cloud sync conflicts and canonical lock patterns (`* (kopie)*`, `* (copy)*`, `*-WORKSTATION*`, `*-WORKSTATION-LG*`, `*-ASUS-GEI*`, `*.orig`, `uv.lock`, `!package-lock.json`, `.coverage.*`, `.tox/`, `.turbo/`, `.nyc_output/`, `.mypy_cache/`).
+  - Hardened `.gitignore` against multi-host cloud sync conflicts and canonical lock patterns (`* (kopie)*`, `* (copy)*`, `*-WORKSTATION*`, `*-ASUS*`, `*.orig`, `uv.lock`, `!package-lock.json`, `.coverage.*`, `.tox/`, `.turbo/`, `.nyc_output/`, `.mypy_cache/`).
   - Standardized PEP 621 metadata in `pyproject.toml` by registering `"LLM Ready"` and `"Bug Tracker"` in `[project.urls]` and expanding Ruff linting rule sets to include `UP`, `B`, `SIM`, `C4`, `RUF`.
   - Refreshed machine-readable LLM context (`llms.txt`) with verification timestamp `2026-09-12`, version `1.3.3`, and updated contract test suite count (25 tests passed | 100% green).
   - Synchronized Shields.io status badges across bilingual landing pages (`README.md` and `README_de.md`) to reflect version `1.3.3` and 25 passed contract tests.

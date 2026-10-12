@@ -76,39 +76,6 @@ def test_readme_and_readme_de_exist_and_bilingual_parity():
     assert "[English version](README.md)" in text_de
 
 
-def test_readme_badges_present():
-    expected_badges = [
-        "img.shields.io/badge/Manifest-ellmos--stack--manifest--v1-blue.svg",
-        "img.shields.io/badge/version-1.3.4-blue.svg",
-        "img.shields.io/badge/CI-GitHub%20Actions-brightgreen.svg",
-        "img.shields.io/badge/tests-61%20passed%20%7C%20100%25-brightgreen.svg",
-        "img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg",
-        "img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg",
-        "img.shields.io/badge/architecture-100%25%20Local--First%20%7C%20Zero--Egress-success.svg",
-        "img.shields.io/badge/security-Non--Elevation%20%7C%20Sandboxed-informational.svg",
-        "img.shields.io/badge/Security%20SLA-48h%20%7C%205d%20triage-informational.svg",
-        "img.shields.io/badge/Third--Party-Audited-blue.svg",
-        "img.shields.io/badge/Marketing%20Log-Active-informational.svg",
-        "img.shields.io/badge/code%20style-ruff-000000.svg",
-        "img.shields.io/badge/License-MIT-green.svg",
-        "img.shields.io/badge/Attribution-NOTICE-blue.svg",
-        "img.shields.io/badge/Ecosystem-ellmos--ai-purple.svg",
-        "img.shields.io/badge/Umbrella-open--bricks-blue.svg",
-        "img.shields.io/badge/LLM--Ready-llms.txt-success.svg",
-    ]
-    for filename in ["README.md", "README_de.md"]:
-        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
-        for badge in expected_badges:
-            assert badge in text, f"Missing badge {badge} in {filename}"
-
-    readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-    readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
-    assert "Contributing-Guidelines-blue.svg" in readme_en, (
-        "Missing Contributing badge in README.md"
-    )
-    assert "Mitwirken-Richtlinien-blue.svg" in readme_de, (
-        "Missing Mitwirken badge in README_de.md"
-    )
 
 
 
@@ -166,61 +133,6 @@ def test_quick_navigation_18_points_and_reciprocal_anchor_parity():
         assert f'id="{de_anchor}"' in readme_de, f"Missing de anchor {de_anchor} in README_de.md"
 
 
-def test_mermaid_diagrams_syntax_and_subgraphs():
-    expected_subgraphs = ["COORDINATION", "MCP", "DECISION", "AGENTS", "SYNC"]
-    expected_participants = [
-        "User",
-        "Agent",
-        "LockMaster",
-        "TicketMaster",
-        "BYUM",
-        "ControlCenter",
-        "Homebase",
-    ]
-
-    for filename in ["README.md", "README_de.md"]:
-        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
-        assert "```mermaid\nflowchart TD" in text, f"{filename} must contain a flowchart TD"
-        assert "```mermaid\nsequenceDiagram" in text, f"{filename} must contain a sequenceDiagram"
-
-        for subgraph in expected_subgraphs:
-            assert f"subgraph {subgraph}" in text, (
-                f"{filename} missing flowchart subgraph {subgraph}"
-            )
-
-        for participant in expected_participants:
-            assert participant in text, f"{filename} missing sequence participant {participant}"
-
-
-def test_governance_invariants_table_ten_points():
-    for filename in ["README.md", "README_de.md"]:
-        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
-        # Ensure rows 01 through 10 are in the table
-        for inv_num in [f"{i:02d}" for i in range(1, 11)]:
-            assert f"**{inv_num}**" in text, f"Missing invariant {inv_num} in {filename}"
-
-
-def test_sibling_ecosystem_matrix_twelve_repos():
-    for filename in ["README.md", "README_de.md"]:
-        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
-        expected_repos = [
-            "ticket-master",
-            "lock-master",
-            "sync-master",
-            "build-your-users-mind",
-            "skills",
-            "ellmos-controlcenter-mcp",
-            "ellmos-homebase-mcp",
-            "stacks",
-            "convergence-reconciler",
-            "ellmos-chat",
-            "CareCenter-for-Codex",
-            "open-bricks",
-        ]
-        for repo in expected_repos:
-            assert repo in text, f"Missing sibling repository {repo} in {filename}"
-
-
 def test_security_policy_exists_and_bilingual_parity():
     sec_file = REPO_ROOT / "SECURITY.md"
     assert sec_file.exists(), "SECURITY.md must exist"
@@ -228,7 +140,6 @@ def test_security_policy_exists_and_bilingual_parity():
 
     assert "## English" in text
     assert "## Deutsch" in text
-    assert "1.3.x" in text
     assert "security@ellmos.ai" in text
     assert "security@open-bricks.org" in text
     assert "support@lukasgeiger.com" in text
@@ -283,10 +194,7 @@ def test_version_parity_across_artifacts():
     assert f"## {version}" in changelog_text
 
     llms_text = (REPO_ROOT / "llms.txt").read_text(encoding="utf-8")
-    assert f"Version: {version}" in llms_text
-
-    sec_text = (REPO_ROOT / "SECURITY.md").read_text(encoding="utf-8")
-    assert f"{version.rsplit('.', 1)[0]}.x" in sec_text
+    assert version in llms_text
 
 
 def test_gitignore_hygiene_patterns():
@@ -303,8 +211,6 @@ def test_gitignore_hygiene_patterns():
     assert "* (kopie)*" in text, "Missing * (kopie)* pattern in .gitignore"
     assert "* (copy)*" in text, "Missing * (copy)* pattern in .gitignore"
     assert "*-WORKSTATION*" in text, "Missing *-WORKSTATION* pattern in .gitignore"
-    assert "*-WORKSTATION-LG*" in text, "Missing *-WORKSTATION-LG* pattern in .gitignore"
-    assert "*-ASUS-GEI*" in text, "Missing *-ASUS-GEI* pattern in .gitignore"
 
     # Multi-agent lock patterns
     assert "\nLOCK\n" in f"\n{text}\n", "Missing standalone LOCK in .gitignore"
@@ -360,35 +266,19 @@ def test_third_party_licenses_inventory():
     assert lic_file.exists(), "THIRD_PARTY_LICENSES.md must exist"
     text = lic_file.read_text(encoding="utf-8")
 
-    assert "100% Local-First & Zero Egress" in text
-    assert "Unprivileged User-Mode" in text
-    assert "Python Standard Library" in text
-    assert "PSFL-2.0" in text
-    assert "pytest" in text
-    assert "ruff" in text
-    assert "setuptools" in text
-    assert "ticket-master" in text
-    assert "lock-master" in text
-    assert "sync-master" in text
-    assert "build-your-users-mind" in text
-    assert "skills" in text
-    assert "ellmos-controlcenter-mcp" in text
-    assert "ellmos-homebase-mcp" in text
-    assert "MIT License" in text
+    for name in (
+        "ticket-master",
+        "lock-master",
+        "sync-master",
+        "build-your-users-mind",
+        "skills",
+        "ellmos-controlcenter-mcp",
+        "ellmos-homebase-mcp",
+    ):
+        assert name in text
+    assert len(re.findall(r"blob/[0-9a-f]{40}/LICENSE", text)) == 7
 
 
-def test_marketing_log_structure_and_personas():
-    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
-    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
-    text = mkt_file.read_text(encoding="utf-8")
-
-    assert "Target Version: 1.3.2" in text
-    assert "Autonomous AI Agent Engineers & Platform Architects" in text
-    assert "Multi-Device & Cross-Machine Developers" in text
-    assert "Enterprise Tooling, Safety & Governance Compliance Officers" in text
-    assert "Open-Source AI Tool Builders & MCP Ecosystem Integrators" in text
-    assert "INV-LOCAL-01" in text
-    assert "INV-SLA-10" in text
 
 
 def test_llms_txt_structure_and_parity():
@@ -396,26 +286,11 @@ def test_llms_txt_structure_and_parity():
     assert llms_file.exists(), "llms.txt must exist"
     text = llms_file.read_text(encoding="utf-8")
 
-    assert (
-        "Last-checked: 2026-10-03" in text
-        or "Last-checked: 2026-10-02" in text
-        or "Last-checked: 2026-09-29" in text
-        or "Last-checked: 2026-09-26" in text
-        or "Last-checked: 2026-09-21" in text
-    )
-    assert "Version: 1.3.4" in text
-    assert (
-        "61 passed contract tests" in text
-        or "56 passed contract tests" in text
-        or "49 passed contract tests" in text
-        or "42 passed contract tests" in text
-        or "37 passed contract tests" in text
-    )
+    assert "agent-ops.manifest.json" in text
+    assert "install.sh" in text
     assert "THIRD_PARTY_LICENSES.md" in text
-    assert "THIRD_PARTY_LICENSES.txt" in text
-    assert "MARKETING-LOG.txt" in text
-    assert "NOTICE" in text
-    assert "CONTRIBUTING.md" in text
+    assert "## Related projects" in text
+    assert "## Security and license boundaries" in text
 
 
 def test_banner_assets_and_media_integrity():
@@ -430,7 +305,7 @@ def test_banner_assets_and_media_integrity():
     readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
     assert "assets/banner.png" in readme_en
-    assert "assets/banner.svg" in readme_de
+    assert "assets/banner.png" in readme_de
 
 
 def test_ci_timeout_minutes_guardrail():
@@ -472,8 +347,6 @@ def test_extended_gitignore_multi_host_and_lock_defense():
         "* (kopie)*",
         "* (copy)*",
         "*-WORKSTATION*",
-        "*-WORKSTATION-LG*",
-        "*-ASUS-GEI*",
         "*.orig",
         "uv.lock",
         "!package-lock.json",
@@ -487,50 +360,12 @@ def test_extended_gitignore_multi_host_and_lock_defense():
         assert pattern in text, f"Missing pattern {pattern} in .gitignore"
 
 
-def test_changelog_recent_pfad_a_entry():
-    changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    assert "## 1.3.3 (2026-09-12)" in changelog, "Missing 1.3.3 entry in CHANGELOG.md"
-    assert "Pfad A (Repository Hygiene, CI Timeout Hardening & Lock Defense)" in changelog
 
 
-def test_marketing_log_recent_hygiene_entry():
-    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
-    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
-    text = mkt_file.read_text(encoding="utf-8")
-    assert "8. TECHNICAL HYGIENE & AUTOMATION READINESS (v1.3.3 -- 2026-09-12) [Pfad A]" in text
-    assert "timeout-minutes: 15" in text
 
 
-def test_target_personas_four_profiles():
-    personas = [
-        "[PERSONA-01]",
-        "[PERSONA-02]",
-        "[PERSONA-03]",
-        "[PERSONA-04]",
-    ]
-    for filename in ["README.md", "README_de.md"]:
-        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
-        for p in personas:
-            assert p in text, f"Missing persona {p} in {filename}"
 
 
-def test_comparative_matrix_ten_dimensions_and_invariants():
-    invariants = [
-        "INV-LOCAL-01",
-        "INV-USER-02",
-        "INV-LOCK-03",
-        "INV-ROUT-04",
-        "INV-AVAT-05",
-        "INV-MANI-06",
-        "INV-PIN-07",
-        "INV-SAND-08",
-        "INV-SYNC-09",
-        "INV-SLA-10",
-    ]
-    for filename in ["README.md", "README_de.md"]:
-        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
-        for inv in invariants:
-            assert inv in text, f"Missing invariant {inv} in {filename} comparative matrix"
 
 
 def test_security_model_and_sla_sections():
@@ -538,53 +373,12 @@ def test_security_model_and_sla_sections():
         text = (REPO_ROOT / filename).read_text(encoding="utf-8")
         assert "## 14. " in text, f"Missing section 14 in {filename}"
         assert "## 17. " in text, f"Missing section 17 in {filename}"
-        assert "48h" in text or "48 hours" in text or "48 Stunden" in text, (
-            f"Missing 48h SLA in {filename}"
-        )
-        assert "5d" in text or "5 business days" in text or "5 Werktagen" in text, (
-            f"Missing 5-day triage SLA in {filename}"
-        )
 
 
-def test_changelog_recent_pfad_b_entry():
-    changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    assert "## 1.3.4 (2026-09-16)" in changelog, "Missing 1.3.4 entry in CHANGELOG.md"
-    assert "Pfad B" in changelog, "CHANGELOG.md 1.3.4 entry must reference Pfad B"
 
 
-def test_marketing_log_recent_pfad_b_entry():
-    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
-    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
-    text = mkt_file.read_text(encoding="utf-8")
-    assert (
-        "9. DISCOVERABILITY, 18-POINT NAVIGATION & COMPARATIVE MATRIX AUDIT "
-        "(v1.3.4 -- 2026-09-16) [Pfad B]"
-    ) in text
-    assert "Target Personas & Discoverability" in text
 
 
-def test_third_party_licenses_audit_2026_09_16():
-    lic_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
-    assert lic_file.exists(), "THIRD_PARTY_LICENSES.md must exist"
-    text = lic_file.read_text(encoding="utf-8")
-    assert "2026-09-16" in text, "Missing 2026-09-16 audit date in THIRD_PARTY_LICENSES.md"
-    assert "2026-09-21" in text, "Missing 2026-09-21 audit date in THIRD_PARTY_LICENSES.md"
-    assert "NOTICE" in text, "Missing NOTICE in THIRD_PARTY_LICENSES.md"
-    assert "1.3.4" in text, "Missing 1.3.4 version in THIRD_PARTY_LICENSES.md"
-    expected_invariants = [
-        "INV-LOCAL-01",
-        "INV-USER-02",
-        "INV-LOCK-03",
-        "INV-ROUT-04",
-        "INV-AVAT-05",
-        "INV-MANI-06",
-        "INV-PIN-07",
-        "INV-SAND-08",
-        "INV-SYNC-09",
-        "INV-SLA-10",
-    ]
-    for inv in expected_invariants:
-        assert inv in text, f"Missing invariant {inv} in THIRD_PARTY_LICENSES.md"
 
 
 def test_notice_attribution_file_exists_and_content():
@@ -667,126 +461,18 @@ def test_gitignore_multihost_extended_patterns():
         assert pat in text, f"Missing extended pattern {pat} in .gitignore"
 
 
-def test_changelog_unreleased_pfad_a_entry():
-    changelog_file = REPO_ROOT / "CHANGELOG.md"
-    assert changelog_file.exists(), "CHANGELOG.md must exist"
-    text = changelog_file.read_text(encoding="utf-8")
-
-    assert "## [Unreleased]" in text, "CHANGELOG.md must contain ## [Unreleased] section"
-    assert "Pfad A" in text, "CHANGELOG.md must reference Pfad A"
-    assert "2026-09-21" in text, "CHANGELOG.md must reference 2026-09-21"
-    assert "NOTICE" in text, "CHANGELOG.md must reference NOTICE"
 
 
-def test_marketing_log_pfad_a_section_10():
-    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
-    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
-    text = mkt_file.read_text(encoding="utf-8")
-
-    assert (
-        "10. TECHNICAL HYGIENE, CI LIFECYCLE & MULTI-HOST PROTECTION AUDIT "
-        "(v1.3.4 -- 2026-09-21) [Pfad A]"
-    ) in text
-    assert "stale.yml" in text
-    assert "welcome.yml" in text
-    assert "timeout-minutes: 10" in text
-    assert "NOTICE" in text
 
 
-def test_multi_agent_concurrency_state_diagram():
-    expected_states_en = [
-        "TaskReceived",
-        "TicketRouting",
-        "LockCheck",
-        "LockAcquired",
-        "LockDenied",
-        "AmbiguityEvaluation",
-        "AvatarConsultation",
-        "ToolDiscovery",
-        "ContextLoading",
-        "TaskExecution",
-        "VerificationGates",
-        "TicketResolution",
-        "LockRelease",
-        "SyncAlignment",
-    ]
-    for filename in ["README.md", "README_de.md"]:
-        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
-        assert "```mermaid\nstateDiagram-v2" in text, f"{filename} missing stateDiagram-v2"
-        for state in expected_states_en:
-            assert state in text, f"Missing state {state} in {filename}"
 
 
-def test_component_interoperability_wire_protocols():
-    expected_protocols = [
-        "lock-master",
-        "ticket-master",
-        "build-your-users-mind",
-        "controlcenter-mcp",
-        "homebase-mcp",
-        "sync-master",
-        "skills",
-    ]
-    for filename in ["README.md", "README_de.md"]:
-        text = (REPO_ROOT / filename).read_text(encoding="utf-8")
-        assert "Component Interoperability" in text or "Komponenten-Interoperabilität" in text
-        for proto in expected_protocols:
-            assert proto in text, f"Missing protocol entry {proto} in {filename}"
 
 
-def test_pyproject_pep621_twenty_keywords_saturation():
-    pyproject_file = REPO_ROOT / "pyproject.toml"
-    assert pyproject_file.exists(), "pyproject.toml must exist"
-    data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
-
-    keywords = data.get("project", {}).get("keywords", [])
-    assert len(keywords) == 20, f"Expected 20 keywords in pyproject.toml, found {len(keywords)}"
-    for kw in [
-        "agent-ops",
-        "ellmos-ai",
-        "local-first",
-        "manifest",
-        "mcp",
-        "multi-agent",
-        "agent-coordination",
-        "claude-code",
-        "cli-agents",
-        "codex-cli",
-        "mcp-control-plane",
-        "agent-orchestration",
-        "ai-agents",
-        "developer-tools",
-        "file-locking",
-        "file-sync",
-        "antigravity-cli",
-        "offline-first",
-        "open-bricks",
-        "zero-egress",
-    ]:
-        assert kw in keywords, f"Missing keyword {kw} in pyproject.toml"
 
 
-def test_third_party_licenses_audit_2026_09_26():
-    lic_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
-    assert lic_file.exists(), "THIRD_PARTY_LICENSES.md must exist"
-    text = lic_file.read_text(encoding="utf-8")
-    assert "2026-09-26" in text, "Missing 2026-09-26 audit date in THIRD_PARTY_LICENSES.md"
-    assert "2026-09-21" in text, "Missing 2026-09-21 audit date in THIRD_PARTY_LICENSES.md"
-    assert "2026-09-16" in text, "Missing 2026-09-16 audit date in THIRD_PARTY_LICENSES.md"
 
 
-def test_marketing_log_pfad_b_section_11():
-    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
-    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
-    text = mkt_file.read_text(encoding="utf-8")
-
-    assert (
-        "11. VISUAL LIFECYCLE ARCHITECTURE, INTEROPERABILITY PROTOCOLS & SEO AUDIT "
-        "(v1.3.4 -- 2026-09-26) [Pfad B]"
-    ) in text
-    assert "Multi-Agent Concurrency & State Machine Lifecycle" in text
-    assert "Component Interoperability & Communication Wire Protocols" in text
-    assert "stateDiagram-v2" in text
 
 
 def test_auto_assign_workflow_integrity():
@@ -833,33 +519,6 @@ def test_label_sync_workflow_and_labels_yml():
         )
 
 
-def test_level_1_sbom_text_companion_and_parity():
-    txt_file = REPO_ROOT / "THIRD_PARTY_LICENSES.txt"
-    assert txt_file.exists(), "THIRD_PARTY_LICENSES.txt must exist in repo root"
-    text = txt_file.read_text(encoding="utf-8")
-
-    assert "THIRD-PARTY LICENSES & LEVEL 1 SBOM NOTICE" in text
-    assert "1.3.4" in text
-    assert "RunAsInvoker" in text
-    assert "Zero-Copyleft Isolation Guarantee" in text
-
-    expected_invariants = [
-        "INV-LOCAL-01",
-        "INV-USER-02",
-        "INV-LOCK-03",
-        "INV-ROUT-04",
-        "INV-AVAT-05",
-        "INV-MANI-06",
-        "INV-PIN-07",
-        "INV-SAND-08",
-        "INV-SYNC-09",
-        "INV-SLA-10",
-    ]
-    for inv in expected_invariants:
-        assert inv in text, f"Missing invariant {inv} in THIRD_PARTY_LICENSES.txt"
-
-    notice_text = (REPO_ROOT / "NOTICE").read_text(encoding="utf-8")
-    assert "THIRD_PARTY_LICENSES.txt" in notice_text
 
 
 def test_pytest_basetemp_and_norecursedirs_hardening():
@@ -895,31 +554,8 @@ def test_extended_lock_defense_and_pytest_temp_in_gitignore():
         assert pat in text, f"Missing pattern {pat} in .gitignore"
 
 
-def test_third_party_licenses_audit_2026_09_29():
-    md_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
-    txt_file = REPO_ROOT / "THIRD_PARTY_LICENSES.txt"
-    assert md_file.exists() and txt_file.exists()
-
-    md_text = md_file.read_text(encoding="utf-8")
-    txt_text = txt_file.read_text(encoding="utf-8")
-
-    assert "2026-09-29" in md_text, "Missing 2026-09-29 in THIRD_PARTY_LICENSES.md"
-    assert "2026-09-29" in txt_text, "Missing 2026-09-29 in THIRD_PARTY_LICENSES.txt"
-    assert "THIRD_PARTY_LICENSES.txt" in md_text
 
 
-def test_marketing_log_pfad_a_section_12():
-    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
-    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
-    text = mkt_file.read_text(encoding="utf-8")
-
-    assert (
-        "12. TECHNICAL HYGIENE, CI WORKFLOW LIFECYCLE & LEVEL 1 SBOM AUDIT "
-        "(v1.3.4 -- 2026-09-29) [Pfad A]"
-    ) in text
-    assert "auto-assign.yml" in text
-    assert "label-sync.yml" in text
-    assert "THIRD_PARTY_LICENSES.txt" in text
 
 
 def test_contributing_guidelines_exist_and_bilingual_parity():
@@ -927,34 +563,10 @@ def test_contributing_guidelines_exist_and_bilingual_parity():
     assert contrib_file.exists(), "CONTRIBUTING.md must exist in repository root"
     text = contrib_file.read_text(encoding="utf-8")
 
-    # Bilingual navigation parity
-    assert "[English](#english)" in text, "CONTRIBUTING.md must have English switcher"
-    assert "[Deutsch](#deutsch)" in text, "CONTRIBUTING.md must have Deutsch switcher"
+    assert "[English](#english)" in text
+    assert "[Deutsch](#deutsch)" in text
     assert '<a id="english"></a>' in text
     assert '<a id="deutsch"></a>' in text
-
-    # Core architecture & governance invariants INV-LOCAL-01 through INV-SLA-10
-    expected_invariants = [
-        "INV-LOCAL-01",
-        "INV-USER-02",
-        "INV-LOCK-03",
-        "INV-ROUT-04",
-        "INV-AVAT-05",
-        "INV-MANI-06",
-        "INV-PIN-07",
-        "INV-SAND-08",
-        "INV-SYNC-09",
-        "INV-SLA-10",
-    ]
-    for inv in expected_invariants:
-        assert inv in text, f"Missing invariant {inv} in CONTRIBUTING.md"
-
-    # Execution and security guarantees
-    assert "RunAsInvoker" in text, "Missing RunAsInvoker in CONTRIBUTING.md"
-    assert "Plan D" in text, "CONTRIBUTING.md must mention Plan D local workflow"
-    assert "security@ellmos.ai" in text, "CONTRIBUTING.md must reference security contact"
-    assert "§ 521 BGB" in text, "CONTRIBUTING.md must include § 521 BGB disclaimer"
-    assert "T-20260920-167562623" in text, "CONTRIBUTING.md must cite version freeze directive"
 
 
 def test_pep621_contributing_and_sbom_urls():
@@ -963,16 +575,17 @@ def test_pep621_contributing_and_sbom_urls():
     data = tomllib.loads(pyproject_file.read_text(encoding="utf-8"))
 
     urls = data.get("project", {}).get("urls", {})
-    assert "Contributing" in urls, "pyproject.toml [project.urls] must include Contributing"
-    assert "CONTRIBUTING.md" in urls["Contributing"]
-    assert "Level 1 SBOM" in urls, "pyproject missing Level 1 SBOM URL"
-    assert "Level 1 SBOM (Text)" in urls, "pyproject missing Level 1 SBOM (Text) URL"
-    assert "Plain-Text License" in urls, "pyproject missing Plain-Text License URL"
+    assert "Contributing" in urls
+    assert urls["Contributing"].endswith("/CONTRIBUTING.md")
+    assert "Third-Party Licenses" in urls
+    assert urls["Third-Party Licenses"].endswith("/THIRD_PARTY_LICENSES.md")
+    assert "Third-Party Licenses (Text)" in urls
+    assert urls["Third-Party Licenses (Text)"].endswith("/THIRD_PARTY_LICENSES.txt")
 
     pytest_opts = data.get("tool", {}).get("pytest", {}).get("ini_options", {})
     norecursedirs = pytest_opts.get("norecursedirs", [])
-    assert ".turbo" in norecursedirs, "norecursedirs must include .turbo"
-    assert ".nyc_output" in norecursedirs, "norecursedirs must include .nyc_output"
+    assert ".turbo" in norecursedirs
+    assert ".nyc_output" in norecursedirs
 
 
 def test_extended_lock_defense_and_multihost_tokens():
@@ -981,8 +594,6 @@ def test_extended_lock_defense_and_multihost_tokens():
     text = gitignore_file.read_text(encoding="utf-8")
 
     expected_patterns = [
-        "*-IDEAPAD-GEI*",
-        "*-IDEAPAD-GEI.*",
         "LOCK.dev.*",
         "LOCK.antigravity.*",
         "LOCK.bugsearch.*",
@@ -993,45 +604,10 @@ def test_extended_lock_defense_and_multihost_tokens():
         assert pat in text, f"Missing pattern {pat} in .gitignore"
 
 
-def test_third_party_licenses_audit_2026_10_02():
-    md_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
-    txt_file = REPO_ROOT / "THIRD_PARTY_LICENSES.txt"
-    assert md_file.exists() and txt_file.exists()
-
-    md_text = md_file.read_text(encoding="utf-8")
-    txt_text = txt_file.read_text(encoding="utf-8")
-
-    assert "2026-10-02" in md_text, "Missing 2026-10-02 in THIRD_PARTY_LICENSES.md"
-    assert "2026-10-02" in txt_text, "Missing 2026-10-02 in THIRD_PARTY_LICENSES.txt"
-    assert "§ 521 BGB" in md_text, "Missing § 521 BGB in THIRD_PARTY_LICENSES.md"
-    assert "§ 521 BGB" in txt_text, "Missing § 521 BGB in THIRD_PARTY_LICENSES.txt"
-    assert "CONTRIBUTING.md" in md_text, "Missing CONTRIBUTING.md in THIRD_PARTY_LICENSES.md"
-    assert "CONTRIBUTING.md" in txt_text, "Missing CONTRIBUTING.md in THIRD_PARTY_LICENSES.txt"
 
 
-def test_changelog_recent_pfad_a_entry_2026_10_02():
-    changelog_file = REPO_ROOT / "CHANGELOG.md"
-    assert changelog_file.exists(), "CHANGELOG.md must exist"
-    text = changelog_file.read_text(encoding="utf-8")
-
-    assert "2026-10-02" in text, "Missing 2026-10-02 in CHANGELOG.md"
-    assert "CONTRIBUTING.md" in text, "Missing CONTRIBUTING.md in CHANGELOG.md"
-    assert "Level 1 SBOM" in text, "Missing Level 1 SBOM in CHANGELOG.md"
-    assert "T-20260920-167562623" in text, "Missing version freeze directive in CHANGELOG.md"
 
 
-def test_marketing_log_pfad_a_section_13():
-    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
-    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
-    text = mkt_file.read_text(encoding="utf-8")
-
-    assert (
-        "13. TECHNICAL HYGIENE, BILINGUAL CONTRIBUTING GUIDELINES & LEVEL 1 SBOM AUDIT "
-        "(v1.3.4 -- 2026-10-02) [Pfad A]"
-    ) in text
-    assert "CONTRIBUTING.md" in text
-    assert "THIRD_PARTY_LICENSES.txt" in text
-    assert "§ 521 BGB" in text
 
 
 def test_version_freeze_discipline_t_20260920():
@@ -1048,30 +624,6 @@ def test_version_freeze_discipline_t_20260920():
     assert mdata["name"] == "agent-ops-stack"
 
 
-def test_ascii_four_view_architectural_topology_parity():
-    readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-    readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
-
-    en_views = [
-        "[VIEW 1: CALLER RUNTIMES, CLI AGENTS & HUMAN OPERATOR ENTRYPOINTS]",
-        "[VIEW 2: STACK MANIFEST COMPOSITION & ORCHESTRATION ENGINE]",
-        "[VIEW 3: RUNTIME PERSISTENCE, LOCAL STORAGE & STATE REGISTRIES]",
-        "[VIEW 4: AIR-GAP DEFENSE PERIMETER, UNPRIVILEGED RUNASINVOKER & ZERO-EGRESS BOUNDARY]",
-    ]
-    de_views = [
-        "[SICHT 1: AUFRUFER-LAUFZEITEN, CLI-AGENTEN & BENUTZER-EINSTIEGSPUNKTE]",
-        "[SICHT 2: STACK-MANIFEST-KOMPOSITION & ORCHESTRIERUNGS-ENGINE]",
-        "[SICHT 3: LAUFZEIT-PERSISTENZ, LOKALE SPEICHER & STATUS-REGISTER]",
-        (
-            "[SICHT 4: AIR-GAP-SICHERHEITSPERIMETER, UNPRIVILEGIERTER "
-            "RUNASINVOKER & ZERO-EGRESS-GRENZE]"
-        ),
-    ]
-
-    for view in en_views:
-        assert view in readme_en, f"Missing {view} in README.md"
-    for sicht in de_views:
-        assert sicht in readme_de, f"Missing {sicht} in README_de.md"
 
 
 def test_quick_navigation_numeric_sec_anchors_parity():
@@ -1082,44 +634,3 @@ def test_quick_navigation_numeric_sec_anchors_parity():
         anchor = f'id="sec-{num:02d}"'
         assert anchor in readme_en, f"Missing {anchor} in README.md"
         assert anchor in readme_de, f"Missing {anchor} in README_de.md"
-
-
-def test_third_party_licenses_audit_2026_10_03():
-    md_file = REPO_ROOT / "THIRD_PARTY_LICENSES.md"
-    txt_file = REPO_ROOT / "THIRD_PARTY_LICENSES.txt"
-    assert md_file.exists() and txt_file.exists()
-
-    md_text = md_file.read_text(encoding="utf-8")
-    txt_text = txt_file.read_text(encoding="utf-8")
-
-    assert "2026-10-03" in md_text, "Missing 2026-10-03 in THIRD_PARTY_LICENSES.md"
-    assert "2026-10-03" in txt_text, "Missing 2026-10-03 in THIRD_PARTY_LICENSES.txt"
-    assert "§ 521 BGB" in md_text, "Missing § 521 BGB in THIRD_PARTY_LICENSES.md"
-    assert "§ 521 BGB" in txt_text, "Missing § 521 BGB in THIRD_PARTY_LICENSES.txt"
-    assert "INV-LOCAL-01" in md_text and "INV-LOCAL-01" in txt_text
-    assert "INV-SLA-10" in md_text and "INV-SLA-10" in txt_text
-
-
-def test_changelog_recent_pfad_b_entry_2026_10_03():
-    changelog_file = REPO_ROOT / "CHANGELOG.md"
-    assert changelog_file.exists(), "CHANGELOG.md must exist"
-    text = changelog_file.read_text(encoding="utf-8")
-
-    assert "2026-10-03" in text, "Missing 2026-10-03 in CHANGELOG.md"
-    assert "Pfad B" in text, "Missing Pfad B in CHANGELOG.md"
-    assert "Four-View" in text, "Missing Four-View in CHANGELOG.md"
-    assert "T-20260920-167562623" in text, "Missing version freeze directive in CHANGELOG.md"
-
-
-def test_marketing_log_pfad_b_section_14():
-    mkt_file = REPO_ROOT / "MARKETING-LOG.txt"
-    assert mkt_file.exists(), "MARKETING-LOG.txt must exist"
-    text = mkt_file.read_text(encoding="utf-8")
-
-    assert (
-        "14. VISUAL ARCHITECTURE, ASCII FOUR-VIEW TOPOLOGY & LEVEL 1 SBOM RE-AUDIT "
-        "(v1.3.4 -- 2026-10-03) [Pfad B]"
-    ) in text
-    assert "ASCII Four-View Architectural Topology" in text
-    assert "INV-LOCAL-01" in text
-    assert "INV-SLA-10" in text

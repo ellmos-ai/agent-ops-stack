@@ -1,0 +1,21 @@
+include .gitattributes
+include .gitignore
+include CHANGELOG.md
+include CONTRIBUTING.md
+include LICENSE
+include MARKETING-LOG.txt
+include NOTICE
+include README.md
+include README_de.md
+include SECURITY.md
+include THIRD_PARTY_LICENSES.md
+include THIRD_PARTY_LICENSES.txt
+include agent-ops.manifest.json
+include install.sh
+include llms.txt
+include pyproject.toml
+include .github/labels.yml
+recursive-include .github/workflows *.yml
+recursive-include assets *.png *.svg
+recursive-include tests *.py
+recursive-include docs/archive/2026-10-12 *.md

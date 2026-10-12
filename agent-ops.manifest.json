@@ -1,7 +1,7 @@
 {
   "schema": "ellmos-stack-manifest-v1",
   "name": "agent-ops-stack",
-  "description": "Local-first coordination layer for one or more CLI coding agents working on the same machine/user: ticket routing, file locking, a decision-avatar, a shared skill format, and an MCP control plane.",
+  "description": "Manifest-driven Git fetcher that clones listed agent-operations repositories and reports their declared wiring labels.",
   "modules": [
     {
       "name": "ticket-master",

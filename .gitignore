@@ -65,15 +65,10 @@ build/
 * (Kopie)*
 * (Copy)*
 *-WORKSTATION*
-*-WORKSTATION-LG*
 *-WORKSTATION.*
-*-WORKSTATION-LG.*
 *-ASUS*
-*-ASUS-GEI*
 *-LAPTOP*
 *-IDEAPAD*
-*-IDEAPAD-GEI*
-*-IDEAPAD-GEI.*
 *-Mac Studio*
 *-MacBook*
 *.orig

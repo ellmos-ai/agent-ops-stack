@@ -1,111 +1,57 @@
 # agent-ops-stack
 
-> Machine-readable project context for LLMs, crawlers, and agentic coding tools.
+> Machine-readable project context. Checked against the repository sources on 2026-10-12.
 
-## Last-checked: 2026-10-03 (previous checks: 2026-10-02, 2026-09-29, 2026-09-26)
-## Version: 1.3.4
-## Status: 61 passed contract tests | 100% green | Local-First Zero-Egress
+## Project type
 
-## Canonical Links
+A Git repository containing a JSON manifest, Bash installer, tests, CI, and documentation. The installer fetches seven public Git repositories listed in `agent-ops.manifest.json` and prints their declared `provides` and `consumes` labels. It does not install or run those modules.
+
+## Canonical links
 
 - Repository: https://github.com/ellmos-ai/agent-ops-stack
-- Ecosystem: https://github.com/ellmos-ai
-- Umbrella Ecosystem: https://github.com/open-bricks
-- NOTICE: https://github.com/ellmos-ai/agent-ops-stack/blob/main/NOTICE
-- Contributing: https://github.com/ellmos-ai/agent-ops-stack/blob/main/CONTRIBUTING.md
-- Stack catalog + manifest schema: https://github.com/ellmos-ai/stacks
-- Third-Party Licenses: https://github.com/ellmos-ai/agent-ops-stack/blob/main/THIRD_PARTY_LICENSES.md
-- Third-Party Licenses (Text): https://github.com/ellmos-ai/agent-ops-stack/blob/main/THIRD_PARTY_LICENSES.txt
-- Marketing Log: https://github.com/ellmos-ai/agent-ops-stack/blob/main/MARKETING-LOG.txt
-- ticket-master: https://github.com/dev-bricks/ticket-master
-- lock-master: https://github.com/dev-bricks/lock-master
-- sync-master: https://github.com/dev-bricks/sync-master
-- build-your-users-mind: https://github.com/ellmos-ai/build-your-users-mind
-- skills: https://github.com/ellmos-ai/skills
-- ellmos-controlcenter-mcp: https://github.com/ellmos-ai/ellmos-controlcenter-mcp
-- ellmos-homebase-mcp: https://github.com/ellmos-ai/ellmos-homebase-mcp
-- COMA (related local agent lifecycle and job-file status tooling; optional sibling, not part of the stack manifest): https://github.com/ellmos-ai/coma
+- Manifest: https://github.com/ellmos-ai/agent-ops-stack/blob/main/agent-ops.manifest.json
+- Installer: https://github.com/ellmos-ai/agent-ops-stack/blob/main/install.sh
+- Security policy: https://github.com/ellmos-ai/agent-ops-stack/blob/main/SECURITY.md
+- License inventory: https://github.com/ellmos-ai/agent-ops-stack/blob/main/THIRD_PARTY_LICENSES.md
+- Own license: https://github.com/ellmos-ai/agent-ops-stack/blob/main/LICENSE
 
-## Summary
+## Interfaces and requirements
 
-agent-ops-stack composes seven existing modules into a local-first coordination layer
-for CLI coding agents working on one developer's machine: file locking (lock-master),
-issue/change routing (ticket-master), cross-machine file sync (sync-master),
-a user-decision avatar (build-your-users-mind), a shared skill library (skills),
-and an MCP control plane + runtime (ellmos-controlcenter-mcp, ellmos-homebase-mcp).
-It ships one manifest (`agent-ops.manifest.json`, schema `ellmos-stack-manifest-v1`)
-and a thin installer (`install.sh`) that clones and reports the wiring of the listed
-modules into `./modules/`. No module code is duplicated in this repository.
+- `install.sh`: requires Bash, Git, and either `jq` or Python 3. It runs `git clone` for each listed source. Default target is `modules` beneath the current working directory; the first argument can select another target.
+- `agent-ops.manifest.json`: lists seven repositories, selected refs, and descriptive boundary/wiring fields.
+- Python project metadata currently records version `1.3.4`; its wheel contains metadata and license files rather than an agent-operations runtime. Use the Git checkout and installer for the project workflow.
 
-## Audience and Positioning
+## Manifest repositories
 
-Use this repository as the canonical entry point for setting up local multi-agent
-coordination tooling (file locking, ticket routing, cross-machine sync, a decision-avatar,
-shared skills, MCP control plane) on a machine where one or more AI coding agents operate
-(Claude Code, OpenAI Codex, Google Antigravity / Gemini, Moonshot Kimi). It is not itself
-an agent, an MCP server, or a chat product — it is composition, governance, and
-documentation over seven independent repositories.
+- `ticket-master`: https://github.com/dev-bricks/ticket-master
+- `lock-master`: https://github.com/dev-bricks/lock-master
+- `sync-master`: https://github.com/dev-bricks/sync-master
+- `build-your-users-mind`: https://github.com/ellmos-ai/build-your-users-mind
+- `skills`: https://github.com/ellmos-ai/skills
+- `controlcenter-mcp`: https://github.com/ellmos-ai/ellmos-controlcenter-mcp
+- `homebase-mcp`: https://github.com/ellmos-ai/ellmos-homebase-mcp
 
-Do not describe it as a hosted product, a single monolithic tool, or a vendored copy
-of the modules it lists.
+## Related projects
 
-## Search Phrases
+- COMA is an optional sibling for local agent process lifecycle and job-file status. It is not a module in this manifest: https://github.com/ellmos-ai/coma
+- CareCenter for Codex contains unofficial Windows Codex maintenance instructions and is independently maintained: https://github.com/dev-bricks/CareCenter-for-Codex
+- ellmos-ai/stacks provides a catalog and composition overview: https://github.com/ellmos-ai/stacks
+- open-bricks is the umbrella organization: https://github.com/open-bricks
 
-- agent-ops-stack local multi-agent coordination
-- ellmos-ai agent-ops-stack
-- ellmos-ai agent ops manifest
-- CLI coding agent locking ticket routing decision avatar
-- local CLI agent coordination stack
-- MCP control plane for coding agents
-- manifest-driven agent ops stack
-- Codex Claude Gemini Kimi local agent ops
-- lock-master ticket-master sync-master build-your-users-mind stack
-- multi-machine agent coordination file sync
-- ellmos-stack-manifest-v1 agent-ops-stack
+## Security and license boundaries
 
-## Disambiguation
+The installer uses Git network access and runs with the caller's environment and permissions. Manifest `boundaries` values are descriptive; this repository does not enforce them or sandbox the installer. Fetched modules have separate code, setup, security, and license scopes. The dated license inventory records direct LICENSE-file checks at the listed source commits; it is not a complete SBOM or a transitive-license certification.
 
-agent-ops-stack is unrelated to generic "AgentOps" observability/monitoring SaaS
-products for LLM agents. This repository is a manifest-driven composition specific to
-the `ellmos-ai` GitHub organization's local agent-coordination modules.
+## Checks
 
-It is also distinct from AgentStack boilerplates, hosted LLMOps platforms, generic
-MCP gateway products, and server-side research automation stacks. The canonical
-phrase for this repository is `ellmos-ai agent-ops-stack`.
-
-## Primary Interfaces
-
-- `agent-ops.manifest.json`: the composition manifest (schema `ellmos-stack-manifest-v1`).
-- `install.sh`: reads the manifest, clones each module into `./modules/`, prints the
-  `provides`/`consumes` wiring summary. Requires `git` and either `jq` or `python3`.
-- `README.md` / `README_de.md`: bilingual documentation featuring 18-point quick navigation with dual sec-01..sec-18 anchors, Section 1 ASCII Four-View Architectural Topology,
-  Mermaid architecture, lifecycle sequence, and state machine diagrams, 4 target personas, 10-dimension
-  comparative matrix, 10 governance invariants, and a 12-repository sibling ecosystem matrix.
-- `CONTRIBUTING.md`: bilingual developer guidelines covering Plan D workflow, all 10 governance invariants,
-  unprivileged RunAsInvoker execution, version freeze discipline, and 48h Security Response SLA.
-- `THIRD_PARTY_LICENSES.md`: comprehensive third-party licenses inventory and zero-egress
-  compliance notice.
-- `THIRD_PARTY_LICENSES.txt`: Level 1 SBOM plain text companion notice and invariant matrix.
-- `NOTICE`: canonical root attribution notice (Lukas Geiger, ellmos-ai, open-bricks).
-- `MARKETING-LOG.txt`: discoverability, stakeholder personas, and competitive positioning ledger.
-- `SECURITY.md`: bilingual security policy with 48h response SLA, GitHub Security Advisories
-  link, and core security guarantees.
-- `tests/test_metadata.py`: automated test suite verifying manifest integrity, installer
-  syntax, bilingual README parity, badges, navigation anchors, Mermaid syntax, and PEP 621
-  metadata.
-
-## Safety Boundaries
-
-`install.sh` only clones public repositories over HTTPS and writes into `./modules/`
-(gitignored) — it makes no other network calls, registers no MCP servers, and reads no
-credentials. Each cloned module carries its own license and safety boundaries; consult
-each module's own repository before deploying it.
-
-## Validation
-
-```bash
-pytest -v                               # automated contract & parity tests (56 passed)
-ruff check .                           # code hygiene & style checks
-bash -n install.sh                     # bash script syntax check
-python -c "import json; json.load(open('agent-ops.manifest.json', encoding='utf-8'))"
+```sh
+python -m pytest -o addopts='' -ra
+python -m ruff check .
+python -m compileall -q tests
+bash -n install.sh
+python -m json.tool agent-ops.manifest.json
 ```
+
+Ubuntu CI also builds a PEP 517 wheel and source archive, checks the metadata-only wheel and source contents, then installs the test extra from the extracted source archive and runs checks.
+
+The maintainer response policy is to acknowledge vulnerability reports within 48 hours and provide initial triage within five business days. This is a response policy, not a remediation deadline.
