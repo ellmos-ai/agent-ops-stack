@@ -2,6 +2,9 @@
 AGENT-OPS-STACK -- MARKETING, DISCOVERABILITY & DESIGN LOG
 ================================================================================
 
+NOTICE: This is a dated record of earlier marketing and documentation work. Its entries describe text and plans at their recorded dates; they are not current capability, security, legal, or license attestations. Current scope is described in README.md, SECURITY.md, and THIRD_PARTY_LICENSES.md. Historical entries are retained.
+
+
 [2026-09-10 23:50 CEST] [GITHUBBOT_ONE_REPO_MARKETING_AND_DESIGN] (Pfad B)
 Maintainer: Lukas Geiger (ellmos-ai / open-bricks)
 Repository: ellmos-ai/agent-ops-stack
@@ -151,7 +154,7 @@ Repository: ellmos-ai/agent-ops-stack
 Target Version: 1.3.3
 
 - CI Workflow Hardening: Added `timeout-minutes: 15` runaway guardrail and `permissions: contents: read` to .github/workflows/ci.yml; standardized pytest execution via `python -m pytest -ra -v`.
-- Multi-Host Sync & Canonical Lock Defense: Extended .gitignore with cloud sync conflict patterns (`* (kopie)*`, `* (copy)*`, `*-WORKSTATION*`, `*-WORKSTATION-LG*`, `*-ASUS-GEI*`, `*.orig`), lock defense tokens (`uv.lock`, `!package-lock.json`), and test artifacts (`.coverage.*`, `.tox/`, `.turbo/`, `.nyc_output/`, `.mypy_cache/`).
+- Multi-Host Sync & Canonical Lock Defense: Extended .gitignore with cloud sync conflict patterns (`* (kopie)*`, `* (copy)*`, `*-WORKSTATION*`, `*-ASUS*`, `*.orig`), lock defense tokens (`uv.lock`, `!package-lock.json`), and test artifacts (`.coverage.*`, `.tox/`, `.turbo/`, `.nyc_output/`, `.mypy_cache/`).
 - PEP 621 Standard Ecosystem URLs: Registered `"LLM Ready"` and `"Bug Tracker"` in pyproject.toml [project.urls]; expanded Ruff linter configuration with rulesets `UP`, `B`, `SIM`, `C4`, `RUF`.
 - Machine-Readable Context: Refreshed llms.txt with Last-checked `2026-09-12`, version `1.3.3`, and 25 passed contract tests.
 - Bilingual Parity & Shields.io Status: Updated README.md and README_de.md to v1.3.3 and 25 passed contract tests (100% green).
@@ -262,7 +265,7 @@ Umbrella Collective: open-bricks
   * Deployed .github/labels.yml: standardized 11 governance labels per GOVERNANCE.md §4.2 (bug, enhancement, good first issue, help wanted, documentation, duplicate, wontfix, priority: high, priority: low, needs-triage, stale).
   * Validated existing .github/workflows/stale.yml (actions/stale@v9, timeout 10m) and .github/workflows/welcome.yml (actions/first-interaction@v3, timeout 5m).
 - Extended Multi-Host Sync, Cloud Collision & Lock Defense:
-  * Hardened .gitignore with *-IDEAPAD*, *-WORKSTATION.*, *-WORKSTATION-LG.*, OS noise (Desktop.ini, ehthumbs.db, *.swo), and test execution temp caches (.pytest_temp/, .pytest_tmp*/).
+  * Hardened .gitignore with *-IDEAPAD*, *-WORKSTATION.*, *-local host.*, OS noise (Desktop.ini, ehthumbs.db, *.swo), and test execution temp caches (.pytest_temp/, .pytest_tmp*/).
 - PEP 621 Standard & Pytest Isolation:
   * Updated pyproject.toml license-files to include THIRD_PARTY_LICENSES.txt: license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_LICENSES.md", "THIRD_PARTY_LICENSES.txt"].
   * Added "Third-Party Licenses (Text)" to pyproject.toml [project.urls] pointing to canonical THIRD_PARTY_LICENSES.txt.
@@ -289,12 +292,12 @@ Umbrella Collective: open-bricks
 
 - Bilingual Contributing Guidelines (CONTRIBUTING.md):
   * Established comprehensive, reciprocal bilingual developer guidelines in English and German.
-  * Formally specifies Plan D local development workflow (C:\_Local_DEV\repos\agent-ops-stack as canonical source of truth).
+  * Formally specifies Plan D local development workflow (the canonical repository checkout as canonical source of truth).
   * Formalizes all 10 governance invariants (INV-LOCAL-01 through INV-SLA-10) with explicit cross-references.
   * Documents unprivileged user-mode RunAsInvoker non-elevation (INV-USER-02), fail-closed lock defense (INV-LOCK-03), structured ticket routing (INV-ROUT-04), decision avatar fallback (INV-AVAT-05), deterministic manifest blueprints (INV-MANI-06), immutable release tag pinning (INV-PIN-07), sandboxed installer boundaries (INV-SAND-08), slot-gated cross-machine sync (INV-SYNC-09), and 48h Security Response SLA (INV-SLA-10).
   * Codifies statutory limitation of liability (§ 521 BGB Gefälligkeitsrecht) and strict version freeze discipline per T-20260920-167562623.
 - Extended Multi-Host Lock & Sync Defense:
-  * Hardened .gitignore with *-IDEAPAD-GEI*, *-IDEAPAD-GEI.*, LOCK.dev.*, LOCK.antigravity.*, LOCK.bugsearch.*, TASKPLAN_*.md, and *-TASKPLAN*.
+  * Hardened .gitignore with *-local host*, *-local host.*, LOCK.dev.*, LOCK.antigravity.*, LOCK.bugsearch.*, TASKPLAN_*.md, and *-TASKPLAN*.
 - PEP 621 Metadata Alignment & Quality Gate Hardening:
   * Registered Contributing, Level 1 SBOM, Level 1 SBOM (Text), and Plain-Text License endpoints in pyproject.toml [project.urls].
   * Hardened [tool.pytest.ini_options].norecursedirs with .turbo and .nyc_output.

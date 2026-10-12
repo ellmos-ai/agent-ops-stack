@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# install.sh — reads agent-ops.manifest.json and clones/wires every listed module.
+# install.sh — reads agent-ops.manifest.json, clones listed modules, and reports declared wiring labels.
 #
-# The manifest IS the blueprint: this script has no stack-specific logic beyond
-# "read the manifest, clone what it lists, print how it's wired." Adding, removing,
-# or repointing a module means editing agent-ops.manifest.json, not this script.
+# This script reads the manifest, clones listed repositories, and prints their
+# declared wiring labels. It does not configure or connect the modules.
+# Add, remove, or repoint a module by editing agent-ops.manifest.json.
 #
 # Usage:
 #   ./install.sh [target-dir]

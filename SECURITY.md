@@ -7,87 +7,55 @@
 <a id="english"></a>
 ## English
 
-### Supported Versions
+### Scope and behavior
 
-The following versions of `agent-ops-stack` currently receive security, compatibility, and integrity updates:
+This repository contains a manifest, documentation, tests, and `install.sh`. The installer parses the manifest and invokes `git clone` for its listed public GitHub sources. It uses Bash and either `jq` or Python 3. Git and the parser inherit the invoking environment and permissions. The target directory is writable by the current user.
 
-| Version | Supported | Status |
-| :--- | :---: | :--- |
-| `1.3.x` | :white_check_mark: Yes | Active Release / Manifest Maintenance |
-| `1.2.x` | :white_check_mark: Yes | Maintenance Mode |
-| `< 1.2` | :x: No | Unsupported |
+The installer does not enforce manifest `boundaries`, apply an operating-system sandbox, drop privileges, filter network access, or coordinate concurrent writers. It does not start provider CLIs or configure fetched modules. Each fetched repository has its own code, data flows, security policy, setup, and release process; review those separately.
 
-### Reporting a Vulnerability
+### Reporting a vulnerability
 
-We treat all security issues, integrity breaches, and coordination faults with utmost priority. If you identify a vulnerability or security risk in `agent-ops-stack` or its manifest composition, please follow these steps:
+Please report security issues privately through [GitHub Security Advisories](https://github.com/ellmos-ai/agent-ops-stack/security/advisories/new). If that route is unavailable, contact:
 
-1. **Preferred Method (GitHub Security Advisory):**
-   Submit a private advisory report directly via GitHub:
-   [Report a Vulnerability](https://github.com/ellmos-ai/agent-ops-stack/security/advisories/new)
+- `security@ellmos.ai`
+- `security@open-bricks.org`
+- `support@lukasgeiger.com`
 
-2. **Direct Contact via Email:**
-   If GitHub Advisories is unavailable, please email our security team with full reproduction details:
-   - Primary Security Contact: `security@ellmos.ai`
-   - Umbrella Security: `security@open-bricks.org`
-   - Lead Maintainer: `support@lukasgeiger.com` / `lukas@open-bricks.org`
+Include the affected repository commit or manifest ref, the relevant files, and a reproducible description. Do not include live credentials or unrelated personal data. Avoid public disclosure until a maintainer has had a chance to assess the report.
 
-### Response SLA & Disclosure Timeline
+### Maintainer response policy
 
-- **Initial Acknowledgment:** Within **48 hours** of receiving your report.
-- **Triage & Status Assessment:** Within **5 business days** with an initial remediation assessment.
-- **Coordinated Disclosure:** Security patches and manifest pin updates are validated locally and published via GitHub releases. We adhere to responsible, coordinated disclosure practices.
+The maintainer policy is to acknowledge a report within **48 hours** and provide an initial triage assessment within **five business days**. These are response targets. They do not promise a remediation date, a security certification, or a particular outcome.
 
-### Core Security & Governance Invariants
+### License and legal scope
 
-- **100% Local-First & Zero Egress:** The manifest, composition tools, and coordination workflows operate strictly local-first. Zero telemetry, tracking, or unexpected outbound network calls.
-- **Non-Elevation User-Mode:** The entire stack operates strictly under standard, unprivileged user permissions. Elevation to administrative or root privileges is never required or requested.
-- **Sandboxed Installer Boundaries:** `install.sh` clones public module repositories strictly into `./modules/` (gitignored). It reads no credentials, modifies no host agent configs silently, and writes only within the specified target directory.
-- **Fail-Closed File Lock Integrity:** Multi-agent operations rely on `lock-master` conventions (`LOCK*.txt`). Active locks immediately halt any conflicting agent or automation write actions.
-- **Structured Ticket Routing:** Workflows require `ticket-master` routing before code mutations, preventing uncoordinated modifications across workspaces.
-- **Empirical Decision-Avatar Fallback:** When the human operator is away, `build-your-users-mind` provides empirical, grounded decision bounds instead of unbounded speculative agent actions.
-- **Cross-Host Slot Isolation:** `sync-master` maintains distinct slots per machine, preventing split-brain states and concurrent conflict corruption during cloud file synchronization.
+This repository is provided under the MIT license. Whether statutory rules such as sections 516 or 521 BGB apply depends on the legal relationship and applicable law; this policy does not classify every use as a gift or state a blanket liability rule.
 
 ---
 
 <a id="deutsch"></a>
 ## Deutsch
 
-### Unterstützte Versionen
+### Umfang und Verhalten
 
-Die folgenden Versionen von `agent-ops-stack` erhalten aktiv Sicherheits- und Integritäts-Patches:
+Dieses Repository enthält ein Manifest, Dokumentation, Tests und `install.sh`. Der Installer liest das Manifest und ruft `git clone` für die aufgeführten öffentlichen GitHub-Quellen auf. Er verwendet Bash und entweder `jq` oder Python 3. Git und der Parser übernehmen Umgebung und Rechte des aufrufenden Prozesses. Das aktuelle Benutzerkonto kann in das Zielverzeichnis schreiben.
 
-| Version | Unterstützt | Status |
-| :--- | :---: | :--- |
-| `1.3.x` | :white_check_mark: Ja | Aktive Version / Manifest-Wartung |
-| `1.2.x` | :white_check_mark: Ja | Eingeschränkte Wartung |
-| `< 1.2` | :x: Nein | Nicht mehr unterstützt |
+Der Installer setzt die `boundaries` des Manifests nicht durch, richtet keine Betriebssystem-Sandbox ein, senkt keine Prozessrechte ab, filtert keinen Netzwerkzugriff und koordiniert keine gleichzeitigen Schreiber. Er startet keine Provider-CLIs und konfiguriert keine abgerufenen Module. Jedes abgerufene Repository hat eigenen Code, eigene Datenflüsse, Sicherheitsrichtlinien, Einrichtungsschritte und Releases; prüfe diese getrennt.
 
-### Meldung von Sicherheitslücken
+### Sicherheitslücke melden
 
-Wir nehmen Sicherheits- und Koordinationsmeldungen sehr ernst. Sollten Sie eine Sicherheitslücke oder ein Integritätsrisiko entdecken, bitten wir um folgende Vorgehensweise:
+Melde Sicherheitsprobleme vertraulich über [GitHub Security Advisories](https://github.com/ellmos-ai/agent-ops-stack/security/advisories/new). Falls dieser Weg nicht verfügbar ist, wende dich an:
 
-1. **Bevorzugter Weg (GitHub Security Advisory):**
-   Erstellen Sie einen vertraulichen Bericht über GitHub Security Advisories:
-   [Sicherheitslücke privat melden](https://github.com/ellmos-ai/agent-ops-stack/security/advisories/new)
+- `security@ellmos.ai`
+- `security@open-bricks.org`
+- `support@lukasgeiger.com`
 
-2. **Direkter E-Mail-Kontakt:**
-   Falls GitHub Advisories nicht genutzt werden kann, wenden Sie sich bitte per E-Mail an unser Team:
-   - Primärer Sicherheitskontakt: `security@ellmos.ai`
-   - Dachorganisation: `security@open-bricks.org`
-   - Lead Maintainer: `support@lukasgeiger.com` / `lukas@open-bricks.org`
+Nenne den betroffenen Repository-Commit oder die Manifest-Referenz, die relevanten Dateien und eine reproduzierbare Beschreibung. Füge keine aktiven Zugangsdaten oder sachfremden personenbezogenen Daten bei. Veröffentliche Details nach Möglichkeit erst, wenn Maintainer den Bericht prüfen konnten.
 
-### Reaktionsfristen (SLA) & Disclosure-Prozess
+### Reaktionsrichtlinie der Maintainer
 
-- **Erste Eingangsbestätigung:** Innerhalb von maximal **48 Stunden**.
-- **Triage & Bewertungs-Update:** Innerhalb von **5 Werktagen** mit konkreter Analyse.
-- **Koordinierte Behebung:** Sicherheits-Fixes und Manifest-Aktualisierungen werden lokal getestet und über koordinierte Releases publiziert.
+Die Maintainer-Richtlinie sieht eine Eingangsbestätigung innerhalb von **48 Stunden** und eine erste Triage-Einschätzung innerhalb von **fünf Werktagen** vor. Das sind Reaktionsziele. Sie versprechen weder einen Behebungstermin noch eine Sicherheitszertifizierung oder ein bestimmtes Ergebnis.
 
-### Zentrale Sicherheits- & Governance-Invarianten
+### Lizenz und rechtlicher Umfang
 
-- **100% Local-First & Zero-Egress:** Manifest, Installationshelfer und Koordinationsworkflows arbeiten strikt lokal. Keine Telemetrie, kein Tracking, keine unerwarteten Netzwerkverbindungen.
-- **Unprivilegierter User-Mode (Non-Elevation):** Der Betrieb erfolgt ausnahmslos mit regulären Benutzerrechten ohne Admin- oder Root-Rechte.
-- **Isolierte Installer-Grenzen:** `install.sh` klont öffentliche Modul-Repositories ausschließlich in das git-ignorierte `./modules/`-Verzeichnis. Es liest keine Zugangsdaten und manipuliert keine globalen Agenten-Configs.
-- **Fail-Closed Dateisperren-Integrität:** Multi-Agenten-Betrieb nutzt `lock-master`-Sperren (`LOCK*.txt`). Aktive Sperren blockieren schreibende Zugriffe sofort und verbindlich.
-- **Strukturiertes Ticket-Routing:** Aufgaben und Fehler werden über `ticket-master` strukturiert erfasst und geroutet, bevor Quellcode mutiert wird.
-- **Empirischer Entscheidungs-Avatar:** Bei Abwesenheit des Nutzers liefert `build-your-users-mind` empirisch gestützte Entscheidungsgrenzen statt unkontrollierter KI-Mutmaßungen.
-- **Multi-Host-Slot-Isolation:** `sync-master` garantiert getrennte Maschinen-Slots und verhindert Split-Brain-Sync-Konflikte bei Dateisynchronisation über Cloud-Ordner.
+Dieses Repository steht unter der MIT-Lizenz. Ob gesetzliche Vorschriften wie §§ 516 oder 521 BGB gelten, hängt von der Rechtsbeziehung und dem anwendbaren Recht ab; diese Richtlinie ordnet nicht jede Nutzung als Schenkung ein und formuliert keine pauschale Haftungsregel.
