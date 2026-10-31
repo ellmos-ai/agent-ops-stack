@@ -398,7 +398,7 @@ def test_banner_assets_and_media_integrity():
     readme_en = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     readme_de = (REPO_ROOT / "README_de.md").read_text(encoding="utf-8")
     assert "assets/banner.png" in readme_en
-    assert "assets/banner.svg" in readme_de
+    assert "assets/banner.png" in readme_de
 
 
 def test_ci_timeout_minutes_guardrail():
