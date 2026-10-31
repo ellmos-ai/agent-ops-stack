@@ -51,6 +51,13 @@
       "kind": "mcp",
       "boundaries": { "net": "none", "paths": ["./"], "tools": ["hb_*"] },
       "wiring": { "provides": ["mcp-runtime", "memory-facade", "task-facade"], "consumes": ["locking", "ticket-routing"] }
+    },
+    {
+      "name": "clutch",
+      "source": { "type": "github", "repo": "ellmos-ai/clutch", "ref": "master" },
+      "kind": "routing",
+      "boundaries": { "net": "optional", "paths": ["~/.clutch/"], "tools": [] },
+      "wiring": { "provides": ["routing.default"], "consumes": [] }
     }
   ]
 }

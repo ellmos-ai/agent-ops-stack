@@ -16,8 +16,9 @@ The root repository's [`LICENSE`](LICENSE) is MIT and applies to this repository
 | `skills` | [`3f87a45`](https://github.com/ellmos-ai/skills/blob/3f87a456a18282ed8d07bd5634587c4da261dea3/LICENSE) | MIT |
 | `controlcenter-mcp` | [`ab21204`](https://github.com/ellmos-ai/ellmos-controlcenter-mcp/blob/ab2120464823d36f705031da701d630b889858a5/LICENSE) | MIT |
 | `homebase-mcp` | [`0fbd06b`](https://github.com/ellmos-ai/ellmos-homebase-mcp/blob/0fbd06b3511facf3d669ab0ef5f17b6d535824b1/LICENSE) | MIT |
+| `clutch` | [`67c5b72`](https://github.com/ellmos-ai/clutch/blob/67c5b72fd2ea6d1e91e47f363d8ab9f951b9fd44/LICENSE) | MIT |
 
-The direct license files above contain MIT license text. Their licensing applies to the respective upstream projects and does not establish compatibility, code provenance, or the license of every dependency they may use.
+The `clutch` row was checked on 2026-10-31; the other rows on the date above. The direct license files above contain MIT license text. Their licensing applies to the respective upstream projects and does not establish compatibility, code provenance, or the license of every dependency they may use.
 
 ## External tools and development dependencies
 

@@ -20,6 +20,9 @@ controlcenter-mcp                 ab21204          MIT
   https://github.com/ellmos-ai/ellmos-controlcenter-mcp/blob/ab2120464823d36f705031da701d630b889858a5/LICENSE
 homebase-mcp                       0fbd06b          MIT
   https://github.com/ellmos-ai/ellmos-homebase-mcp/blob/0fbd06b3511facf3d669ab0ef5f17b6d535824b1/LICENSE
+clutch                            67c5b72          MIT
+  https://github.com/ellmos-ai/clutch/blob/67c5b72fd2ea6d1e91e47f363d8ab9f951b9fd44/LICENSE
+(The clutch entry was checked on 2026-10-31; the other entries on the date above.)
 
 Required installer tools are Git and either jq or Python 3. They are external tools, not bundled libraries. Git's own license is published at https://github.com/git/git/blob/master/COPYING. The Python test extra declares pytest, ruff, and conditional tomli; setuptools is the build backend. Their transitive licenses are outside this inventory.
 

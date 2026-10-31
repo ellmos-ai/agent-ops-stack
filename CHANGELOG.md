@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Added (2026-10-31)
+
+- Added `clutch` (provider-neutral LLM/task router, `ellmos-ai/clutch`) as the eighth manifest module, providing `routing.default`. Documented in `README.md`, `README_de.md`, `llms.txt`, and both license inventories; module counts updated from seven to eight.
+- Pinned to ref `master`: the only upstream release tag (`v0.4.0`) predates `routing.default`, and `install.sh` cannot clone a commit SHA. Recorded `boundaries.net: optional` (matching the module's own descriptor; it contacts only user-configured provider endpoints once set up) and `~/.clutch/` as its state path. These values remain descriptive and are not enforced.
+- Tests: manifest contract now expects eight modules; added a check that every manifest module and ref appears in both READMEs and `llms.txt`.
+
 ### Scope and documentation correction (2026-10-12)
 
 This entry supersedes earlier present-tense descriptions in the previous Unreleased notes and the archived long-form README pair. Dated released sections and dated entries in `MARKETING-LOG.txt` remain historical records, not current capability or compliance statements.
