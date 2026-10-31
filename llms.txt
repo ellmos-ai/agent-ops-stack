@@ -4,7 +4,7 @@
 
 ## Project type
 
-A Git repository containing a JSON manifest, Bash installer, tests, CI, and documentation. The installer fetches seven public Git repositories listed in `agent-ops.manifest.json` and prints their declared `provides` and `consumes` labels. It does not install or run those modules.
+A Git repository containing a JSON manifest, Bash installer, tests, CI, and documentation. The installer fetches eight public Git repositories listed in `agent-ops.manifest.json` and prints their declared `provides` and `consumes` labels. It does not install or run those modules.
 
 ## Canonical links
 
@@ -18,7 +18,7 @@ A Git repository containing a JSON manifest, Bash installer, tests, CI, and docu
 ## Interfaces and requirements
 
 - `install.sh`: requires Bash, Git, and either `jq` or Python 3. It runs `git clone` for each listed source. Default target is `modules` beneath the current working directory; the first argument can select another target.
-- `agent-ops.manifest.json`: lists seven repositories, selected refs, and descriptive boundary/wiring fields.
+- `agent-ops.manifest.json`: lists eight repositories, selected refs, and descriptive boundary/wiring fields.
 - Python project metadata currently records version `1.3.4`; its wheel contains metadata and license files rather than an agent-operations runtime. Use the Git checkout and installer for the project workflow.
 
 ## Manifest repositories
@@ -30,6 +30,7 @@ A Git repository containing a JSON manifest, Bash installer, tests, CI, and docu
 - `skills`: https://github.com/ellmos-ai/skills
 - `controlcenter-mcp`: https://github.com/ellmos-ai/ellmos-controlcenter-mcp
 - `homebase-mcp`: https://github.com/ellmos-ai/ellmos-homebase-mcp
+- `clutch`: https://github.com/ellmos-ai/clutch
 
 ## Related projects
 

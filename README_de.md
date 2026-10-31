@@ -8,7 +8,7 @@
 
 [![CI](https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml) [![MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-`agent-ops-stack` ist ein Git-Repository mit einem JSON-Manifest, einem Bash-Installer und Dokumentation. Der Installer klont die sieben im Manifest genannten Repositories und gibt deren deklarierte `provides`- und `consumes`-Bezeichnungen aus. Er startet oder konfiguriert diese Module nicht.
+`agent-ops-stack` ist ein Git-Repository mit einem JSON-Manifest, einem Bash-Installer und Dokumentation. Der Installer klont die acht im Manifest genannten Repositories und gibt deren deklarierte `provides`- und `consumes`-Bezeichnungen aus. Er startet oder konfiguriert diese Module nicht.
 
 ### Schnellnavigation
 
@@ -41,7 +41,7 @@
 <a id="architektur--überblick"></a>
 ## 1. Überblick
 
-`agent-ops-stack` ist ein manifestgesteuerter Quellabruf für sieben unabhängig gepflegte Agentenbetriebs-Repositories. Zum Projekt gehören Manifest, `install.sh`, CI und Tests sowie Dokumentation.
+`agent-ops-stack` ist ein manifestgesteuerter Quellabruf für acht unabhängig gepflegte Agentenbetriebs-Repositories. Zum Projekt gehören Manifest, `install.sh`, CI und Tests sowie Dokumentation.
 
 <a id="current-02"></a>
 <a id="sec-02"></a>
@@ -82,7 +82,7 @@ Dieses Repository pflegt eine Liste von Quellreferenzen sowie ein Abruf- und Aus
 <a id="3-komponierte-module-die-7-säulen"></a>
 ## 5. Manifest-Module
 
-Das Manifest führt derzeit diese sieben Repositories auf. Die Werte unter `provides` sind die Bezeichnungen aus der JSON-Datei.
+Das Manifest führt derzeit diese acht Repositories auf. Die Werte unter `provides` sind die Bezeichnungen aus der JSON-Datei.
 
 | Modul | Referenz | Deklariertes `provides` |
 | --- | --- | --- |
@@ -93,6 +93,9 @@ Das Manifest führt derzeit diese sieben Repositories auf. Die Werte unter `prov
 | [skills](https://github.com/ellmos-ai/skills) | `v2026.09.03` | `skill-pack` |
 | [controlcenter-mcp](https://github.com/ellmos-ai/ellmos-controlcenter-mcp) | `main` | `control-plane` |
 | [homebase-mcp](https://github.com/ellmos-ai/ellmos-homebase-mcp) | `main` | `mcp-runtime`, `memory-facade`, `task-facade` |
+| [clutch](https://github.com/ellmos-ai/clutch) | `master` | `routing.default` |
+
+`clutch` verzeichnet `net: optional` und `~/.clutch/` als Zustandspfad: Nach der Einrichtung gemäß seiner eigenen Anleitung kann es die von dir konfigurierten LLM-Provider-Endpunkte ansprechen. Der Installer klont es nur; er konfiguriert oder startet es nicht. Die Referenz ist `master`, weil das einzige Release-Tag (`v0.4.0`) älter ist als die Fähigkeit `routing.default`.
 
 <a id="current-06"></a>
 <a id="sec-06"></a>
@@ -191,7 +194,7 @@ Jeder Moduleintrag enthält Name, Quell-Repository und Referenz, Typ, beschreibe
 <a id="10-geschwister-ökosystem--integrationsmatrix"></a>
 ## 12. Verwandte Repositories
 
-Die sieben Manifest-Repositories und ihre deklarierten Fähigkeiten stehen in Abschnitt 5. Die unabhängigen Geschwisterprojekte unten haben keinen Manifesteintrag und bilden keine integrierte Laufzeit.
+Die acht Manifest-Repositories und ihre deklarierten Fähigkeiten stehen in Abschnitt 5. Die unabhängigen Geschwisterprojekte unten haben keinen Manifesteintrag und bilden keine integrierte Laufzeit.
 
 | Repository | Beziehung |
 | --- | --- |
@@ -212,7 +215,7 @@ Ein Manifesteintrag oder Geschwisterlink bestätigt weder Kompatibilität noch e
 <a id="11-suche--begriffsklärung"></a>
 ## 13. Referenzen und Versionsmetadaten
 
-Das Manifest verwendet zwei benannte Tags und fünf Branch-Referenzen. Branch-Referenzen können sich ändern; ein Tagname ist keine Integritätsgarantie auf Commit-Ebene. Prüfe den Upstream-Stand, wenn Reproduzierbarkeit wichtig ist. Die Projektmetadaten nennen derzeit Version `1.3.4`; das Wheel enthält nur Metadaten und ist nicht der Installer.
+Das Manifest verwendet zwei benannte Tags und sechs Branch-Referenzen. Branch-Referenzen können sich ändern; ein Tagname ist keine Integritätsgarantie auf Commit-Ebene. Prüfe den Upstream-Stand, wenn Reproduzierbarkeit wichtig ist. Die Projektmetadaten nennen derzeit Version `1.3.4`; das Wheel enthält nur Metadaten und ist nicht der Installer.
 
 <a id="current-14"></a>
 <a id="sec-14"></a>

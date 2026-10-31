@@ -8,7 +8,7 @@
 
 [![CI](https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ellmos-ai/agent-ops-stack/actions/workflows/ci.yml) [![MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-`agent-ops-stack` is a Git repository containing a JSON manifest, a Bash installer, and documentation. The installer clones the seven repositories named in the manifest and prints their declared `provides` and `consumes` labels. It does not run or configure those modules.
+`agent-ops-stack` is a Git repository containing a JSON manifest, a Bash installer, and documentation. The installer clones the eight repositories named in the manifest and prints their declared `provides` and `consumes` labels. It does not run or configure those modules.
 
 ### Quick navigation
 
@@ -41,7 +41,7 @@
 <a id="architecture--overview"></a>
 ## 1. Overview
 
-`agent-ops-stack` is a manifest-driven source fetcher for seven independently maintained agent-operations repositories. The project files are the manifest, `install.sh`, CI and tests, and documentation.
+`agent-ops-stack` is a manifest-driven source fetcher for eight independently maintained agent-operations repositories. The project files are the manifest, `install.sh`, CI and tests, and documentation.
 
 <a id="current-02"></a>
 <a id="sec-02"></a>
@@ -82,7 +82,7 @@ This repository maintains a list of source refs and a fetch/report script. Modul
 <a id="3-composed-modules-the-7-pillars"></a>
 ## 5. Manifest modules
 
-The manifest currently lists these seven repositories. The `provides` values below are the labels recorded in the JSON file.
+The manifest currently lists these eight repositories. The `provides` values below are the labels recorded in the JSON file.
 
 | Module | Ref | Declared `provides` |
 | --- | --- | --- |
@@ -93,6 +93,9 @@ The manifest currently lists these seven repositories. The `provides` values bel
 | [skills](https://github.com/ellmos-ai/skills) | `v2026.09.03` | `skill-pack` |
 | [controlcenter-mcp](https://github.com/ellmos-ai/ellmos-controlcenter-mcp) | `main` | `control-plane` |
 | [homebase-mcp](https://github.com/ellmos-ai/ellmos-homebase-mcp) | `main` | `mcp-runtime`, `memory-facade`, `task-facade` |
+| [clutch](https://github.com/ellmos-ai/clutch) | `master` | `routing.default` |
+
+`clutch` records `net: optional` and `~/.clutch/` as its state path: once set up by its own instructions, it can call the LLM provider endpoints you configure. The installer only clones it; it does not configure or run it. The ref is `master` because the only release tag (`v0.4.0`) predates the `routing.default` capability.
 
 <a id="current-06"></a>
 <a id="sec-06"></a>
@@ -190,7 +193,7 @@ Each module record contains a name, source repository and ref, kind, descriptive
 <a id="10-sibling-ecosystem--cross-integration-matrix"></a>
 ## 12. Related repositories
 
-The seven manifest repositories and their declared capabilities are listed in section 5. The independent siblings below have no manifest entry or integrated runtime relationship.
+The eight manifest repositories and their declared capabilities are listed in section 5. The independent siblings below have no manifest entry or integrated runtime relationship.
 
 | Repository | Relationship |
 | --- | --- |
@@ -210,7 +213,7 @@ A manifest entry or sibling link does not establish compatibility or an integrat
 <a id="11-search--disambiguation"></a>
 ## 13. Refs and version metadata
 
-The manifest uses two named tags and five branch refs. Branch refs can move, and a tag name is not a commit-level integrity guarantee. Check the upstream ref when reproducibility matters. Project metadata currently records version `1.3.4`; the wheel is metadata-only and is not the installer.
+The manifest uses two named tags and six branch refs. Branch refs can move, and a tag name is not a commit-level integrity guarantee. Check the upstream ref when reproducibility matters. Project metadata currently records version `1.3.4`; the wheel is metadata-only and is not the installer.
 
 <a id="current-14"></a>
 <a id="sec-14"></a>

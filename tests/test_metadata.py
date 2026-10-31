@@ -22,7 +22,7 @@ def test_manifest_schema_and_integrity():
     assert "description" in data
 
     modules = data.get("modules", [])
-    assert len(modules) == 7, f"Manifest must contain exactly 7 modules, found {len(modules)}"
+    assert len(modules) == 8, f"Manifest must contain exactly 8 modules, found {len(modules)}"
 
     expected_modules = {
         "ticket-master": "coordination",
@@ -32,6 +32,7 @@ def test_manifest_schema_and_integrity():
         "skills": "skills",
         "controlcenter-mcp": "mcp",
         "homebase-mcp": "mcp",
+        "clutch": "routing",
     }
 
     found = {}
@@ -45,6 +46,24 @@ def test_manifest_schema_and_integrity():
         assert "consumes" in mod["wiring"], f"Module {name} missing wiring.consumes"
 
     assert found == expected_modules, f"Mismatch in module kinds: {found} vs {expected_modules}"
+
+
+def test_every_manifest_module_and_ref_is_documented():
+    modules = json.loads((REPO_ROOT / "agent-ops.manifest.json").read_text(encoding="utf-8"))[
+        "modules"
+    ]
+    docs = {
+        name: (REPO_ROOT / name).read_text(encoding="utf-8")
+        for name in ("README.md", "README_de.md", "llms.txt")
+    }
+    for mod in modules:
+        repo, ref = mod["source"]["repo"], mod["source"]["ref"]
+        assert ref, f"Module {mod['name']} needs a non-empty ref"
+        url = f"https://github.com/{repo}"
+        for name, text in docs.items():
+            assert url in text, f"{mod['name']} ({url}) missing in {name}"
+        for name in ("README.md", "README_de.md"):
+            assert f"`{ref}`" in docs[name], f"ref {ref} of {mod['name']} missing in {name}"
 
 
 def test_installer_script_syntax_and_integrity():
@@ -274,9 +293,10 @@ def test_third_party_licenses_inventory():
         "skills",
         "ellmos-controlcenter-mcp",
         "ellmos-homebase-mcp",
+        "clutch",
     ):
         assert name in text
-    assert len(re.findall(r"blob/[0-9a-f]{40}/LICENSE", text)) == 7
+    assert len(re.findall(r"blob/[0-9a-f]{40}/LICENSE", text)) == 8
 
 
 
